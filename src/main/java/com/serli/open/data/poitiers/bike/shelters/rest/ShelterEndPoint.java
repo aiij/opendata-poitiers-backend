@@ -5,6 +5,7 @@ import com.serli.open.data.poitiers.bike.shelters.repository.InMemoryRepository;
 import com.serli.open.data.poitiers.bike.shelters.rest.model.GeolocShelterResult;
 import com.serli.open.data.poitiers.bike.shelters.rest.model.Shelter;
 import net.codestory.http.annotations.Get;
+import net.codestory.http.annotations.Gets;
 import net.codestory.http.annotations.Prefix;
 
 import java.util.Arrays;
@@ -14,12 +15,14 @@ import java.util.stream.Collectors;
 /**
  * Created by chris on 04/05/15.
  */
-@Prefix("/bike-shelters")
+@Prefix("bike-shelters")
 public class ShelterEndPoint {
-    @Get("")
+
+
+    @Get("/")
     public String home(){
-        return "<h4> /all : all helters</h4>" +
-               "<h4> /find?lat=:lat&lon=:lon&size=:size : search closest shelters : </h4>";
+        return "<p>GET <a href=\"all\">all</a> : all helters</p>" +
+               "<p>GET <a href=\"find?lat=46.578636&lon=0.337959\">find?lat=:lat&lon=:lon&size=:size</a> : search closest shelters</p>";
     }
 
     @Get("/all")

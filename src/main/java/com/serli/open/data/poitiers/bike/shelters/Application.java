@@ -16,6 +16,7 @@ public class Application {
 
         WebServer webServer = new WebServer();
         webServer.configure(routes -> {
+            routes.get("/", "GET <a href=\"bike-shelters/\">bike-shelters</a> : bike shelters in Poitiers");
             routes.add(new ShelterEndPoint());
         });
 
