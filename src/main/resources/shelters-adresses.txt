@@ -1,0 +1,58 @@
+ID 1 : Boulevard sous Blossac, 86000 Poitiers, France
+ID 2 : 59 Rue de la Tranchée, 86000 Poitiers, France
+ID 3 : 1 Rue Léopold Thézard, 86000 Poitiers, France
+ID 4 : 60 Boulevard de Pont-Achard, 86000 Poitiers, France
+ID 5 : 9 Rue de la Tranchée, 86000 Poitiers, France
+ID 6 : 12 Rue Saint-Hilaire, 86000 Poitiers, France
+ID 7 : Rue du Chanoine Duret, 86000 Poitiers, France
+ID 8 : 27 Rue de Magenta, 86000 Poitiers, France
+ID 9 : 4–5 Plan de la Celle, 86000 Poitiers, France
+ID 10 : 12 Rue Saint-Pierre le Puellier, 86000 Poitiers, France
+ID 11 : 8 Rue Saint-Simplicien, 86000 Poitiers, France
+ID 12 : Boulevard Anatole France, 86000 Poitiers, France
+ID 13 : Rue Jean Jaurès, 86000 Poitiers, France
+ID 14 : 18bis Place de la Cathédrale et du Cardinal Pie, 86000 Poitiers, France
+ID 15 : 9 Boulevard Bajon, 86000 Poitiers, France
+ID 16 : Impasse des Ecossais, 86000 Poitiers, France
+ID 17 : 1 Place Aristide Briand, 86000 Poitiers, France
+ID 18 : 2 Rue des Ecossais, 86000 Poitiers, France
+ID 19 : 8 Rue Henri Pétonnet, 86000 Poitiers, France
+ID 20 : 12 Place Alphonse Lepetit, 86000 Poitiers, France
+ID 21 : 26–30 Place Alphonse Lepetit, 86000 Poitiers, France
+ID 22 : 14 Rue des Vieilles Boucheries, 86000 Poitiers, France
+ID 23 : 49 Place Charles de Gaulle, 86000 Poitiers, France
+ID 24 : 37–43 Place Charles de Gaulle, 86000 Poitiers, France
+ID 25 : 36–38 Rue Monseigneur Augouard, 86000 Poitiers, France
+ID 26 : 3–11 Rue de l'Université, 86000 Poitiers, France
+ID 27 : 5 Place de la Liberté, 86000 Poitiers, France
+ID 28 : 4b Rue Saint-Germain, 86000 Poitiers, France
+ID 29 : 7–20 Rue Guillaume VII le Troubadour, 86000 Poitiers, France
+ID 30 : 7–20 Rue Guillaume VII le Troubadour, 86000 Poitiers, France
+ID 31 : 31 Place Montierneuf, 86000 Poitiers, France
+ID 32 : 1 Rue Jean Macé, 86000 Poitiers, France
+ID 33 : 9 Place Jean de Berry, 86000 Poitiers, France
+ID 34 : 20 Boulevard du Grand Cerf, 86000 Poitiers, France
+ID 35 : 58 Boulevard du Grand Cerf, 86000 Poitiers, France
+ID 36 : 52 Boulevard du Grand Cerf, 86000 Poitiers, France
+ID 37 : Boulevard de Pont-Achard, 86000 Poitiers, France
+ID 38 : 13 Rue de l'Ancienne Comédie, 86000 Poitiers, France
+ID 39 : 2 Rue du Jardin des Plantes, 86000 Poitiers, France
+ID 40 : 8 Rue René Descartes, 86000 Poitiers, France
+ID 41 : 24–28 Avenue Paul Claudel, 86240 Ligugé, France
+ID 42 : Place Pannonhalma, 86240 Ligugé, France
+ID 43 : 6B Rue Claveurier, 86000 Poitiers, France
+ID 44 : Place du Maréchal Leclerc, 86000 Poitiers, France
+ID 45 : 18 Rue Victor Hugo, 86000 Poitiers, France
+ID 46 : 8 Rue Victor Hugo, 86000 Poitiers, France
+ID 47 : 11 Rue Saint-Nicolas, 86000 Poitiers, France
+ID 48 : 20 Rue Louis Renard, 86000 Poitiers, France
+ID 49 : 10 Rue de la Marne, 86000 Poitiers, France
+ID 50 : Centre Commercial Cordeliers, 86000 Poitiers, France
+ID 51 : Rue Paul Guillon, 86000 Poitiers, France
+ID 52 : 43 Impasse de la Marne, 86000 Poitiers, France
+ID 53 : 49 Rue de la Marne, 86000 Poitiers, France
+ID 54 : 16 Rue Henri Pétonnet, 86000 Poitiers, France
+ID 65 : 3 Rue Pascal Le Coq, 86000 Poitiers, France
+ID 66 : 14 Rue Pascal Le Coq, 86000 Poitiers, France
+ID 67 : 18 Place de la Liberté, 86000 Poitiers, France
+ID 68 : 16 Place de la Liberté, 86000 Poitiers, France

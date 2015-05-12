@@ -1,0 +1,1 @@
+web: java -jar build/libs/open.data.poitiers.bike.shelters-1.0.jar -DPROD_MODE=true
