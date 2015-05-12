@@ -21,8 +21,8 @@ public class ShelterEndPoint {
 
     @Get("/")
     public String home(){
-        return "<p>GET <a href=\"all\">all</a> : all helters</p>" +
-               "<p>GET <a href=\"find?lat=46.578636&lon=0.337959\">find?lat=:lat&lon=:lon&size=:size</a> : search closest shelters</p>";
+        return "<p>GET <a href=\"all\">all</a> : all shelters</p>" +
+               "<p>GET <a href=\"find?lat=46.578636&lon=0.337959\">find?lat=:lat&lon=:lon&size=:size</a> : search closest shelters from lar/lon point, size is optional</p>";
     }
 
     @Get("/all")
