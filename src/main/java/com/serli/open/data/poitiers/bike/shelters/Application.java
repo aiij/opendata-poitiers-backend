@@ -13,8 +13,14 @@ public class Application {
     public static void main(String[] args) throws IOException {
         InitDataJob.loadData();
 
-        new WebServer().configure(routes -> {
+
+        WebServer webServer = new WebServer();
+        webServer.configure(routes -> {
             routes.add(new ShelterEndPoint());
-        }).start();
+        });
+
+        String providedPort = System.getenv("PORT");
+        String port = providedPort == null ? "8080" : providedPort;
+        webServer.start(Integer.valueOf(port));
     }
 }
