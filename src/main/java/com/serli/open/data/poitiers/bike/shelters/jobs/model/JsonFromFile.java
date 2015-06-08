@@ -2,6 +2,8 @@ package com.serli.open.data.poitiers.bike.shelters.jobs.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Date;
+
 /**
  * Created by chris on 04/05/15.
  */
@@ -19,6 +21,13 @@ public class JsonFromFile {
         public String shelterType;
         @JsonProperty("NOMBRE")
         public int capacity;
+        @JsonProperty("ETAT")
+        public String state;
+        @JsonProperty("DATE")
+        public Date date;
+        @JsonProperty("EQUIPEMENT_GP")
+        public String equipementGP;
+
     }
 
     public static class JsonFromFileGeometry {
