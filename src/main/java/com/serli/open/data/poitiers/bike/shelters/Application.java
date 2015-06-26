@@ -1,7 +1,8 @@
 package com.serli.open.data.poitiers.bike.shelters;
 
 import com.serli.open.data.poitiers.bike.shelters.jobs.InitDataJob;
-import com.serli.open.data.poitiers.bike.shelters.rest.ShelterEndPoint;
+import com.serli.open.data.poitiers.bike.shelters.rest.EndPoint;
+
 import net.codestory.http.WebServer;
 
 import java.io.IOException;
@@ -11,13 +12,15 @@ import java.io.IOException;
  */
 public class Application {
     public static void main(String[] args) throws IOException {
-        InitDataJob.loadData();
-
+        InitDataJob.loadDataShelters();
+        InitDataJob.loadDataTicketmachine();
+        InitDataJob.loadDataPark();
+        InitDataJob.loadDataService();
 
         WebServer webServer = new WebServer();
         webServer.configure(routes -> {
-            routes.get("/", "GET <a href=\"bike-shelters/\">bike-shelters</a> : bike shelters in Poitiers");
-            routes.add(new ShelterEndPoint());
+            routes.get("/", "GET <a href=\"allInstallations/\">all installations</a> : all installations in Poitiers");
+            routes.add(new EndPoint());
         });
 
         String providedPort = System.getenv("PORT");

@@ -4,7 +4,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.serli.open.data.poitiers.bike.shelters.jobs.model.JsonFromFile;
 import com.serli.open.data.poitiers.bike.shelters.repository.ElasticRepository;
 import com.serli.open.data.poitiers.bike.shelters.repository.InMemoryRepository;
+import com.serli.open.data.poitiers.bike.shelters.rest.model.Park;
+import com.serli.open.data.poitiers.bike.shelters.rest.model.Service;
 import com.serli.open.data.poitiers.bike.shelters.rest.model.Shelter;
+import com.serli.open.data.poitiers.bike.shelters.rest.model.Ticketmachine;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,10 +22,13 @@ import java.util.Map;
  */
 public class InitDataJob {
     public static void main(String[] args) throws IOException {
-        loadData();
+        loadDataShelters();
+        loadDataTicketmachine();
+        loadDataPark();
+        loadDataService();
     }
 
-    public static void loadData() throws IOException {
+    public static void loadDataShelters() throws IOException {
         InputStream inputData = InitDataJob.class.getResourceAsStream("/bike-shelters.json");
         Map<Integer, String> sheltersAdressesMap = createSheltersAdressMapFromFile();
         ObjectMapper objectMapper = new ObjectMapper();
@@ -32,6 +38,39 @@ public class InitDataJob {
                 jsonFromFile -> {
                     indexShelter(jsonFromFile, sheltersAdressesMap);
                 });
+    }
+    
+    public static void loadDataTicketmachine() throws IOException {
+    	InputStream inputData = InitDataJob.class.getResourceAsStream("/Horodateurs.json");
+    	ObjectMapper objectMapper = new ObjectMapper();
+    	
+    	JsonFromFile[] jsonFromFiles = objectMapper.readValue(inputData, JsonFromFile[].class);
+    	Arrays.stream(jsonFromFiles).forEach(
+    			jsonFromFile -> {
+    				indexticketmachine(jsonFromFile);
+    			});
+    }
+    
+    public static void loadDataPark() throws IOException {
+    	InputStream inputData = InitDataJob.class.getResourceAsStream("/GIG_GIC.json");
+    	ObjectMapper objectMapper = new ObjectMapper();
+    	
+    	JsonFromFile[] jsonFromFiles = objectMapper.readValue(inputData, JsonFromFile[].class);
+    	Arrays.stream(jsonFromFiles).forEach(
+    			jsonFromFile -> {
+    				indexPark(jsonFromFile);
+    			});
+    }
+    
+    public static void loadDataService() throws IOException {
+    	InputStream inputData = InitDataJob.class.getResourceAsStream("/Equipements_publics.json");
+    	ObjectMapper objectMapper = new ObjectMapper();
+    	
+    	JsonFromFile[] jsonFromFiles = objectMapper.readValue(inputData, JsonFromFile[].class);
+    	Arrays.stream(jsonFromFiles).forEach(
+    			jsonFromFile -> {
+    				indexService(jsonFromFile);
+    			});
     }
 
     private static Map<Integer, String> createSheltersAdressMapFromFile() throws IOException {
@@ -56,5 +95,38 @@ public class InitDataJob {
         InMemoryRepository.add(shelter);
         ElasticRepository.INSTANCE.index(shelter);
         System.out.println(shelter);
+    }
+    
+    private static void indexticketmachine(JsonFromFile jsonFromFile) {
+        Ticketmachine ticketmachine = new Ticketmachine(
+        		jsonFromFile.geometry.coordinates,
+        		jsonFromFile.properties.objectId,
+                jsonFromFile.properties.numberTicketmachine);
+        InMemoryRepository.add(ticketmachine);
+        ElasticRepository.INSTANCE.index(ticketmachine);
+        System.out.println(ticketmachine);
+    }
+    
+    private static void indexPark(JsonFromFile jsonFromFile) {
+        Park park = new Park(
+                jsonFromFile.geometry.coordinates,
+                jsonFromFile.properties.objectId);
+        InMemoryRepository.add(park);
+        ElasticRepository.INSTANCE.index(park);
+        System.out.println(park);
+    }
+    
+    private static void indexService(JsonFromFile jsonFromFile) {
+        Service service = new Service(
+                jsonFromFile.properties.equipName,
+                jsonFromFile.properties.theme,
+                jsonFromFile.geometry.coordinates,
+                jsonFromFile.properties.objectId,
+                jsonFromFile.properties.postCode,
+                jsonFromFile.properties.city,
+                jsonFromFile.properties.address);
+        InMemoryRepository.add(service);
+        ElasticRepository.INSTANCE.index(service);
+        System.out.println(service);
     }
 }
