@@ -12,11 +12,10 @@ ID 11 : 8 Rue Saint-Simplicien, 86000 Poitiers, France
 ID 12 : Boulevard Anatole France, 86000 Poitiers, France
 ID 13 : Rue Jean Jaurès, 86000 Poitiers, France
 ID 14 : 18bis Place de la Cathédrale et du Cardinal Pie, 86000 Poitiers, France
-ID 15 : 9 Boulevard Bajon, 86000 Poitiers, France
 ID 16 : Impasse des Ecossais, 86000 Poitiers, France
 ID 17 : 1 Place Aristide Briand, 86000 Poitiers, France
 ID 18 : 2 Rue des Ecossais, 86000 Poitiers, France
-ID 19 : 8 Rue Henri Pétonnet, 86000 Poitiers, France
+ID 19 : 20 Rue Henri Pétonnet, 86000 Poitiers, France
 ID 20 : 12 Place Alphonse Lepetit, 86000 Poitiers, France
 ID 21 : 26–30 Place Alphonse Lepetit, 86000 Poitiers, France
 ID 22 : 14 Rue des Vieilles Boucheries, 86000 Poitiers, France
@@ -38,8 +37,6 @@ ID 37 : Boulevard de Pont-Achard, 86000 Poitiers, France
 ID 38 : 13 Rue de l'Ancienne Comédie, 86000 Poitiers, France
 ID 39 : 2 Rue du Jardin des Plantes, 86000 Poitiers, France
 ID 40 : 8 Rue René Descartes, 86000 Poitiers, France
-ID 41 : 24–28 Avenue Paul Claudel, 86240 Ligugé, France
-ID 42 : Place Pannonhalma, 86240 Ligugé, France
 ID 43 : 6B Rue Claveurier, 86000 Poitiers, France
 ID 44 : Place du Maréchal Leclerc, 86000 Poitiers, France
 ID 45 : 18 Rue Victor Hugo, 86000 Poitiers, France
@@ -51,8 +48,53 @@ ID 50 : Centre Commercial Cordeliers, 86000 Poitiers, France
 ID 51 : Rue Paul Guillon, 86000 Poitiers, France
 ID 52 : 43 Impasse de la Marne, 86000 Poitiers, France
 ID 53 : 49 Rue de la Marne, 86000 Poitiers, France
-ID 54 : 16 Rue Henri Pétonnet, 86000 Poitiers, France
 ID 65 : 3 Rue Pascal Le Coq, 86000 Poitiers, France
 ID 66 : 14 Rue Pascal Le Coq, 86000 Poitiers, France
 ID 67 : 18 Place de la Liberté, 86000 Poitiers, France
 ID 68 : 16 Place de la Liberté, 86000 Poitiers, France
+ID 69 : 3–17 Rue des Arènes Romaines, 86000 Poitiers, France
+ID 70 : 21 Rue Carnot, 86000 Poitiers, France
+ID 71 : 23 Rue René Descartes, 86000 Poitiers, France
+ID 72 : 1–3 Place de la Cathédrale et du Cardinal Pie, 86000 Poitiers, France
+ID 73 : 3 Rue Jean Jaurès, 86000 Poitiers, France
+ID 74 : 5 Rue Grignon de Montfort, 86000 Poitiers, France
+ID 75 : 25 Rue du Général Sarrail, 86000 Poitiers, France
+ID 76 : 29 Place Montierneuf, 86000 Poitiers, France
+ID 77 : Boulevard Chasseigne, 86000 Poitiers, France
+ID 78 : 8 Boulevard de Pont-Achard, 86000 Poitiers, France
+ID 123 : 2 Rue des Ducs, 86000 Poitiers, France
+ID 124 : 33 Rue Santos-Dumont, 86000 Poitiers, France
+ID 125 : 162 Rue Georges Guynemer, 86000 Poitiers, France
+ID 126 : 162 Rue Georges Guynemer, 86000 Poitiers, France
+ID 127 : 2–4 Rue des Grottes, 86580 Biard, France
+ID 128 : 42–44 Rue de Chilvert, 86000 Poitiers, France
+ID 129 : Centre Hospitalier Universitaire de Poitiers, 86000 Poitiers, France
+ID 130 : Centre Hospitalier Universitaire de Poitiers, 86000 Poitiers, France
+ID 131 : 86000 Poitiers, France
+ID 132 : 86000 Poitiers, France
+ID 133 : Centre Hospitalier Universitaire de Poitiers, Avenue Jacques Coeur, 86000 Poitiers, France
+ID 134 : Centre Hospitalier Universitaire de Poitiers, 86000 Poitiers, France
+ID 135 : Centre Hospitalier Universitaire de Poitiers, 86000 Poitiers, France
+ID 137 : Centre Hospitalier Universitaire de Poitiers, 86000 Poitiers, France
+ID 138 : Centre Hospitalier Universitaire de Poitiers, 6 Rue de la Miletrie, 86000 Poitiers, France
+ID 139 : Avenue du Recteur Pineau, 86000 Poitiers, France
+ID 140 : Rue Samuel de Champlain, 86000 Poitiers, France
+ID 141 : Rue Shirin Ebadi, 86000 Poitiers, France
+ID 142 : Rue Jaques Fort, 86000 Poitiers, France
+ID 143 : Rue Pierre Brousse, 86000 Poitiers, France
+ID 144 : Rue Raymond Cantel, 86000 Poitiers, France
+ID 145 : Allée Jeanne Chauvin, 86000 Poitiers, France
+ID 146 : Boulevard René Cassin, 86000 Poitiers, France
+ID 147 : 10 Boulevard Savari, 86000 Poitiers, France
+ID 148 : 2 Rue Voltaire, 86000 Poitiers, France
+ID 149 : Avenue de la Révolution, 86000 Poitiers, France
+ID 150 : 1 Allée Danton, 86000 Poitiers, France
+ID 151 : Rue du 14 Juillet 1789, 86000 Poitiers, France
+ID 152 : 11 Boulevard Saint-Just, 86000 Poitiers, France
+ID 153 : Boulevard Saint-Just, 86000 Poitiers, France
+ID 154 : 11 Boulevard Saint-Just, 86000 Poitiers, France
+ID 155 : 11 Boulevard Saint-Just, 86000 Poitiers, France
+ID 156 : Boulevard Saint-Just, 86000 Poitiers, France
+ID 157 : Avenue du Tiers Etat, 86000 Poitiers, France
+ID 158 : 1–19 Rue Bailly, 86000 Poitiers, France
+ID 160 : La Croix Père, 86000 Poitiers, France

@@ -42,7 +42,7 @@ public class ElasticRepository {
     }
 
     private String getElasticSearchURL() {
-        String elasticSearchURL = System.getenv("BONSAI_URL");
+        String elasticSearchURL = System.getenv("SEARCHBOX_SSL_URL");
         if (StringUtils.isEmpty(elasticSearchURL)) {
             elasticSearchURL = "http://localhost:9200";
         }
@@ -119,7 +119,7 @@ public class ElasticRepository {
                 "   \"query\": {\n" +
                 "      \"match_all\": {}\n" +
                 "   },\n" +
-                "   \"size\": 100\n" +
+                "   \"size\": " + Integer.MAX_VALUE + "\n" +
                 "}";
         SearchResult searchResult = performSearchOnBikeShelters(query);
 

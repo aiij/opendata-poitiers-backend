@@ -22,6 +22,13 @@ public class InitDataJob {
         loadData();
     }
 
+    public static void createGoogleClient(){
+        String googleAPIKey = System.getenv("GOOGLE_API_KEY");
+
+
+
+    }
+
     public static void loadData() throws IOException {
         InputStream inputData = InitDataJob.class.getResourceAsStream("/bike-shelters.json");
         Map<Integer, String> sheltersAdressesMap = createSheltersAdressMapFromFile();
@@ -47,14 +54,15 @@ public class InitDataJob {
     }
 
     private static void indexShelter(JsonFromFile jsonFromFile, Map<Integer, String> sheltersAdressesMap) {
+        double[] coordinates = jsonFromFile.geometry.coordinates;
+
+
         Shelter shelter = new Shelter(
                 jsonFromFile.properties.shelterType,
                 jsonFromFile.properties.capacity,
-                jsonFromFile.geometry.coordinates,
+                coordinates,
                 jsonFromFile.properties.objectId,
                 sheltersAdressesMap.get(jsonFromFile.properties.objectId));
-        InMemoryRepository.add(shelter);
         ElasticRepository.INSTANCE.index(shelter);
-        System.out.println(shelter);
     }
 }

@@ -13,7 +13,6 @@ public class Application {
     public static void main(String[] args) throws IOException {
         InitDataJob.loadData();
 
-
         WebServer webServer = new WebServer();
         webServer.configure(routes -> {
             routes.get("/", "GET <a href=\"bike-shelters/\">bike-shelters</a> : bike shelters in Poitiers");
