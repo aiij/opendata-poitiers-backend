@@ -1,10 +1,9 @@
-package com.serli.open.data.poitiers.bike.shelters.jobs;
+package com.serli.open.data.poitiers.jobs;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.serli.open.data.poitiers.bike.shelters.jobs.model.JsonFromFile;
-import com.serli.open.data.poitiers.bike.shelters.repository.ElasticRepository;
-import com.serli.open.data.poitiers.bike.shelters.repository.InMemoryRepository;
-import com.serli.open.data.poitiers.bike.shelters.rest.model.Shelter;
+import com.serli.open.data.poitiers.jobs.model.JsonFromFile;
+import com.serli.open.data.poitiers.repository.ElasticRepository;
+import com.serli.open.data.poitiers.rest.model.Shelter;
 
 import java.io.BufferedReader;
 import java.io.IOException;

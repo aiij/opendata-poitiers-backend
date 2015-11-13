@@ -1,4 +1,4 @@
-package com.serli.open.data.poitiers.bike.shelters.rest.model;
+package com.serli.open.data.poitiers.rest.model;
 
 /**
  * Created by chris on 04/05/15.

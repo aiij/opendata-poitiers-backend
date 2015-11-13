@@ -1,11 +1,13 @@
-package com.serli.open.data.poitiers.bike.shelters;
+package com.serli.open.data.poitiers;
 
-import com.serli.open.data.poitiers.bike.shelters.rest.AdminEndPoint;
-import com.serli.open.data.poitiers.bike.shelters.rest.ShelterEndPoint;
-import com.serli.open.data.poitiers.utils.EnvUtils;
+import com.serli.open.data.poitiers.rest.AdminEndPoint;
+import com.serli.open.data.poitiers.rest.ShelterEndPoint;
+import com.serli.open.data.poitiers.elasticsearch.DeveloppementESNode;
 import net.codestory.http.WebServer;
 import net.codestory.http.filters.basic.BasicAuthFilter;
 import net.codestory.http.security.UsersList;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
@@ -15,9 +17,11 @@ import static com.serli.open.data.poitiers.utils.EnvUtils.getEnvOrDefault;
  * Created by chris on 04/05/15.
  */
 public class Application {
-    public static void main(String[] args) throws IOException {
-//        InitDataJob.loadData();
+    private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
+    private static final String SKIP_CREATE_ES_DEV_NODE = "SKIP_CREATE_ES_DEV_NODE";
 
+
+    public static void main(String[] args) throws IOException {
         BasicAuthFilter filter = createBasicAuthFilter();
 
         WebServer webServer = new WebServer();
@@ -30,6 +34,17 @@ public class Application {
 
         String port = getEnvOrDefault("PORT", "8080");
         webServer.start(Integer.valueOf(port));
+
+        startESInDevMode();
+    }
+
+    private static void startESInDevMode() {
+        boolean prodMode = Boolean.parseBoolean(System.getProperty("PROD_MODE", "false"));
+        boolean skipDevESNode = Boolean.parseBoolean(System.getProperty(SKIP_CREATE_ES_DEV_NODE, "false"));
+        if (!prodMode && !skipDevESNode) {
+            System.out.println("Start with -D" + SKIP_CREATE_ES_DEV_NODE + "=true To skip ES dev node creation");
+            DeveloppementESNode.createDevNode();
+        }
     }
 
     private static BasicAuthFilter createBasicAuthFilter() {

@@ -9,7 +9,7 @@ repositories {
 
 jar {
     manifest {
-        attributes "Main-Class": "com.serli.open.data.poitiers.bike.shelters.Application"
+        attributes "Main-Class": "com.serli.open.data.poitiers.Application"
     }
 
     from {

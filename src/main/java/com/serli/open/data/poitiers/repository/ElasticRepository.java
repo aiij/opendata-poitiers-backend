@@ -1,11 +1,10 @@
-package com.serli.open.data.poitiers.bike.shelters.repository;
+package com.serli.open.data.poitiers.repository;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.serli.open.data.poitiers.bike.shelters.rest.model.GeolocShelterResult;
-import com.serli.open.data.poitiers.bike.shelters.rest.model.Shelter;
+import com.serli.open.data.poitiers.rest.model.GeolocShelterResult;
+import com.serli.open.data.poitiers.rest.model.Shelter;
 import io.searchbox.client.JestClient;
 import io.searchbox.client.JestClientFactory;
 import io.searchbox.client.config.HttpClientConfig;
@@ -14,7 +13,6 @@ import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Spliterator;
 import java.util.Spliterators;

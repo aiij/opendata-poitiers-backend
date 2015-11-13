@@ -1,16 +1,12 @@
-package com.serli.open.data.poitiers.bike.shelters.rest;
+package com.serli.open.data.poitiers.rest;
 
-import com.serli.open.data.poitiers.bike.shelters.repository.ElasticRepository;
-import com.serli.open.data.poitiers.bike.shelters.repository.InMemoryRepository;
-import com.serli.open.data.poitiers.bike.shelters.rest.model.GeolocShelterResult;
-import com.serli.open.data.poitiers.bike.shelters.rest.model.Shelter;
+import com.serli.open.data.poitiers.repository.ElasticRepository;
+import com.serli.open.data.poitiers.rest.model.GeolocShelterResult;
+import com.serli.open.data.poitiers.rest.model.Shelter;
 import net.codestory.http.annotations.Get;
-import net.codestory.http.annotations.Gets;
 import net.codestory.http.annotations.Prefix;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Created by chris on 04/05/15.

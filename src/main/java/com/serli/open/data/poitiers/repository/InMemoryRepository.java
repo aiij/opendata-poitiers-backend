@@ -1,6 +1,6 @@
-package com.serli.open.data.poitiers.bike.shelters.repository;
+package com.serli.open.data.poitiers.repository;
 
-import com.serli.open.data.poitiers.bike.shelters.rest.model.Shelter;
+import com.serli.open.data.poitiers.rest.model.Shelter;
 
 import java.util.ArrayList;
 import java.util.List;

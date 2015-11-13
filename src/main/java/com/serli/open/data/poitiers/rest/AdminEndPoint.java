@@ -1,4 +1,4 @@
-package com.serli.open.data.poitiers.bike.shelters.rest;
+package com.serli.open.data.poitiers.rest;
 
 import net.codestory.http.annotations.Get;
 import net.codestory.http.annotations.Gets;
