@@ -9,6 +9,6 @@ public class GeolocShelterResult {
         this.distanceInMeters = distanceInMeters;
     }
 
-    public Shelter shelter;
-    public Integer distanceInMeters;
+    public final Shelter shelter;
+    public final Integer distanceInMeters;
 }

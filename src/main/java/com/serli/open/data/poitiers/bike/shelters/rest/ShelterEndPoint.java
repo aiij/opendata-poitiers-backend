@@ -17,8 +17,6 @@ import java.util.stream.Collectors;
  */
 @Prefix("bike-shelters")
 public class ShelterEndPoint {
-
-
     @Get("/")
     public String home(){
         return "<p>GET <a href=\"all\">all</a> : all shelters</p>" +

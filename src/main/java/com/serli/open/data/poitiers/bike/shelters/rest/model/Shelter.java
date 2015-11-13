@@ -15,11 +15,11 @@ public class Shelter {
         this.address = address;
     }
 
-    public String type;
-    public Integer capacity;
-    public double[] location;
-    public int objectId;
-    public String address;
+    public final String type;
+    public final Integer capacity;
+    public final double[] location;
+    public final int objectId;
+    public final String address;
 
     @Override
     public String toString() {
