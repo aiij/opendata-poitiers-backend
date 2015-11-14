@@ -1,7 +1,7 @@
 package com.serli.open.data.poitiers;
 
-import com.serli.open.data.poitiers.rest.AdminEndPoint;
-import com.serli.open.data.poitiers.rest.ShelterEndPoint;
+import com.serli.open.data.poitiers.api.AdminEndPoint;
+import com.serli.open.data.poitiers.api.ShelterEndPoint;
 import com.serli.open.data.poitiers.elasticsearch.DeveloppementESNode;
 import net.codestory.http.WebServer;
 import net.codestory.http.filters.basic.BasicAuthFilter;
@@ -26,7 +26,7 @@ public class Application {
 
         WebServer webServer = new WebServer();
         webServer.configure(routes -> {
-            routes.get("/", "GET <a href=\"bike-shelters/\">bike-shelters</a> : bike shelters in Poitiers");
+            //routes.get("/", "GET <a href=\"bike-shelters/\">bike-shelters</a> : bike shelters in Poitiers");
             routes.add(new ShelterEndPoint());
             routes.add(new AdminEndPoint());
             routes.filter(filter);
@@ -54,6 +54,6 @@ public class Application {
         UsersList users = new UsersList.Builder()
                 .addUser(adminLogin, adminPassword)
                 .build();
-        return new BasicAuthFilter("/admin", "open.data", users);
+        return new BasicAuthFilter("/admin", "open.data.poitiers", users);
     }
 }

@@ -1,4 +1,4 @@
-package com.serli.open.data.poitiers.rest;
+package com.serli.open.data.poitiers.api;
 
 import net.codestory.http.annotations.Get;
 import net.codestory.http.annotations.Gets;
@@ -13,5 +13,10 @@ public class AdminEndPoint {
     @Gets({@Get("/"), @Get()})
     public String adminHome(){
         return "<h1>Admin</h1>";
+    }
+
+    @Get("/reload/bike-shelters")
+    public void reloadShelters(){
+
     }
 }

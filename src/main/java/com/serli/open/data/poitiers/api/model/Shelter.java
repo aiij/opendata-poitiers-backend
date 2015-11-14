@@ -1,4 +1,4 @@
-package com.serli.open.data.poitiers.rest.model;
+package com.serli.open.data.poitiers.api.model;
 
 import java.util.Arrays;
 

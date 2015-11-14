@@ -3,15 +3,15 @@ package com.serli.open.data.poitiers.repository;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.serli.open.data.poitiers.rest.model.GeolocShelterResult;
-import com.serli.open.data.poitiers.rest.model.Shelter;
+import com.serli.open.data.poitiers.api.model.GeolocShelterResult;
+import com.serli.open.data.poitiers.api.model.Shelter;
+import com.serli.open.data.poitiers.elasticsearch.ElasticUtils;
 import io.searchbox.client.JestClient;
 import io.searchbox.client.JestClientFactory;
 import io.searchbox.client.config.HttpClientConfig;
 import io.searchbox.core.Index;
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 import java.util.Spliterator;
@@ -33,18 +33,10 @@ public class ElasticRepository {
     private ElasticRepository() {
         JestClientFactory factory = new JestClientFactory();
         factory.setHttpClientConfig(new HttpClientConfig
-                .Builder(getElasticSearchURL())
+                .Builder(ElasticUtils.getElasticSearchURL())
                 .multiThreaded(true)
                 .build());
         client = factory.getObject();
-    }
-
-    private String getElasticSearchURL() {
-        String elasticSearchURL = System.getenv("SEARCHBOX_SSL_URL");
-        if (StringUtils.isEmpty(elasticSearchURL)) {
-            elasticSearchURL = "http://localhost:9200";
-        }
-        return elasticSearchURL;
     }
 
     public void index(Shelter shelter) {

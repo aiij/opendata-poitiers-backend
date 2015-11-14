@@ -1,8 +1,8 @@
-package com.serli.open.data.poitiers.rest;
+package com.serli.open.data.poitiers.api;
 
 import com.serli.open.data.poitiers.repository.ElasticRepository;
-import com.serli.open.data.poitiers.rest.model.GeolocShelterResult;
-import com.serli.open.data.poitiers.rest.model.Shelter;
+import com.serli.open.data.poitiers.api.model.GeolocShelterResult;
+import com.serli.open.data.poitiers.api.model.Shelter;
 import net.codestory.http.annotations.Get;
 import net.codestory.http.annotations.Prefix;
 
@@ -13,12 +13,6 @@ import java.util.List;
  */
 @Prefix("bike-shelters")
 public class ShelterEndPoint {
-    @Get("/")
-    public String home(){
-        return "<p>GET <a href=\"all\">all</a> : all shelters</p>" +
-               "<p>GET <a href=\"find?lat=46.578636&lon=0.337959\">find?lat=:lat&lon=:lon&size=:size</a> : search closest shelters from lar/lon point, size is optional</p>";
-    }
-
     @Get("/all")
     public List<Shelter> all(){
         return ElasticRepository.INSTANCE.all();

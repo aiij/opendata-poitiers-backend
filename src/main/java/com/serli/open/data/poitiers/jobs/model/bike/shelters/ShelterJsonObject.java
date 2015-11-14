@@ -1,4 +1,4 @@
-package com.serli.open.data.poitiers.jobs.model;
+package com.serli.open.data.poitiers.jobs.model.bike.shelters;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * Created by chris on 04/05/15.
  */
-public class JsonFromFile {
+public class ShelterJsonObject {
     public String type;
     public JsonFromFileProperties properties;
     public JsonFromFileGeometry geometry;
@@ -27,7 +27,8 @@ public class JsonFromFile {
         public Date date;
         @JsonProperty("EQUIPEMENT_GP")
         public String equipementGP;
-
+        @JsonProperty("CODE_SITE")
+        public String codeSite;
     }
 
     public static class JsonFromFileGeometry {
