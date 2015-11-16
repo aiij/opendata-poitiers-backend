@@ -10,8 +10,6 @@ To build
 
 To Run 
 ```bash
-java -jar build/libs/open.data.poitiers.bike.shelters-1.0.jar
+java -DPROD_MODE=true -jar build/libs/open.data.poitiers.bike.shelters-1.0.jar
 ```
 Application will be available on *http://localhost:8080/*
-
-This will create an ES Node, to skip ES Node creation, add *-DSKIP_CREATE_ES_DEV_NODE=true* option.
