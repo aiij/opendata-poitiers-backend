@@ -10,6 +10,11 @@ To build
 
 To Run 
 ```bash
-java -DPROD_MODE=true -jar build/libs/open.data.poitiers.bike.shelters-1.0.jar
+java -jar build/libs/open.data.poitiers.bike.shelters-1.0-all.jar
 ```
-Application will be available on *http://localhost:8080/*
+
+Application will be available on **http://localhost:8080/**
+
+To run in production mode : **-DPROD_MODE=true** 
+
+In dev mode (**-DPROD_MODE!=true**), to skip ES dev node creation : **-DSKIP_CREATE_ES_DEV_NODE=true**

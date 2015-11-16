@@ -33,7 +33,6 @@ public class ImportDisabledParkingsDataJob extends ImportDataJob<FullDisabledPar
                 disableParkingJsonObject.properties.comment,
                 disableParkingJsonObject.properties.town,
                 disableParkingJsonObject.geometry.coordinates);
-        System.out.println(disabledParking);
         ElasticRepository.INSTANCE.index(disabledParking);
     }
 
