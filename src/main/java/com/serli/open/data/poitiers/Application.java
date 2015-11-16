@@ -1,6 +1,7 @@
 package com.serli.open.data.poitiers;
 
 import com.serli.open.data.poitiers.api.AdminEndPoint;
+import com.serli.open.data.poitiers.api.DisableParkingEndPoint;
 import com.serli.open.data.poitiers.api.ShelterEndPoint;
 import com.serli.open.data.poitiers.elasticsearch.DeveloppementESNode;
 import net.codestory.http.WebServer;
@@ -17,7 +18,6 @@ import static com.serli.open.data.poitiers.utils.EnvUtils.getEnvOrDefault;
  * Created by chris on 04/05/15.
  */
 public class Application {
-    private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
     private static final String SKIP_CREATE_ES_DEV_NODE = "SKIP_CREATE_ES_DEV_NODE";
 
 
@@ -26,8 +26,8 @@ public class Application {
 
         WebServer webServer = new WebServer();
         webServer.configure(routes -> {
-            //routes.get("/", "GET <a href=\"bike-shelters/\">bike-shelters</a> : bike shelters in Poitiers");
             routes.add(new ShelterEndPoint());
+            routes.add(new DisableParkingEndPoint());
             routes.add(new AdminEndPoint());
             routes.filter(filter);
         });

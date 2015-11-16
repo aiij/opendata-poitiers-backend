@@ -1,6 +1,37 @@
 ---
-layout: default
+layout: open-data-poitiers
 title: Open Data Poitiers - By Serli
 ---
 
-<h1>Admin</h1>
+<div class="container">
+    <div id="alert-success" class="alert alert-success alert-dismissible" role="alert" style="display:none;">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        Action finished
+    </div>
+    <div id="alert-error" class="alert alert-danger alert-dismissible" role="alert" style="display:none;">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        Action failed
+    </div>
+
+    <table class="table">
+        <thead>
+                <th>Index</th>
+                <th>Action</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Bike Shelters</td>
+                <td><button id="reload-bike-shelters-button" class="btn btn-default" type="submit">Reload Data</button></td>
+            </tr>
+            <tr>
+                <td>Disable Parking</td>
+                <td><button id="reload-disable-parking-button" class="btn btn-default" type="submit">Reload Data</button></td>
+            </tr>
+            <tr>
+                <td>All</td>
+                <td><button  id="reload-all-button"class="btn btn-default" type="submit">Reload All</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<script src="assets/js/admin.js"></script>

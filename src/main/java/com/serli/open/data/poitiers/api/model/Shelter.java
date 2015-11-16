@@ -1,11 +1,18 @@
 package com.serli.open.data.poitiers.api.model;
 
+import com.serli.open.data.poitiers.repository.ElasticRepository;
+
 import java.util.Arrays;
 
 /**
  * Created by chris on 04/05/15.
  */
-public class Shelter {
+public class Shelter implements ElasticTypedObject {
+    public final String type;
+    public final Integer capacity;
+    public final double[] location;
+    public final int objectId;
+    public final String address;
 
     public Shelter(String type, Integer capacity, double[] location, int objectId, String address) {
         this.type = type;
@@ -15,11 +22,13 @@ public class Shelter {
         this.address = address;
     }
 
-    public final String type;
-    public final Integer capacity;
-    public final double[] location;
-    public final int objectId;
-    public final String address;
+    private Shelter() {
+        type = null;
+        capacity = null;
+        location = null;
+        objectId = -1;
+        address = null;
+    }
 
     @Override
     public String toString() {
@@ -29,5 +38,10 @@ public class Shelter {
                 ", location=" + Arrays.toString(location) +
                 ", objectId=" + objectId +
                 '}';
+    }
+
+    @Override
+    public String getElasticType() {
+        return ElasticRepository.BIKE_SHELTERS_TYPE;
     }
 }

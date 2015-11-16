@@ -1,14 +1,16 @@
-var OpenDataPoitiers = (function () {
+var OpenDataPoitiersIndex = (function () {
     var routes = [
        {verb: "GET",route: "/bike-shelters/all",testRoute: "/bike-shelters/all",description: "get all shelters"},
-       {verb: "GET",route: "/bike-shelters/find?lat=:lat&lon=:lon&size=:size",testRoute: "/bike-shelters/find?lat=46.578636&lon=0.337959",description: "search closest shelters from lat/lon point, size is optional"}
+       {verb: "GET",route: "/bike-shelters/find?lat=:lat&lon=:lon&size=:size",testRoute: "/bike-shelters/find?lat=46.578636&lon=0.337959",description: "search closest shelters from lat/lon point, size is optional"},
+       {verb: "GET",route: "/disabled-parkings/all",testRoute: "/disabled-parkings/all",description: "search closest disabled parkings from lat/lon point, size is optional"},
+       {verb: "GET",route: "/disabled-parkings/find?lat=:lat&lon=:lon&size=:size",testRoute: "/disabled-parkings/find?lat=46.578636&lon=0.337959",description: "search closest disabled parkings from lat/lon point, size is optional"}
     ];
 
     var module = {};
     var labelOK = "<span class='label label-success'>OK</span>";
     var labelKO = "<span class='label label-danger'>KO</span>";
 
-    module.loadTable = function(){
+    module.buttonSubscription = function(){
         routes.forEach(function(route, index){
             console.log(route);
             $("#route-table tbody").append(
@@ -38,4 +40,4 @@ var OpenDataPoitiers = (function () {
     return module;
 })();
 
-OpenDataPoitiers.loadTable();
+OpenDataPoitiersIndex.buttonSubscription();

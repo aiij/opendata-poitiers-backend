@@ -24,7 +24,7 @@ public abstract class ImportDataJob<T> {
     public void createIndexAndLoad(){
         createIndexIfNotExists(OPEN_DATA_POITIERS_INDEX, getElasticSearchURL());
 
-        createMapping(OPEN_DATA_POITIERS_INDEX, BIKE_SHELTERS_TYPE, mappingFilePath(), getElasticSearchURL());
+        createMapping(OPEN_DATA_POITIERS_INDEX, getElasticType(), mappingFilePath(), getElasticSearchURL());
 
         Properties properties = new Properties();
         try {
@@ -57,4 +57,6 @@ public abstract class ImportDataJob<T> {
     protected abstract String fileURLPropertyName();
 
     protected abstract String mappingFilePath();
+
+    protected abstract String getElasticType();
 }

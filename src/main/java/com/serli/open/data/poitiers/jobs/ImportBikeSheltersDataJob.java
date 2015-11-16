@@ -3,13 +3,15 @@ package com.serli.open.data.poitiers.jobs;
 import com.serli.open.data.poitiers.geolocation.Address;
 import com.serli.open.data.poitiers.geolocation.GeolocationAPIClient;
 import com.serli.open.data.poitiers.geolocation.LatLon;
-import com.serli.open.data.poitiers.jobs.model.bike.shelters.FullShelterJsonFile;
-import com.serli.open.data.poitiers.jobs.model.bike.shelters.ShelterJsonObject;
+import com.serli.open.data.poitiers.jobs.parsing.bike.shelters.FullShelterJsonFile;
+import com.serli.open.data.poitiers.jobs.parsing.bike.shelters.ShelterJsonObject;
 import com.serli.open.data.poitiers.repository.ElasticRepository;
 import com.serli.open.data.poitiers.api.model.Shelter;
 
 import java.io.IOException;
 import java.util.Arrays;
+
+import static com.serli.open.data.poitiers.repository.ElasticRepository.BIKE_SHELTERS_TYPE;
 
 /**
  * Created by chris on 04/05/15.
@@ -22,10 +24,8 @@ public class ImportBikeSheltersDataJob extends ImportDataJob<FullShelterJsonFile
     @Override
     protected void indexRootElement(FullShelterJsonFile fullShelterJsonFile) {
         ShelterJsonObject[] jsonShelterFromFiles = fullShelterJsonFile.shelters;
-        Arrays.stream(jsonShelterFromFiles).forEach(
-                jsonFromFile -> {
-                    indexElement(jsonFromFile);
-                });
+        Arrays.stream(jsonShelterFromFiles)
+                .forEach(jsonFromFile -> indexElement(jsonFromFile));
     }
 
     private static void indexElement(ShelterJsonObject jsonShelterFromFile) {
@@ -52,4 +52,8 @@ public class ImportBikeSheltersDataJob extends ImportDataJob<FullShelterJsonFile
         return "/elasticsearch/mappings/bike-shelters.json";
     }
 
+    @Override
+    protected String getElasticType() {
+        return BIKE_SHELTERS_TYPE;
+    }
 }

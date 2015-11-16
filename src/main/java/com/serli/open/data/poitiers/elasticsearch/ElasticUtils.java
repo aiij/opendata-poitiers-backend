@@ -49,8 +49,8 @@ public abstract class ElasticUtils {
 
     public static void createMapping(String indexName, String type, String mappingFilePath, String esURL) {
         try (RuntimeJestClient client = createClient(esURL)) {
-            DeleteMapping deleteMapping = new DeleteMapping.Builder(indexName, type).build();
-            client.execute(deleteMapping);
+      //      DeleteMapping deleteMapping = new DeleteMapping.Builder(indexName, type).build();
+        //    client.execute(deleteMapping);
 
             String mappingFile;
             try {

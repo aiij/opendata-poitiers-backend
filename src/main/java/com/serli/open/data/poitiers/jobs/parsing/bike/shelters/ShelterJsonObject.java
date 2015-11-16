@@ -1,4 +1,4 @@
-package com.serli.open.data.poitiers.jobs.model.bike.shelters;
+package com.serli.open.data.poitiers.jobs.parsing.bike.shelters;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

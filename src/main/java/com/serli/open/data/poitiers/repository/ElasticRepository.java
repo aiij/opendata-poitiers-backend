@@ -3,16 +3,16 @@ package com.serli.open.data.poitiers.repository;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.serli.open.data.poitiers.api.model.GeolocShelterResult;
-import com.serli.open.data.poitiers.api.model.Shelter;
+import com.serli.open.data.poitiers.api.model.ElasticTypedObject;
+import com.serli.open.data.poitiers.api.model.GeolocResult;
 import com.serli.open.data.poitiers.elasticsearch.ElasticUtils;
-import io.searchbox.client.JestClient;
-import io.searchbox.client.JestClientFactory;
-import io.searchbox.client.config.HttpClientConfig;
+import com.serli.open.data.poitiers.elasticsearch.RuntimeJestClient;
 import io.searchbox.core.Index;
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Spliterator;
 import java.util.Spliterators;
@@ -26,33 +26,28 @@ public class ElasticRepository {
 
     public static final String OPEN_DATA_POITIERS_INDEX = "open-data-poitiers";
     public static final String BIKE_SHELTERS_TYPE = "bike-shelters";
+    public static final String DISABLED_PARKING_TYPE = "disabled-parking";
 
-    private final JestClient client;
+    private final RuntimeJestClient client;
     public static final ElasticRepository INSTANCE = new ElasticRepository();
 
     private ElasticRepository() {
-        JestClientFactory factory = new JestClientFactory();
-        factory.setHttpClientConfig(new HttpClientConfig
-                .Builder(ElasticUtils.getElasticSearchURL())
-                .multiThreaded(true)
-                .build());
-        client = factory.getObject();
+        client = ElasticUtils.createClient(ElasticUtils.getElasticSearchURL());
     }
 
-    public void index(Shelter shelter) {
-        Index index = new Index.Builder(shelter)
+    private void index(Object object, String type) {
+        Index index = new Index.Builder(object)
                 .index(OPEN_DATA_POITIERS_INDEX)
-                .type(BIKE_SHELTERS_TYPE)
-                .id(String.valueOf(shelter.objectId))
+                .type(type)
                 .build();
-        try {
-            client.execute(index);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        client.execute(index);
     }
 
-    public List<GeolocShelterResult> find(double lat, double lon, int size) {
+    public void index(ElasticTypedObject elasticTypedObject) {
+        index(elasticTypedObject, elasticTypedObject.getElasticType());
+    }
+
+    public <T extends ElasticTypedObject> List<GeolocResult<T>> find(double lat, double lon, int size, Class<T> clazz) {
         if (size == 0) {
             size = 10;
         }
@@ -87,7 +82,8 @@ public class ElasticRepository {
                 "  ]\n" +
                 "}";
 
-        SearchResult searchResult = performSearchOnBikeShelters(query);
+        String elasticType = getElasticType(clazz);
+        SearchResult searchResult = performSearchOnType(query, elasticType);
 
         JsonObject jsonObject = searchResult.getJsonObject();
         JsonArray jsonHits = jsonObject.get("hits").getAsJsonObject().get("hits").getAsJsonArray();
@@ -97,39 +93,47 @@ public class ElasticRepository {
         return StreamSupport.stream(jsonHits.spliterator(), false).map(jsonElement -> {
             JsonObject hit = jsonElement.getAsJsonObject();
             double distance = hit.get("sort").getAsDouble();
-            Shelter shelter = gson.fromJson(hit.get("_source").getAsJsonObject(), Shelter.class);
+            T result = gson.fromJson(hit.get("_source").getAsJsonObject(), clazz);
 
-            return new GeolocShelterResult(shelter, (int) (distance * 1000));
+            return new GeolocResult<T>(result, (int) (distance * 1000));
         }).collect(Collectors.toList());
 
     }
 
-    public List<Shelter> all() {
+    public <T extends ElasticTypedObject> List<T> all(Class<T> clazz) {
+        String elasticType = getElasticType(clazz);
+
         String query = "{\n" +
                 "   \"query\": {\n" +
                 "      \"match_all\": {}\n" +
                 "   },\n" +
                 "   \"size\": " + Integer.MAX_VALUE + "\n" +
                 "}";
-        SearchResult searchResult = performSearchOnBikeShelters(query);
+        SearchResult searchResult = performSearchOnType(query, elasticType);
 
         return StreamSupport.stream(
-                Spliterators.spliteratorUnknownSize(searchResult.getHits(Shelter.class).iterator(), Spliterator.ORDERED),
+                Spliterators.spliteratorUnknownSize(searchResult.getHits(clazz).iterator(), Spliterator.ORDERED),
                 false).map(hitResult -> hitResult.source).collect(Collectors.toList());
     }
 
-    private SearchResult performSearchOnBikeShelters(String query) {
-        Search search = new Search.Builder(query)
-                .addIndex(OPEN_DATA_POITIERS_INDEX)
-                .addType(BIKE_SHELTERS_TYPE)
-                .build();
-
-        SearchResult searchResult;
+    // FIXME : un peu vilain mais bon...
+    private <T extends ElasticTypedObject> String getElasticType(Class<T> clazz) {
         try {
-            searchResult = client.execute(search);
-        } catch (Exception e) {
+            Constructor<T> constructor = clazz.getDeclaredConstructor();
+            constructor.setAccessible(true);
+            return constructor.newInstance().getElasticType();
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
             throw new RuntimeException(e);
         }
-        return searchResult;
     }
+
+    private SearchResult performSearchOnType(String query, String type) {
+        Search search = new Search.Builder(query)
+                .addIndex(OPEN_DATA_POITIERS_INDEX)
+                .addType(type)
+                .build();
+
+        return client.execute(search);
+    }
+
 }
