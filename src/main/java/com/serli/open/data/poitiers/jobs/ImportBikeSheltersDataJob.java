@@ -1,17 +1,19 @@
 package com.serli.open.data.poitiers.jobs;
 
+import com.serli.open.data.poitiers.api.model.Shelter;
 import com.serli.open.data.poitiers.geolocation.Address;
 import com.serli.open.data.poitiers.geolocation.GeolocationAPIClient;
 import com.serli.open.data.poitiers.geolocation.LatLon;
 import com.serli.open.data.poitiers.jobs.parsing.bike.shelters.FullShelterJsonFile;
 import com.serli.open.data.poitiers.jobs.parsing.bike.shelters.ShelterJsonObject;
 import com.serli.open.data.poitiers.repository.ElasticRepository;
-import com.serli.open.data.poitiers.api.model.Shelter;
 
 import java.io.IOException;
 import java.util.Arrays;
 
 import static com.serli.open.data.poitiers.repository.ElasticRepository.BIKE_SHELTERS_TYPE;
+import static org.apache.commons.lang3.StringUtils.capitalize;
+import static org.apache.commons.lang3.StringUtils.lowerCase;
 
 /**
  * Created by chris on 04/05/15.
@@ -31,10 +33,10 @@ public class ImportBikeSheltersDataJob extends ImportDataJob<FullShelterJsonFile
     private static void indexElement(ShelterJsonObject jsonShelterFromFile) {
         double[] coordinates = jsonShelterFromFile.geometry.coordinates;
         Address address = GeolocationAPIClient.reverseGeoCode(new LatLon(coordinates[1], coordinates[0]));
-        String stringAddress = address.street+ ", " + address.zipCode + " " + address.zipCode;
+        String stringAddress = address.street+ ", " + address.zipCode + " " + address.city;
 
         Shelter shelter = new Shelter(
-                jsonShelterFromFile.properties.shelterType,
+                capitalize(lowerCase(jsonShelterFromFile.properties.shelterType)),
                 jsonShelterFromFile.properties.capacity,
                 coordinates,
                 jsonShelterFromFile.properties.objectId,
