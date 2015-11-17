@@ -60,3 +60,9 @@ gradle-app.setting
 !gradle-wrapper.jar
 
 tmp/
+/bin/
+
+
+.classpath
+.project
+.settings/
