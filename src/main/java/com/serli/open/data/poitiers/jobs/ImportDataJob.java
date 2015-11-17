@@ -46,11 +46,10 @@ public abstract class ImportDataJob<T> {
                 }
         };
 
-
         try {
-            SSLContext sc = SSLContext.getInstance("SSL");
-            sc.init(null, trustAllCerts, new SecureRandom());
-            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+            SSLContext sslContext = SSLContext.getInstance("TLS");
+            sslContext.init(null, trustAllCerts, new SecureRandom());
+            SSLContext.setDefault(sslContext);
         } catch (KeyManagementException | NoSuchAlgorithmException e) {
           throw new RuntimeException(e);
         }
