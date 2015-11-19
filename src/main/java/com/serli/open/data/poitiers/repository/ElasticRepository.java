@@ -29,6 +29,10 @@ public class ElasticRepository {
     public static final String DISABLED_PARKING_TYPE = "disabled-parking";
     public static final String GLASS_CONTAINER_TYPE = "glass-container";
 
+
+    public static final String DEFIBRILLATOR_TYPE = "defibrillator";
+
+
     private final RuntimeJestClient client;
     public static final ElasticRepository INSTANCE = new ElasticRepository();
 
