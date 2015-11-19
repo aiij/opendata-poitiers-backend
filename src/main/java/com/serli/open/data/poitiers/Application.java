@@ -1,6 +1,7 @@
 package com.serli.open.data.poitiers;
 
 import com.serli.open.data.poitiers.api.AdminEndPoint;
+import com.serli.open.data.poitiers.api.DefibrillatorEndPoint;
 import com.serli.open.data.poitiers.api.DisableParkingEndPoint;
 import com.serli.open.data.poitiers.api.ShelterEndPoint;
 import com.serli.open.data.poitiers.elasticsearch.DeveloppementESNode;
@@ -28,6 +29,7 @@ public class Application {
         webServer.configure(routes -> {
             routes.add(new ShelterEndPoint());
             routes.add(new DisableParkingEndPoint());
+            routes.add(new DefibrillatorEndPoint());
             routes.add(new AdminEndPoint());
             routes.filter(filter);
         });
