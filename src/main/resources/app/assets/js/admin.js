@@ -2,6 +2,7 @@ var OpenDataPoitiersAdmin = (function () {
     var buttons = [
         {buttonId : "reload-bike-shelters-button", reloadURL : "/admin/reload/bike-shelters"},
         {buttonId : "reload-disable-parking-button", reloadURL : "/admin/reload/disabled-parkings"},
+        {buttonId : "reload-glass-container-button", reloadURL : "/admin/reload/glass-container"},
         {buttonId : "reload-all-button", reloadURL : "/admin/reload/all"},
         ];
     var module = {};

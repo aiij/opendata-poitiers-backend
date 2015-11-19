@@ -27,6 +27,7 @@ public class ElasticRepository {
     public static final String OPEN_DATA_POITIERS_INDEX = "open-data-poitiers";
     public static final String BIKE_SHELTERS_TYPE = "bike-shelters";
     public static final String DISABLED_PARKING_TYPE = "disabled-parking";
+    public static final String GLASS_CONTAINER_TYPE = "glass-container";
 
     private final RuntimeJestClient client;
     public static final ElasticRepository INSTANCE = new ElasticRepository();
