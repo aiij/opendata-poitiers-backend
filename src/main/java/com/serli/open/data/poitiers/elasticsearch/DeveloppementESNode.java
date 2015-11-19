@@ -2,6 +2,7 @@ package com.serli.open.data.poitiers.elasticsearch;
 
 import com.serli.open.data.poitiers.jobs.ImportBikeSheltersDataJob;
 import com.serli.open.data.poitiers.jobs.ImportDisabledParkingsDataJob;
+import com.serli.open.data.poitiers.jobs.ImportGlassContainerDataJob;
 import org.apache.commons.io.FileUtils;
 import org.elasticsearch.common.settings.ImmutableSettings;
 import org.elasticsearch.common.settings.Settings;
@@ -50,6 +51,7 @@ public class DeveloppementESNode {
         // importing Data
         new ImportBikeSheltersDataJob().createIndexAndLoad();
         new ImportDisabledParkingsDataJob().createIndexAndLoad();
+        new ImportGlassContainerDataJob().createIndexAndLoad();
     }
 
 }
