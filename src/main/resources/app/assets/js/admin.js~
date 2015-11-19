@@ -5,7 +5,6 @@ var OpenDataPoitiersAdmin = (function () {
 
         {buttonId : "reload-glass-container-button", reloadURL : "/admin/reload/glass-container"},
 
-
         {buttonId : "reload-defibrillator-button", reloadURL : "/admin/reload/defibrillators"},
 
         {buttonId : "reload-all-button", reloadURL : "/admin/reload/all"},
