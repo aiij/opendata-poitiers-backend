@@ -2,18 +2,12 @@ var OpenDataPoitiersIndex = (function () {
     var routes = [
        {verb: "GET",route: "/bike-shelters/all",testRoute: "/bike-shelters/all",description: "get all shelters"},
        {verb: "GET",route: "/bike-shelters/find?lat=:lat&lon=:lon&size=:size",testRoute: "/bike-shelters/find?lat=46.578636&lon=0.337959",description: "search closest shelters from lat/lon point, size is optional"},
-       {verb: "GET",route: "/disabled-parkings/all",testRoute: "/disabled-parkings/all",description: "search closest disabled parkings from lat/lon point, size is optional"},
-
+       {verb: "GET",route: "/disabled-parkings/all",testRoute: "/disabled-parkings/all",description: "get all disabled parkings"},
        {verb: "GET",route: "/disabled-parkings/find?lat=:lat&lon=:lon&size=:size",testRoute: "/disabled-parkings/find?lat=46.578636&lon=0.337959",description: "search closest disabled parkings from lat/lon point, size is optional"},
-       {verb: "GET",route: "/glass-container/all",testRoute: "/glass-container/all",description: "search closest glass container from lat/lon point, size is optional"},
+       {verb: "GET",route: "/glass-container/all",testRoute: "/glass-container/all",description: "get all glass containers"},
        {verb: "GET",route: "/glass-container/find?lat=:lat&lon=:lon&size=:size",testRoute: "/glass-container/find?lat=46.578636&lon=0.337959",description: "search closest glass container from lat/lon point, size is optional"},
-
-       {verb: "GET",route: "/disabled-parkings/find?lat=:lat&lon=:lon&size=:size",testRoute: "/disabled-parkings/find?lat=46.578636&lon=0.337959",description: "search closest disabled parkings from lat/lon point, size is optional"},
-
-       {verb: "GET",route: "/disabled-parkings/find?lat=:lat&lon=:lon&size=:size",testRoute: "/disabled-parkings/find?lat=46.578636&lon=0.337959",description: "search closest disabled parkings from lat/lon point, size is optional"},
-       {verb: "GET",route: "/defibrillators/all",testRoute: "/defibrillators/all",description: "search closest defibrillators from lat/lon point, size is optional"},
-       {verb: "GET",route: "/defibrillators/find?lat=:lat&lon=:lon&size=:size",testRoute: "/defibrillators/find?lat=46.578636&lon=0.337959",description: "search closest defibrillators from lat/lon point, size is optional"}
-
+       {verb: "GET",route: "/defibrillators/all",testRoute: "/defibrillators/all",description: "get all defibrillators"},
+       {verb: "GET",route: "/defibrillators/find?lat=:lat&lon=:lon&size=:size",testRoute: "/glass-container/find?lat=46.578636&lon=0.337959",description: "search closest defibrillators from lat/lon point, size is optional"}
     ];
 
     var module = {};
