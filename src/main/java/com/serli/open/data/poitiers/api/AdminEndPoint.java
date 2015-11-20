@@ -1,7 +1,9 @@
 package com.serli.open.data.poitiers.api;
 
 import com.serli.open.data.poitiers.jobs.ImportBikeSheltersDataJob;
+import com.serli.open.data.poitiers.jobs.ImportDefibrillatorsDataJob;
 import com.serli.open.data.poitiers.jobs.ImportDisabledParkingsDataJob;
+import com.serli.open.data.poitiers.jobs.ImportGlassContainerDataJob;
 import net.codestory.http.annotations.Get;
 import net.codestory.http.annotations.Gets;
 import net.codestory.http.annotations.Prefix;
@@ -28,11 +30,24 @@ public class AdminEndPoint {
         new ImportDisabledParkingsDataJob().createIndexAndLoad();
 
     }
+    
+    @Get("/reload/glass-container")
+    public void glassContainers(){
+        new ImportGlassContainerDataJob().createIndexAndLoad();
+
+    }
+    
+    @Get("/reload/defibrillators")
+    public void defibrillators(){
+        new ImportDefibrillatorsDataJob().createIndexAndLoad();
+    }
 
     @Get("/reload/all")
     public void reloadAll(){
         new ImportBikeSheltersDataJob().createIndexAndLoad();
         new ImportDisabledParkingsDataJob().createIndexAndLoad();
+        new ImportGlassContainerDataJob().createIndexAndLoad();
+        new ImportDefibrillatorsDataJob().createIndexAndLoad(); 
     }
 
 }
