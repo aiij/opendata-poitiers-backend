@@ -46,7 +46,7 @@ public class Defibrillator implements ElasticTypedObject {
 
     @Override
     public String toString() {
-        return "Shelter{" +
+        return "Defibrillator{" +
                 ", identifier=" + identifier +
                 ", location=" + Arrays.toString(location) +
                 ", objectId=" + objectId +
