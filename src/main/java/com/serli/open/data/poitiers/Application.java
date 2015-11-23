@@ -30,11 +30,8 @@ public class Application {
         webServer.configure(routes -> {
             routes.add(new ShelterEndPoint());
             routes.add(new DisableParkingEndPoint());
-
             routes.add(new GlassContainerEndPoint());
-
             routes.add(new DefibrillatorEndPoint());
-
             routes.add(new AdminEndPoint());
             routes.filter(filter);
         });

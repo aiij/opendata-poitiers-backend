@@ -28,8 +28,6 @@ public class ElasticRepository {
     public static final String BIKE_SHELTERS_TYPE = "bike-shelters";
     public static final String DISABLED_PARKING_TYPE = "disabled-parking";
     public static final String GLASS_CONTAINER_TYPE = "glass-container";
-
-
     public static final String DEFIBRILLATOR_TYPE = "defibrillator";
 
 
