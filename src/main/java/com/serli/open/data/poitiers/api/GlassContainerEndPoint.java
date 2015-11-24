@@ -17,14 +17,5 @@ import net.codestory.http.annotations.Prefix;
  * @author dupar_000
  */
 @Prefix("glass-container")
-public class GlassContainerEndPoint {
-   @Get("/all")
-    public List<GlassContainer> all(){
-        return ElasticRepository.INSTANCE.all(GlassContainer.class);
-    }
-
-    @Get("/find?lat=:lat&lon=:lon&size=:size")
-    public List<GeolocResult<GlassContainer>> find(double lat, double lon, int size){
-        return ElasticRepository.INSTANCE.find(lat, lon, size, GlassContainer.class);
-    }
+public class GlassContainerEndPoint extends DataEndPoint<GlassContainer>{
 }

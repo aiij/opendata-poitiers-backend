@@ -17,14 +17,5 @@ import net.codestory.http.annotations.Prefix;
  * @author Julien L
  */
 @Prefix("defibrillators")
-public class DefibrillatorEndPoint {
-    @Get("/all")
-    public List<Defibrillator> all(){
-        return ElasticRepository.INSTANCE.all(Defibrillator.class);
-    }
-
-    @Get("/find?lat=:lat&lon=:lon&size=:size")
-    public List<GeolocResult<Defibrillator>> find(double lat, double lon, int size){
-        return ElasticRepository.INSTANCE.find(lat, lon, size, Defibrillator.class);
-    }
+public class DefibrillatorEndPoint extends DataEndPoint<Defibrillator> {
 }

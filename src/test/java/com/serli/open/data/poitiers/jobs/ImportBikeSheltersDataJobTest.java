@@ -10,10 +10,9 @@ import org.junit.Ignore;
 /**
  * Created by chris on 17/11/15.
  */
-@Ignore
 public class ImportBikeSheltersDataJobTest {
     @Test
     public void testCapitalize() {
-        assertEquals("Site appui vélo", StringUtils.capitalize(StringUtils.lowerCase("SIte appui vélo")));
+        assertEquals("Site appui velo", StringUtils.capitalize(StringUtils.lowerCase("SIte appui velo")));
     }
 }

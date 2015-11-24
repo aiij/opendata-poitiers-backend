@@ -1,6 +1,7 @@
 package com.serli.open.data.poitiers.jobs;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.serli.open.data.poitiers.utils.ReflexiveUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.client.fluent.Request;
 
@@ -81,9 +82,7 @@ public abstract class ImportDataJob<T> {
     }
 
     private Class<T> getParametrizedType(){
-        return (Class<T>)
-                ((ParameterizedType)getClass().getGenericSuperclass())
-                        .getActualTypeArguments()[0];
+        return (Class<T>) ReflexiveUtils.getParametrizedType(getClass());
     }
 
     protected abstract void indexRootElement(T rootElement);
