@@ -46,6 +46,7 @@ public class ImportDisabledParkingsDataJob extends ImportDataJob<FullDisabledPar
         return "/elasticsearch/mappings/disabled-parking.json";
     }
 
+    @Override
     protected String getElasticType() {
         return DISABLED_PARKING_TYPE;
     }
