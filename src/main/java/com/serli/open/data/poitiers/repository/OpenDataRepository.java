@@ -1,5 +1,7 @@
 package com.serli.open.data.poitiers.repository;
 
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -26,7 +28,7 @@ public class OpenDataRepository extends ElasticSearchRepository {
 
     public static final OpenDataRepository INSTANCE = new OpenDataRepository();
 
-    public final Map<Class<?>, String> classToTypeCache = new HashMap<>();
+    public final BiMap<Class<?>, String> classToTypeCache = HashBiMap.create();
 
     private void index(Object object, String type) {
         Index index = new Index.Builder(object)
@@ -48,8 +50,9 @@ public class OpenDataRepository extends ElasticSearchRepository {
 
     }
 
-    public List<GeolocResult<Object>> find(double lat, double lon, int size, String elasticType){
-        return find(lat, lon, size, Object.class, elasticType);
+    public List<GeolocResult<?>> find(double lat, double lon, int size, String elasticType){
+        Class clazz = getClassFromType(elasticType);
+        return find(lat, lon, size, clazz, elasticType);
     }
 
     private <T> List<GeolocResult<T>> find(double lat, double lon, int size, Class<T> clazz, String elasticType) {
@@ -105,12 +108,12 @@ public class OpenDataRepository extends ElasticSearchRepository {
 
     public <T> List<T> getAll(Class<T> clazz) {
         String elasticType = getElasticType(clazz);
-
         return getAll(clazz, elasticType);
     }
 
     public List<?> getAll(String type) {
-        return getAll(Object.class, type);
+        Class<?> clazz = getClassFromType(type);
+        return getAll(clazz, type);
     }
 
     private <T> List<T> getAll(Class<T> clazz, String elasticType) {
@@ -156,6 +159,19 @@ public class OpenDataRepository extends ElasticSearchRepository {
             throw  new RuntimeException("Type not found for class : " + clazz.getName());
         }
         return type;
+    }
+
+    public Class<?> getClassFromType(String type){
+        if(classToTypeCache.isEmpty()){
+            reloadClassTypeCache();
+        }
+
+        Class<?> clazz = classToTypeCache.inverse().get(type);
+        if(type == null){
+            reloadClassTypeCache();
+            clazz = classToTypeCache.inverse().get(type);
+        }
+        return clazz;
     }
 
     private SearchResult performSearchOnType(String query, String type) {

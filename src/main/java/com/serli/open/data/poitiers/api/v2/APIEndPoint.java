@@ -19,7 +19,7 @@ public class APIEndPoint {
     }
 
     @Get(":type/find?lat=:lat&lon=:lon&size=:size")
-    public List<GeolocResult<Object>> find(String type, double lat, double lon, int size) {
+    public List<GeolocResult<?>> find(String type, double lat, double lon, int size) {
         return OpenDataRepository.INSTANCE.find(lat, lon, size, type);
     }
 }
