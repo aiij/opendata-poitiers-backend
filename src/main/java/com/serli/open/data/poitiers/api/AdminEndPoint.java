@@ -14,7 +14,7 @@ import net.codestory.http.annotations.Put;
  */
 @Prefix("admin")
 public class AdminEndPoint {
-    @Get("/reload/:type")
+    @Put("/reload/:type")
     public void reloadData(String type) {
         System.out.println("Reload : " + type);
         Settings settings = SettingsRepository.INSTANCE.getAllSettings();
@@ -35,7 +35,7 @@ public class AdminEndPoint {
         }
     }
 
-    @Get("/reload-default-settings")
+    @Put("/reload-default-settings")
     public void reloadSettings() {
         new ReloadDefaultSettings().run();
     }

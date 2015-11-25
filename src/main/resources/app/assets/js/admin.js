@@ -61,11 +61,14 @@ var OpenDataPoitiersAdmin = (function () {
                             $.ajax({
                                 url: url,
                                 dataType: 'text',
-                                success: function (data) {
-                                    AdminAlerts.showSuccessMessage("Loaded data successfully");
-                                },
-                                error: function (data) {
-                                    AdminAlerts.showErrorMessage("Error while loading Data");
+                                type: "PUT",
+                                data:"",
+                                complete: function (data) {
+                                    if (data.status === 200) {
+                                        AdminAlerts.showSuccessMessage("Loaded data successfully");
+                                    }else{
+                                        AdminAlerts.showErrorMessage("Error while loading Data");
+                                    }
                                 }
                             });
                         });
