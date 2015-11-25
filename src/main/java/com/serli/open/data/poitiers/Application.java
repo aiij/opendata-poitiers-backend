@@ -1,16 +1,13 @@
 package com.serli.open.data.poitiers;
 
-import com.serli.open.data.poitiers.api.AdminEndPoint;
-import com.serli.open.data.poitiers.api.DefibrillatorEndPoint;
-import com.serli.open.data.poitiers.api.DisableParkingEndPoint;
-import com.serli.open.data.poitiers.api.GlassContainerEndPoint;
-import com.serli.open.data.poitiers.api.ShelterEndPoint;
+import com.serli.open.data.poitiers.api.*;
+import com.serli.open.data.poitiers.api.v1.ShelterEndPoint;
+import com.serli.open.data.poitiers.api.v2.APIEndPoint;
 import com.serli.open.data.poitiers.elasticsearch.DeveloppementESNode;
+import com.serli.open.data.poitiers.views.DashboardEndPoint;
 import net.codestory.http.WebServer;
 import net.codestory.http.filters.basic.BasicAuthFilter;
 import net.codestory.http.security.UsersList;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
@@ -29,10 +26,10 @@ public class Application {
         WebServer webServer = new WebServer();
         webServer.configure(routes -> {
             routes.add(new ShelterEndPoint());
-            routes.add(new DisableParkingEndPoint());
-            routes.add(new GlassContainerEndPoint());
-            routes.add(new DefibrillatorEndPoint());
             routes.add(new AdminEndPoint());
+            routes.add(new SettingsEndPoint());
+            routes.add(new DashboardEndPoint());
+            routes.add(new APIEndPoint());
             routes.filter(filter);
         });
 

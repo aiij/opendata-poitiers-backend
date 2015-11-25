@@ -1,12 +1,14 @@
 package com.serli.open.data.poitiers.elasticsearch;
 
-import com.serli.open.data.poitiers.jobs.ImportBikeSheltersDataJob;
-import com.serli.open.data.poitiers.jobs.ImportDisabledParkingsDataJob;
+import com.serli.open.data.poitiers.jobs.JobRunner;
+import com.serli.open.data.poitiers.jobs.importer.ImportBikeSheltersDataJob;
+import com.serli.open.data.poitiers.jobs.importer.ImportDisabledParkingsDataJob;
 
-import com.serli.open.data.poitiers.jobs.ImportGlassContainerDataJob;
+import com.serli.open.data.poitiers.jobs.importer.ImportGlassContainerDataJob;
 
-import com.serli.open.data.poitiers.jobs.ImportDefibrillatorsDataJob;
+import com.serli.open.data.poitiers.jobs.importer.ImportDefibrillatorsDataJob;
 
+import com.serli.open.data.poitiers.jobs.settings.ReloadDefaultSettings;
 import org.apache.commons.io.FileUtils;
 import org.elasticsearch.common.settings.ImmutableSettings;
 import org.elasticsearch.common.settings.Settings;
@@ -19,6 +21,8 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
+
+import static com.serli.open.data.poitiers.jobs.JobRunner.run;
 
 /**
  * Dev ES Node
@@ -51,15 +55,12 @@ public class DeveloppementESNode {
                 .settings(settings)
                 .build();
         node.start();
-
+        // loading settings
+        run(ReloadDefaultSettings.class);
         // importing Data
-        new ImportBikeSheltersDataJob().createIndexAndLoad();
-        new ImportDisabledParkingsDataJob().createIndexAndLoad();
-
-        new ImportGlassContainerDataJob().createIndexAndLoad();
-
-        new ImportDefibrillatorsDataJob().createIndexAndLoad();
-
+        run(ImportBikeSheltersDataJob.class);
+        run(ImportDisabledParkingsDataJob.class);
+        run(ImportGlassContainerDataJob.class);
+        run(ImportDefibrillatorsDataJob.class);
     }
-
 }
