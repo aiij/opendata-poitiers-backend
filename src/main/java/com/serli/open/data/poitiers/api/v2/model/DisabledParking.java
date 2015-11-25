@@ -12,17 +12,17 @@ public class DisabledParking{
     public final String state;
     public final String comment;
     public final String town;
-    public final String adress;
+    public final String address;
     public final double[] location;
 
-    public DisabledParking(int objectId, String identifier, String district, String state, String comment, String town, String adress, double[] location) {
+    public DisabledParking(int objectId, String identifier, String district, String state, String comment, String town, String address, double[] location) {
         this.objectId = objectId;
         this.identifier = identifier;
         this.district = district;
         this.state = state;
         this.comment = comment;
         this.town = town;
-        this.adress = adress;
+        this.address = address;
         this.location = location;
     }
 
@@ -35,7 +35,7 @@ public class DisabledParking{
                 ", state='" + state + '\'' +
                 ", comment='" + comment + '\'' +
                 ", town='" + town + '\'' +
-                ", adress='" + adress + '\'' +
+                ", address='" + address + '\'' +
                 ", location=" + Arrays.toString(location) +
                 '}';
     }
