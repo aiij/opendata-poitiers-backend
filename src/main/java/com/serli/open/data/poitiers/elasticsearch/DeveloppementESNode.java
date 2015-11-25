@@ -25,8 +25,7 @@ import java.util.UUID;
 import static com.serli.open.data.poitiers.jobs.JobRunner.run;
 
 /**
- * Dev ES Node
- * Created by chris on 08/06/15.
+ * Embedded ES node for dev purpose, <b>Do not use in production, data will be lost</b>. Data is stored in temp directory : <b>tmp/es-local-data</b>.
  */
 public class DeveloppementESNode {
 

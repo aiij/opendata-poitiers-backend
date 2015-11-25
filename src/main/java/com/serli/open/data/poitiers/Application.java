@@ -10,11 +10,14 @@ import net.codestory.http.filters.basic.BasicAuthFilter;
 import net.codestory.http.security.UsersList;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import static com.serli.open.data.poitiers.utils.EnvUtils.getEnvOrDefault;
 
 /**
- * Created by chris on 04/05/15.
+ * This is the entry point of the Application, it is the main class which launchs web server
+ * and handles configuration.
  */
 public class Application {
     private static final String SKIP_CREATE_ES_DEV_NODE = "SKIP_CREATE_ES_DEV_NODE";
@@ -44,7 +47,13 @@ public class Application {
         boolean skipDevESNode = Boolean.parseBoolean(System.getProperty(SKIP_CREATE_ES_DEV_NODE, "false"));
         if (!prodMode && !skipDevESNode) {
             System.out.println("Start with -D" + SKIP_CREATE_ES_DEV_NODE + "=true To skip ES dev node creation");
-            DeveloppementESNode.createDevNode();
+            ExecutorService executorService = Executors.newCachedThreadPool();
+            executorService.submit(new Runnable() {
+                @Override
+                public void run() {
+                    DeveloppementESNode.createDevNode();
+                }
+            });
         }
     }
 
