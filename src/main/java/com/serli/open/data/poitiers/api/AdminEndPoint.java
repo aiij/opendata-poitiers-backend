@@ -1,53 +1,49 @@
 package com.serli.open.data.poitiers.api;
 
-import com.serli.open.data.poitiers.jobs.ImportBikeSheltersDataJob;
-import com.serli.open.data.poitiers.jobs.ImportDefibrillatorsDataJob;
-import com.serli.open.data.poitiers.jobs.ImportDisabledParkingsDataJob;
-import com.serli.open.data.poitiers.jobs.ImportGlassContainerDataJob;
+import com.serli.open.data.poitiers.api.v2.model.settings.Settings;
+import com.serli.open.data.poitiers.jobs.Job;
+import com.serli.open.data.poitiers.jobs.JobRunner;
+import com.serli.open.data.poitiers.jobs.settings.ReloadDefaultSettings;
+import com.serli.open.data.poitiers.repository.SettingsRepository;
 import net.codestory.http.annotations.Get;
-import net.codestory.http.annotations.Gets;
 import net.codestory.http.annotations.Prefix;
+import net.codestory.http.annotations.Put;
 
 /**
  * Created by chris on 13/11/15.
  */
 @Prefix("admin")
 public class AdminEndPoint {
-
-    @Gets({@Get("/"), @Get()})
-    public String adminHome(){
-        return "<h1>Admin</h1>";
+    @Put("/reload/:type")
+    public void reloadData(String type) {
+        System.out.println("Reload : " + type);
+        Settings settings = SettingsRepository.INSTANCE.getAllSettings();
+        if ("all".equals(type)) {
+            settings.sources.values().forEach((source) -> launchJob(source.reloadJobClass));
+        } else {
+            String reloadJobClass = settings.sources.get(type).reloadJobClass;
+            launchJob(reloadJobClass);
+        }
     }
 
-    @Get("/reload/bike-shelters")
-    public void reloadShelters(){
-        new ImportBikeSheltersDataJob().createIndexAndLoad();
-
+    private void launchJob(String reloadJobClass) {
+        try {
+            Class<? extends Job> jobClass = (Class<? extends Job>) Class.forName(reloadJobClass);
+            JobRunner.run(jobClass);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    @Get("/reload/disabled-parkings")
-    public void disabledParkings(){
-        new ImportDisabledParkingsDataJob().createIndexAndLoad();
-
-    }
-    
-    @Get("/reload/glass-container")
-    public void glassContainers(){
-        new ImportGlassContainerDataJob().createIndexAndLoad();
-
-    }
-    
-    @Get("/reload/defibrillators")
-    public void defibrillators(){
-        new ImportDefibrillatorsDataJob().createIndexAndLoad();
+    @Put("/reload-default-settings")
+    public void reloadSettings() {
+        new ReloadDefaultSettings().run();
     }
 
-    @Get("/reload/all")
-    public void reloadAll(){
-        new ImportBikeSheltersDataJob().createIndexAndLoad();
-        new ImportDisabledParkingsDataJob().createIndexAndLoad();
-        new ImportGlassContainerDataJob().createIndexAndLoad();
-        new ImportDefibrillatorsDataJob().createIndexAndLoad(); 
+
+    @Put("/settings/dashboard-url")
+    public void putDashboardURL(String newURL) {
+        SettingsRepository.INSTANCE.putNewDashBoardURL(newURL);
     }
 
 }

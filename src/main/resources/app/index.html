@@ -3,26 +3,48 @@ layout: open-data-poitiers
 title: Open Data Poitiers - By Serli
 ---
 
-    <div class="container">
-        <table class="table" id="route-table">
-            <thead>
-                <tr>
-                    <th>verb</th>
-                    <th>route</th>
-                    <th>description</th>
-                    <th>state</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-        <div id="apropos">
+<div class="container">
+    <table class="table" id="routes-table">
+        <thead>
+        <tr>
+            <th>verb</th>
+            <th>route</th>
+            <th>description</th>
+            <th>state</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <div id="apropos">
 
-            <h2 >&Agrave; propos</h2>
-            <p>Cette API a été créée par la société <a href="http://www.serli.com/">Serli</a>. Elle permet d'accéder aud docnnées Open Data de Grand Poitiers.
-               Initialement cette API est destinées à l'application iOS <a href="https://itunes.apple.com/us/app/id1020211807?mt=8">Poitiers Vélo</a>.</p>
+        <h2>&Agrave; propos</h2>
 
-            <p>Des sources de données sont ajoutées au fil du temps. </p>
-        </div>
+        <p>Cette API a été créée par la société <a href="http://www.serli.com/">Serli</a>. Elle permet d'accéder aux
+            données <a href="https://www.data.gouv.fr/fr/organizations/grand-poitiers-open-data/">Open Data de Grand
+                Poitiers</a>.
+            La première version de cette API est destinée à l'application iOS <a
+                    href="https://itunes.apple.com/us/app/id1020211807?mt=8">Poitiers Vélo</a>.</p>
+
+        <p>La seconde version de cette API contient plus de sources :
+        <ul>
+            <li>Les Stationnement vélos, <a href="https://inspire.data.gouv.fr/api/geogw/services/556c5d51330f1fcd48335c41/feature-types/Geoportail_WMS_Preview:Abris_Appuis_velos/download?format=GeoJSON&projection=WGS84">le fichier <b>data.gouv.fr</b></a></li>
+            <li>Les Bornes à verre, <a href="https://inspire.data.gouv.fr/api/geogw/services/556c5d51330f1fcd48335c41/feature-types/Geoportail_WMS_Preview:Bornes_a_verre/download?format=GeoJSON&projection=WGS84">le fichier <b>data.gouv.fr</b></a></li>
+            <li>Les Places handicapées GIG / GIC, <a href="https://inspire.data.gouv.fr/api/geogw/services/556c5d51330f1fcd48335c41/feature-types/Geoportail_WMS_Preview:GIG_GIC/download?format=GeoJSON&projection=WGS84">le fichier <b>data.gouv.fr</b></a></li>
+            <li>Les Défibrillateurs, <a href="https://inspire.data.gouv.fr/api/geogw/services/556c5d51330f1fcd48335c41/feature-types/Geoportail_WMS_Preview:Defibrilateurs/download?format=GeoJSON&projection=WGS84">le fichier <b>data.gouv.fr</b></a></li>
+        </ul>
+        </p>
+
+        <p>Des sources de données seront ajoutées au fil du temps. </p>
+
+        <p>Vous pouvez contribuer à cette API sur GitHub :
+            <a href="https://github.com/Serli/opendata-poitiers-backend">https://github.com/Serli/opendata-poitiers-backend</a>
+        </p>
+
+        <p>Un tableau de bord permettant de visualiser ces données est <a href="/dashboard">disponible sur ce site</a>,
+            pour une expérience plus complète rendez-vous sur Kibana Open Data Poitiers :
+            <a href="http://open-data-poitiers-kibana.herokuapp.com/">http://open-data-poitiers-kibana.herokuapp.com/</a></p>
+        <br/>
     </div>
-    <script src="assets/js/index.js"></script>
+</div>
+<script src="assets/js/index.js"></script>

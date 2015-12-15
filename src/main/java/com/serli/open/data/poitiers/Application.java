@@ -1,23 +1,23 @@
 package com.serli.open.data.poitiers;
 
-import com.serli.open.data.poitiers.api.AdminEndPoint;
-import com.serli.open.data.poitiers.api.DefibrillatorEndPoint;
-import com.serli.open.data.poitiers.api.DisableParkingEndPoint;
-import com.serli.open.data.poitiers.api.GlassContainerEndPoint;
-import com.serli.open.data.poitiers.api.ShelterEndPoint;
+import com.serli.open.data.poitiers.api.*;
+import com.serli.open.data.poitiers.api.v1.ShelterEndPoint;
+import com.serli.open.data.poitiers.api.v2.APIEndPoint;
 import com.serli.open.data.poitiers.elasticsearch.DeveloppementESNode;
+import com.serli.open.data.poitiers.views.DashboardEndPoint;
 import net.codestory.http.WebServer;
 import net.codestory.http.filters.basic.BasicAuthFilter;
 import net.codestory.http.security.UsersList;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import static com.serli.open.data.poitiers.utils.EnvUtils.getEnvOrDefault;
 
 /**
- * Created by chris on 04/05/15.
+ * This is the entry point of the Application, it is the main class which launchs web server
+ * and handles configuration.
  */
 public class Application {
     private static final String SKIP_CREATE_ES_DEV_NODE = "SKIP_CREATE_ES_DEV_NODE";
@@ -29,10 +29,10 @@ public class Application {
         WebServer webServer = new WebServer();
         webServer.configure(routes -> {
             routes.add(new ShelterEndPoint());
-            routes.add(new DisableParkingEndPoint());
-            routes.add(new GlassContainerEndPoint());
-            routes.add(new DefibrillatorEndPoint());
             routes.add(new AdminEndPoint());
+            routes.add(new SettingsEndPoint());
+            routes.add(new DashboardEndPoint());
+            routes.add(new APIEndPoint());
             routes.filter(filter);
         });
 
@@ -47,7 +47,13 @@ public class Application {
         boolean skipDevESNode = Boolean.parseBoolean(System.getProperty(SKIP_CREATE_ES_DEV_NODE, "false"));
         if (!prodMode && !skipDevESNode) {
             System.out.println("Start with -D" + SKIP_CREATE_ES_DEV_NODE + "=true To skip ES dev node creation");
-            DeveloppementESNode.createDevNode();
+            ExecutorService executorService = Executors.newCachedThreadPool();
+            executorService.submit(new Runnable() {
+                @Override
+                public void run() {
+                    DeveloppementESNode.createDevNode();
+                }
+            });
         }
     }
 

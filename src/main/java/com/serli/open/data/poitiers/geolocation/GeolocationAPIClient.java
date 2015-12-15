@@ -44,6 +44,10 @@ public class GeolocationAPIClient {
     public static Address reverseGeoCode(LatLon latLon){
         ObjectMapper objectMapper = new ObjectMapper();
 
+//        if (1 == 1){
+//            return new Address("","","");
+//        }
+
         try {
             Response response = Request.Get("http://api-adresse.data.gouv.fr/reverse/?lon=" + latLon.lon + "&lat=" + latLon.lat).execute();
             HttpResponse httpResponse = response.returnResponse();
