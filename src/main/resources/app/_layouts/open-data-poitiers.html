@@ -11,13 +11,37 @@
           crossorigin="anonymous">
     <link href="../assets/css/open-data.css" rel="stylesheet"/>
 
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.1.1/gh-fork-ribbon.min.css" />
+    <!--[if lt IE 9]>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.1.1/gh-fork-ribbon.ie.min.css" />
+    <![endif]-->
+
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"
             integrity="sha256-Sk3nkD6mLTMOF0EOpNtsIry+s1CsaqQC1rVLTAy+0yc= sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ=="
             crossorigin="anonymous"></script>
+
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-70692454-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+    <script src="/assets/js/model.js"></script>
 </head>
 <body>
+<div class="github-fork-ribbon-wrapper right">
+    <div class="github-fork-ribbon">
+        <a href="https://github.com/Serli/opendata-poitiers-backend">Fork me on GitHub</a>
+    </div>
+</div>
+
 <nav class="navbar navbar-inverse navbar-fixed-top navbar-custom">
     <div class="container">
         <div class="navbar-header">
@@ -33,18 +57,14 @@
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li><a href="/">API</a></li>
-                <li><a href="/dashboard.html">Dashboard</a></li>
+                <li><a href="/dashboard">Dashboard</a></li>
                 <li><a href="/#apropos">&Agrave; propos</a></li>
-                <!--<li><a href="admin.html"><span class="glyphicon glyphicon-lock"></span></a></li>-->
             </ul>
             <a class="navbar-brand pull-right" href="admin.html"><span class="glyphicon glyphicon-lock"></span></a>
             <a class="navbar-brand pull-right" href="http://serli.com">by Serli</a>
         </div>
     </div>
 </nav>
-
     [[body]]
-<!---->
-<!--</div>-->
 </body>
 </html>

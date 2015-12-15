@@ -58,11 +58,13 @@ gradle-app.setting
 
 # Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
 !gradle-wrapper.jar
-
 tmp/
 /bin/
 
-
+### Eclipse ###
 .classpath
 .project
 .settings/
+
+### Linux ###
+*~

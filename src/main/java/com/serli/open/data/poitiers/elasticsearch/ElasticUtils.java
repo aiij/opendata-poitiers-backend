@@ -19,16 +19,16 @@ public abstract class ElasticUtils {
     private ElasticUtils() {}
     private static final Logger LOGGER = LoggerFactory.getLogger(ElasticUtils.class);
 
-    public static RuntimeJestClient createClient(String esURL) {
+    public static RuntimeJestClient createClient() {
         JestClientFactory factory = new JestClientFactory();
-        factory.setHttpClientConfig(new HttpClientConfig.Builder(esURL)
+        factory.setHttpClientConfig(new HttpClientConfig.Builder(getElasticSearchURL())
                 .multiThreaded(true)
                 .build());
         return new RuntimeJestClientAdapter(factory.getObject());
     }
 
     public static void createIndexIfNotExists(String indexName, String esURL) {
-        try (RuntimeJestClient client = createClient(esURL)) {
+        try (RuntimeJestClient client = createClient()) {
             IndicesExists indicesExists = new IndicesExists.Builder(indexName).build();
             JestResult indexExistsResult = client.execute(indicesExists);
             boolean found = indexExistsResult.getJsonObject().getAsJsonPrimitive("found").getAsBoolean();
@@ -48,9 +48,9 @@ public abstract class ElasticUtils {
     }
 
     public static void createMapping(String indexName, String type, String mappingFilePath, String esURL) {
-        try (RuntimeJestClient client = createClient(esURL)) {
-      //      DeleteMapping deleteMapping = new DeleteMapping.Builder(indexName, type).build();
-        //    client.execute(deleteMapping);
+        try (RuntimeJestClient client = createClient()) {
+            DeleteMapping deleteMapping = new DeleteMapping.Builder(indexName, type).build();
+            client.execute(deleteMapping);
 
             String mappingFile;
             try {

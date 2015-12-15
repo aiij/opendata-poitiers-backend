@@ -1,43 +1,34 @@
 var OpenDataPoitiersIndex = (function () {
-    var routes = [
-       {verb: "GET",route: "/bike-shelters/all",testRoute: "/bike-shelters/all",description: "get all shelters"},
-       {verb: "GET",route: "/bike-shelters/find?lat=:lat&lon=:lon&size=:size",testRoute: "/bike-shelters/find?lat=46.578636&lon=0.337959",description: "search closest shelters from lat/lon point, size is optional"},
-       {verb: "GET",route: "/disabled-parkings/all",testRoute: "/disabled-parkings/all",description: "get all disabled parkings"},
-       {verb: "GET",route: "/disabled-parkings/find?lat=:lat&lon=:lon&size=:size",testRoute: "/disabled-parkings/find?lat=46.578636&lon=0.337959",description: "search closest disabled parkings from lat/lon point, size is optional"},
-       {verb: "GET",route: "/glass-container/all",testRoute: "/glass-container/all",description: "get all glass containers"},
-       {verb: "GET",route: "/glass-container/find?lat=:lat&lon=:lon&size=:size",testRoute: "/glass-container/find?lat=46.578636&lon=0.337959",description: "search closest glass container from lat/lon point, size is optional"},
-       {verb: "GET",route: "/defibrillators/all",testRoute: "/defibrillators/all",description: "get all defibrillators"},
-       {verb: "GET",route: "/defibrillators/find?lat=:lat&lon=:lon&size=:size",testRoute: "/glass-container/find?lat=46.578636&lon=0.337959",description: "search closest defibrillators from lat/lon point, size is optional"}
-    ];
-
     var module = {};
     var labelOK = "<span class='label label-success'>OK</span>";
     var labelKO = "<span class='label label-danger'>KO</span>";
 
-    module.buttonSubscription = function(){
-        routes.forEach(function(route, index){
-            console.log(route);
-            $("#route-table tbody").append(
-                "<tr>" +
-                    "<td>"+route.verb+"</td>" +
-                    "<td><a href='"+route.testRoute+"'>"+route.route+"</a></td>" +
-                    "<td>"+route.description+"</td>" +
-                    "<td id='route-table"+index+"'><span class='glyphicon glyphicon-refresh glyphicon-refresh-animate'></span></td>"+
-                "</tr>"
-            );
+    module.buttonSubscription = function () {
+        Settings.getRemoteSettings(function (settings) {
+            var routes = settings.routes;
+            routes.forEach(function (route, index) {
+                $("#routes-table tbody").append(
+                    '<tr>' +
+                        '<td>' + route.verb + '</td>' +
+                        '<td><a href="' + route.testRoute + '">' + route.route + '</a></td>' +
+                        '<td>' + route.description + '</td>' +
+                        '<td id="route-table' + index + '"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></td>' +
+                    '</tr>'
+                );
 
-            $.ajax({
-                url: route.testRoute,
-                dataType: 'json',
-                success : function(data){
-                    $("#route-table"+index+ " span").replaceWith(labelOK);
-                },
-                error : function(data){
-                    $("#route-table"+index+ " span").replaceWith(labelKO);
-                }
+                $.ajax({
+                    url: route.testRoute,
+                    dataType: 'json',
+                    success: function (data) {
+                        $("#route-table" + index + " span").replaceWith(labelOK);
+                    },
+                    error: function (data) {
+                        $("#route-table" + index + " span").replaceWith(labelKO);
+                    }
+                });
+
             });
-
-        });
+        })
 
     }
 

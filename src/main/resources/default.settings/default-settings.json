@@ -1,0 +1,95 @@
+{
+  "dashboardURL": "http://open-data-poitiers-kibana.herokuapp.com/#/dashboard/open-data-poitiers?embed&_g=()&_a=(filters:!(),panels:!((col:1,id:shelters-map,row:1,size_x:7,size_y:5,type:visualization),(col:8,id:capacity-chart,row:3,size_x:5,size_y:3,type:visualization),(col:8,id:capacity-bar-chart,row:1,size_x:5,size_y:2,type:visualization)),query:(query_string:(analyze_wildcard:!t,query:'*')),title:open-data-poitiers)",
+  "routes": [
+    {
+      "verb": "GET",
+      "route": "/bike-shelters/all",
+      "testRoute": "/bike-shelters/all",
+      "description": "get all shelters"
+    },
+    {
+      "verb": "GET",
+      "route": "/bike-shelters/find?lat=:lat&lon=:lon&size=:size",
+      "testRoute": "/bike-shelters/find?lat=46.578636&lon=0.337959",
+      "description": "search closest shelters from lat/lon point, size is optional"
+    },
+    {
+      "verb": "GET",
+      "route": "/api/v2/bike-shelters/all",
+      "testRoute": "/api/v2/bike-shelters/all",
+      "description": "get all shelters"
+    },
+    {
+      "verb": "GET",
+      "route": "/api/v2/bike-shelters/find?lat=:lat&lon=:lon&size=:size",
+      "testRoute": "/api/v2/bike-shelters/find?lat=46.578636&lon=0.337959",
+      "description": "search closest shelters from lat/lon point, size is optional"
+    },
+    {
+      "verb": "GET",
+      "route": "/api/v2/disabled-parkings/all",
+      "testRoute": "/api/v2/disabled-parkings/all",
+      "description": "get all disabled parkings"
+    },
+    {
+      "verb": "GET",
+      "route": "/api/v2/disabled-parkings/find?lat=:lat&lon=:lon&size=:size",
+      "testRoute": "/api/v2/disabled-parkings/find?lat=46.578636&lon=0.337959",
+      "description": "search closest disabled parkings from lat/lon point, size is optional"
+    },
+    {
+      "verb": "GET",
+      "route": "/api/v2/glass-containers/all",
+      "testRoute": "/api/v2/glass-containers/all",
+      "description": "get all glass containers"
+    },
+    {
+      "verb": "GET",
+      "route": "/api/v2/glass-containers/find?lat=:lat&lon=:lon&size=:size",
+      "testRoute": "/api/v2/glass-containers/find?lat=46.578636&lon=0.337959",
+      "description": "search closest glass container from lat/lon point, size is optional"
+    },
+    {
+      "verb": "GET",
+      "route": "/api/v2/defibrillators/all",
+      "testRoute": "/api/v2/defibrillators/all",
+      "description": "get all defibrillators"
+    },
+    {
+      "verb": "GET",
+      "route": "/api/v2/defibrillators/find?lat=:lat&lon=:lon&size=:size",
+      "testRoute": "/api/v2/defibrillators/find?lat=46.578636&lon=0.337959",
+      "description": "search closest defibrillators from lat/lon point, size is optional"
+    }
+  ],
+  "sources": {
+    "bike-shelters": {
+      "reloadDataURL": "/admin/reload/bike-shelters",
+      "openDataFileURL": "https://inspire.data.gouv.fr/api/geogw/services/556c5d51330f1fcd48335c41/feature-types/Geoportail_WMS_Preview:Abris_Appuis_velos/download?format=GeoJSON&projection=WGS84",
+      "reloadJobClass": "com.serli.open.data.poitiers.jobs.importer.ImportBikeSheltersDataJob",
+      "mappingClass": "com.serli.open.data.poitiers.api.v2.model.Shelter",
+      "mappingFilePath": "/elasticsearch/mappings/bike-shelters.json"
+    },
+    "disabled-parkings": {
+      "reloadDataURL": "/admin/reload/disabled-parkings",
+      "openDataFileURL": "https://inspire.data.gouv.fr/api/geogw/services/556c5d51330f1fcd48335c41/feature-types/Geoportail_WMS_Preview:GIG_GIC/download?format=GeoJSON&projection=WGS84",
+      "reloadJobClass": "com.serli.open.data.poitiers.jobs.importer.ImportDisabledParkingsDataJob",
+      "mappingClass": "com.serli.open.data.poitiers.api.v2.model.DisabledParking",
+      "mappingFilePath": "/elasticsearch/mappings/disabled-parkings.json"
+    },
+    "glass-containers": {
+      "reloadDataURL": "/admin/reload/glass-containers",
+      "openDataFileURL": "https://inspire.data.gouv.fr/api/geogw/services/556c5d51330f1fcd48335c41/feature-types/Geoportail_WMS_Preview:Bornes_a_verre/download?format=GeoJSON&projection=WGS84",
+      "reloadJobClass": "com.serli.open.data.poitiers.jobs.importer.ImportGlassContainerDataJob",
+      "mappingClass": "com.serli.open.data.poitiers.api.v2.model.GlassContainer",
+      "mappingFilePath": "/elasticsearch/mappings/glass-containers.json"
+    },
+    "defibrillators": {
+      "reloadDataURL": "/admin/reload/defibrillators",
+      "openDataFileURL": "https://inspire.data.gouv.fr/api/geogw/services/556c5d51330f1fcd48335c41/feature-types/Geoportail_WMS_Preview:Defibrilateurs/download?format=GeoJSON&projection=WGS84",
+      "reloadJobClass": "com.serli.open.data.poitiers.jobs.importer.ImportDefibrillatorsDataJob",
+      "mappingClass": "com.serli.open.data.poitiers.api.v2.model.Defibrillator",
+      "mappingFilePath": "/elasticsearch/mappings/defibrillators.json"
+    }
+  }
+}
