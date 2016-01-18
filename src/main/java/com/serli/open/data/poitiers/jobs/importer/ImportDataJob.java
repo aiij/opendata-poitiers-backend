@@ -28,6 +28,7 @@ import static com.serli.open.data.poitiers.elasticsearch.ElasticUtils.createInde
 import static com.serli.open.data.poitiers.elasticsearch.ElasticUtils.createMapping;
 import static com.serli.open.data.poitiers.elasticsearch.ElasticUtils.getElasticSearchURL;
 import static com.serli.open.data.poitiers.repository.OpenDataRepository.*;
+import java.util.Map;
 
 /**
  * Created by chris on 13/11/15.
@@ -59,10 +60,11 @@ public abstract class ImportDataJob<T> implements Job {
 
     @Override
     public void run() {
-        createIndexAndLoad();
+       createIndexAndLoad();
     }
 
     public void createIndexAndLoad(){
+ 
         createIndexIfNotExists(OPEN_DATA_POITIERS_INDEX, getElasticSearchURL());
 
         Settings settings = SettingsRepository.INSTANCE.getAllSettings();
@@ -70,9 +72,8 @@ public abstract class ImportDataJob<T> implements Job {
         if(dataSource == null){
             throw new RuntimeException("DataSource is not in settings : " + getElasticType());
         }
-
+        
         createMapping(OPEN_DATA_POITIERS_INDEX, getElasticType(), dataSource.mappingFilePath, getElasticSearchURL());
-
         try {
             InputStream requestInputStream = Request.Get(dataSource.openDataFileURL).execute().returnContent().asStream();
             File tempFile = File.createTempFile("open-data-poitiers", "txt");
@@ -83,7 +84,7 @@ public abstract class ImportDataJob<T> implements Job {
 
             InputStream inputData = Files.newInputStream(tempFile.toPath());
             ObjectMapper objectMapper = new ObjectMapper();
-
+            //Mapping the jsonFile on the DataJsonObject
             T elementFromFile = objectMapper.readValue(inputData, getParametrizedType());
             indexRootElement(elementFromFile);
         } catch (IOException e) {
