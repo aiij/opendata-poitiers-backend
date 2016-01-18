@@ -3,18 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.serli.open.data.poitiers.jobs.importer.parsing.glass.container;
+package com.serli.open.data.poitiers.jobs.importer.parsing.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Map;
 
 /**
  *
- * @author dupar_000
+ * @author Julien L
  */
-public class FullGlassContainerJsonFile {
+public class FullDataJsonFile {
     public String type;
     public Map<String,Object> crs;
     @JsonProperty("features")
-    public GlassContainerJsonObject[] GlassContainer;
+    public DataJsonObject[] data;
 }

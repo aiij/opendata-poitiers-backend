@@ -15,11 +15,13 @@ import java.util.List;
 public class APIEndPoint {
     @Get(":type/all")
     public List<?> getAll(String type) {
+        OpenDataRepository.ELASTIC_TYPE = type;
         return OpenDataRepository.INSTANCE.getAll(type);
     }
 
     @Get(":type/find?lat=:lat&lon=:lon&size=:size")
     public List<GeolocResult<?>> find(String type, double lat, double lon, int size) {
+        OpenDataRepository.ELASTIC_TYPE = type;
         return OpenDataRepository.INSTANCE.find(lat, lon, size, type);
     }
 }
