@@ -7,6 +7,7 @@ import java.lang.reflect.Type;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
+import java.util.Arrays;
 
 /**
  * Created by chriswoodrow on 24/11/2015.

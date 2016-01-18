@@ -1,13 +1,7 @@
 package com.serli.open.data.poitiers.elasticsearch;
 
-import com.serli.open.data.poitiers.jobs.JobRunner;
-import com.serli.open.data.poitiers.jobs.importer.ImportBikeSheltersDataJob;
-import com.serli.open.data.poitiers.jobs.importer.ImportDisabledParkingsDataJob;
 
-import com.serli.open.data.poitiers.jobs.importer.ImportGlassContainerDataJob;
-
-import com.serli.open.data.poitiers.jobs.importer.ImportDefibrillatorsDataJob;
-
+import com.serli.open.data.poitiers.api.v2.model.settings.DataSource;
 import com.serli.open.data.poitiers.jobs.settings.ReloadDefaultSettings;
 import org.apache.commons.io.FileUtils;
 import org.elasticsearch.common.settings.ImmutableSettings;
@@ -23,6 +17,10 @@ import java.nio.file.Paths;
 import java.util.UUID;
 
 import static com.serli.open.data.poitiers.jobs.JobRunner.run;
+import com.serli.open.data.poitiers.jobs.importer.ImportAllDataJob;
+import com.serli.open.data.poitiers.repository.SettingsRepository;
+import java.util.Map.Entry;
+//import com.serli.open.data.poitiers.jobs.importer.ImportAnyDataJob;
 
 /**
  * Embedded ES node for dev purpose, <b>Do not use in production, data will be lost</b>. Data is stored in temp directory : <b>tmp/es-local-data</b>.
@@ -56,10 +54,15 @@ public class DeveloppementESNode {
         node.start();
         // loading settings
         run(ReloadDefaultSettings.class);
-        // importing Data
-        run(ImportBikeSheltersDataJob.class);
-        run(ImportDisabledParkingsDataJob.class);
-        run(ImportGlassContainerDataJob.class);
-        run(ImportDefibrillatorsDataJob.class);
+        // importing data
+        ImportAllDataJob.elasticType = "defibrillators";
+        ImportAllDataJob.filename = "conf/defibrillator.properties";
+        run(ImportAllDataJob.class);
+        /*for (Entry<String, DataSource> entry : SettingsRepository.INSTANCE.getAllSettings().sources.entrySet())
+        {
+            ImportAllDataJob.elasticType = entry.getKey();
+            ImportAllDataJob.filename = entry.getValue().configFile;
+            run(ImportAllDataJob.class);
+        }*/
     }
 }

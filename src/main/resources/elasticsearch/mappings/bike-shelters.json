@@ -1,17 +1,21 @@
 {
-  "bike-shelters": {
-    "properties": {
-      "type": {
-        "type": "string",
-        "index": "not_analyzed"
-      },
-      "address": {
-        "type": "string",
-        "index": "not_analyzed"
-      },
-      "location": {
-        "type": "geo_point"
-      }
+    "bike-shelters": {
+        "properties": {  
+            "data": {
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "index": "not_analyzed"
+                    },
+                    "address": {
+                        "type": "string",
+                        "index": "not_analyzed"
+                    },
+                    "location": {
+                        "type": "geo_point"
+                    }
+                }
+            }
+        }
     }
-  }
 }
