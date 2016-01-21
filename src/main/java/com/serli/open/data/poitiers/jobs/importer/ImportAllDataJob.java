@@ -19,6 +19,7 @@ import io.searchbox.core.Bulk;
 import io.searchbox.core.Index;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 import static org.apache.commons.lang3.StringUtils.capitalize;
 import static org.apache.commons.lang3.StringUtils.lowerCase;
@@ -45,7 +46,7 @@ public class ImportAllDataJob extends ImportDataJob<FullDataJsonFile> {
 
         Arrays.stream(jsonDataFromFiles)
                 .forEach(jsonFromFile -> bulk.addAction(getAction(jsonFromFile)));
-
+        
         ElasticUtils.createClient().execute(bulk.build());
     }
 
@@ -71,16 +72,13 @@ public class ImportAllDataJob extends ImportDataJob<FullDataJsonFile> {
                 //Adding of others properties
                 else {
                     final Object property = jsonDataFromFile.properties.get(value);
-                    if(property != null) {
-                        mappingClass.data.put(key, property);
-                    } else {
-                        mappingClass.data.put(key, "null");
-                    }
+                    mappingClass.data.put(key, property);
                 }
             }
         }
+        
+        return new Index.Builder(mappingClass.data).build();
 
-        return new Index.Builder(mappingClass).build();
     }
 
     @Override
