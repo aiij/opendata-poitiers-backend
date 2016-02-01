@@ -119,32 +119,32 @@ public class OpenDataRepository extends ElasticSearchRepository {
         return getAll(clazz, type);
     }
 
-    private <T> List<T> getAll(Class<T> clazz, String elasticType) {         
-        String query = "{\n" +
-                "   \"query\": {\n" +
-                "       \"match_all\": {}\n" +
-                "   },\n" +
-                "   \"size\": " + Integer.MAX_VALUE + "\n" +
-                "}";
-        
-        //SearchResult searchResult = performSearchOnType(query, elasticType);
-        
-        /*return StreamSupport.stream(
-                Spliterators.spliteratorUnknownSize(searchResult.getHits(clazz).iterator(), Spliterator.ORDERED),
-                false).map(hitResult -> hitResult.source).collect(Collectors.toList());*/
-        
-        SearchResult searchResult = performSearchOnType(query, elasticType);
-        
-        JsonObject jsonObject = searchResult.getJsonObject();
-        JsonArray jsonHits = jsonObject.get("hits").getAsJsonObject().get("hits").getAsJsonArray();
+        private <T> List<T> getAll(Class<T> clazz, String elasticType) {         
+                        String query = "{\n" +
+                                "   \"query\": {\n" +
+                                "       \"match_all\": {}\n" +
+                                "   },\n" +
+                                "   \"size\": " + Integer.MAX_VALUE + "\n" +
+                                "}";
 
-        Gson gson = new Gson();
+                        //SearchResult searchResult = performSearchOnType(query, elasticType);
 
-        return StreamSupport.stream(jsonHits.spliterator(), false).map(jsonElement -> {
-                T result = gson.fromJson(jsonElement.getAsJsonObject().get("_source").getAsJsonObject(), clazz);
-                return result;
-        }).collect(Collectors.toList());
-    }
+                        /*return StreamSupport.stream(
+                                Spliterators.spliteratorUnknownSize(searchResult.getHits(clazz).iterator(), Spliterator.ORDERED),
+                                false).map(hitResult -> hitResult.source).collect(Collectors.toList());*/
+
+                        SearchResult searchResult = performSearchOnType(query, elasticType);
+                        System.out.println(elasticType);
+                        JsonObject jsonObject = searchResult.getJsonObject();
+                        JsonArray jsonHits = jsonObject.get("hits").getAsJsonObject().get("hits").getAsJsonArray();
+            System.out.println(jsonHits.size());
+            Gson gson = new Gson();
+
+            return StreamSupport.stream(jsonHits.spliterator(), false).map(jsonElement -> {
+                    T result = gson.fromJson(jsonElement.getAsJsonObject().get("_source").getAsJsonObject(), clazz);
+                    return result;
+            }).collect(Collectors.toList());
+        }
 
 
     /*private void reloadClassTypeCache(){

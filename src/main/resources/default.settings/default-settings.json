@@ -72,6 +72,17 @@
       "route": "/api/v2/textile-spot/find?lat=:lat&lon=:lon&size=:size",
       "testRoute": "/api/v2/textile-spot/find?lat=46.578636&lon=0.337959",
       "description": "search closest textile-spot from lat/lon point, size is optional"
+    },{
+      "verb": "GET",
+      "route": "/api/v2/test-ES/all",
+      "testRoute": "/api/v2/test-ES/all",
+      "description": "get all test-ES"
+    },
+    {
+      "verb": "GET",
+      "route": "/api/v2/test-ES/find?lat=:lat&lon=:lon&size=:size",
+      "testRoute": "/api/v2/test-ES/find?lat=46.578636&lon=0.337959",
+      "description": "search closest textile-spot from lat/lon point, size is optional"
     }
   ],
   "sources": {
@@ -104,6 +115,12 @@
       "openDataFileURL": "https://inspire.data.gouv.fr/api/geogw/services/55895dbcc9e5599995f36029/feature-types/Geoportail_WMS_Preview_2:Bornes_textiles/download?format=GeoJSON&projection=WGS84",
       "mappingFilePath": "/elasticsearch/mappings/textile-spot.json",
       "configFile": "conf/textile-spot.properties"
+    },
+    "test-ES": {
+      "reloadDataURL": "/admin/reload/test-ES",
+      "openDataFileURL": "/test-ES.json",
+      "mappingFilePath": "/elasticsearch/mappings/test-ES.json",
+      "configFile": "conf/test-ES.properties"
     }
   }
 }

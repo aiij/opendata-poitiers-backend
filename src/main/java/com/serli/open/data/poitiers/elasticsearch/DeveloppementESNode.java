@@ -55,9 +55,13 @@ public class DeveloppementESNode {
         // loading settings
         run(ReloadDefaultSettings.class);
         // importing data
-        ImportAllDataJob.elasticType = "defibrillators";
-        ImportAllDataJob.filename = "conf/defibrillator.properties";
-        run(ImportAllDataJob.class);
+        // ImportAllDataJob.elasticType = "defibrillators";
+       // ImportAllDataJob.filename = "conf/defibrillator.properties";
+       // run(ImportAllDataJob.class);
+            ImportAllDataJob.elasticType = "test-ES";
+            ImportAllDataJob.filename = "conf/test-ES.properties";
+            run(ImportAllDataJob.class);
+        node.close();
         /*for (Entry<String, DataSource> entry : SettingsRepository.INSTANCE.getAllSettings().sources.entrySet())
         {
             ImportAllDataJob.elasticType = entry.getKey();

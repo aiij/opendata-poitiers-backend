@@ -8,7 +8,7 @@ import com.serli.open.data.poitiers.elasticsearch.RuntimeJestClient;
  */
 public abstract class ElasticSearchRepository {
     public static final String OPEN_DATA_POITIERS_INDEX = "open-data-poitiers";
-    protected final RuntimeJestClient client;
+    protected final RuntimeJestClient client ;
 
     public ElasticSearchRepository() {
         client = ElasticUtils.createClient();
