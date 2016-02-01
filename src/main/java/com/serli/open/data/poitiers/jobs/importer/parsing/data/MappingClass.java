@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Properties;
 
@@ -45,7 +46,7 @@ public class MappingClass {
             Enumeration<?> e = prop.propertyNames();
             while (e.hasMoreElements()) {
                     String key = (String) e.nextElement();
-                    String value = prop.getProperty(key);
+                    Object value = prop.getProperty(key);
                     this.data.put(key, value);
             }
         } catch (IOException ex) {
@@ -59,6 +60,9 @@ public class MappingClass {
                 }
             }
         }
+    }
+
+    public MappingClass() {
     }
     
 }

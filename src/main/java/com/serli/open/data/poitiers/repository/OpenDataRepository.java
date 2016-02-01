@@ -1,13 +1,9 @@
 package com.serli.open.data.poitiers.repository;
 
-import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.serli.open.data.poitiers.api.v2.model.GeolocResult;
-import com.serli.open.data.poitiers.api.v2.model.settings.DataSource;
-import com.serli.open.data.poitiers.api.v2.model.settings.Settings;
 import com.serli.open.data.poitiers.jobs.importer.parsing.data.MappingClass;
 import io.searchbox.core.Index;
 import io.searchbox.core.Search;
@@ -30,8 +26,8 @@ public class OpenDataRepository extends ElasticSearchRepository {
     public static final OpenDataRepository INSTANCE = new OpenDataRepository();
     
     public static String ELASTIC_TYPE = "";
-    public static Class MAPPING_CLASS = MappingClass.class;
-
+    public static Class MAPPING_CLASS = Map.class;
+    
     //public final BiMap<Class<?>, String> classToTypeCache = HashBiMap.create();
 
     private void index(Object object, String type) {
@@ -39,7 +35,7 @@ public class OpenDataRepository extends ElasticSearchRepository {
                 .index(OPEN_DATA_POITIERS_INDEX)
                 .type(type)
                 .build();
-        client.execute(index);
+        client.execute(index);        
     }
 
     public void index(Object object) {
@@ -64,14 +60,14 @@ public class OpenDataRepository extends ElasticSearchRepository {
         if (size == 0) {
             size = 10;
         }
-
+        
         String query = "{\n" +
                 "  \"query\": {\n" +
                 "    \"filtered\" : {\n" +
                 "        \"filter\" : {\n" +
                 "            \"geo_distance\" : {\n" +
                 "                \"distance\" : \"200km\",\n" +
-                "                \"data.location\" : {\n" +
+                "                \"location\" : {\n" +
                 "                    \"lat\" : " + lat + ",\n" +
                 "                    \"lon\" : " + lon + "\n" +
                 "                }\n" +
@@ -83,7 +79,7 @@ public class OpenDataRepository extends ElasticSearchRepository {
                 "  \"sort\": [\n" +
                 "    {\n" +
                 "      \"_geo_distance\": {\n" +
-                "        \"data.location\": { \n" +
+                "        \"location\": { \n" +
                 "            \"lat\" : " + lat + ",\n" +
                 "            \"lon\" : " + lon + "\n" +
                 "        },\n" +
@@ -123,19 +119,32 @@ public class OpenDataRepository extends ElasticSearchRepository {
         return getAll(clazz, type);
     }
 
-    private <T> List<T> getAll(Class<T> clazz, String elasticType) {
-        String query = "{\n" +
-                "   \"query\": {\n" +
-                "      \"match_all\": {}\n" +
-                "   },\n" +
-                "   \"size\": " + Integer.MAX_VALUE + "\n" +
-                "}";
-        SearchResult searchResult = performSearchOnType(query, elasticType);
+        private <T> List<T> getAll(Class<T> clazz, String elasticType) {         
+                        String query = "{\n" +
+                                "   \"query\": {\n" +
+                                "       \"match_all\": {}\n" +
+                                "   },\n" +
+                                "   \"size\": " + Integer.MAX_VALUE + "\n" +
+                                "}";
 
-        return StreamSupport.stream(
-                Spliterators.spliteratorUnknownSize(searchResult.getHits(clazz).iterator(), Spliterator.ORDERED),
-                false).map(hitResult -> hitResult.source).collect(Collectors.toList());
-    }
+                        //SearchResult searchResult = performSearchOnType(query, elasticType);
+
+                        /*return StreamSupport.stream(
+                                Spliterators.spliteratorUnknownSize(searchResult.getHits(clazz).iterator(), Spliterator.ORDERED),
+                                false).map(hitResult -> hitResult.source).collect(Collectors.toList());*/
+
+                        SearchResult searchResult = performSearchOnType(query, elasticType);
+                        System.out.println(elasticType);
+                        JsonObject jsonObject = searchResult.getJsonObject();
+                        JsonArray jsonHits = jsonObject.get("hits").getAsJsonObject().get("hits").getAsJsonArray();
+            System.out.println(jsonHits.size());
+            Gson gson = new Gson();
+
+            return StreamSupport.stream(jsonHits.spliterator(), false).map(jsonElement -> {
+                    T result = gson.fromJson(jsonElement.getAsJsonObject().get("_source").getAsJsonObject(), clazz);
+                    return result;
+            }).collect(Collectors.toList());
+        }
 
 
     /*private void reloadClassTypeCache(){

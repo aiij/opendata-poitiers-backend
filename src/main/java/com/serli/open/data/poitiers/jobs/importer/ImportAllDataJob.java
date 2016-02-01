@@ -6,6 +6,7 @@
 package com.serli.open.data.poitiers.jobs.importer;
 
 import com.serli.open.data.poitiers.elasticsearch.ElasticUtils;
+import com.serli.open.data.poitiers.elasticsearch.RuntimeJestClient;
 import com.serli.open.data.poitiers.geolocation.Address;
 import com.serli.open.data.poitiers.geolocation.GeolocationAPIClient;
 import com.serli.open.data.poitiers.geolocation.LatLon;
@@ -19,6 +20,7 @@ import io.searchbox.core.Bulk;
 import io.searchbox.core.Index;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 import static org.apache.commons.lang3.StringUtils.capitalize;
 import static org.apache.commons.lang3.StringUtils.lowerCase;
@@ -39,21 +41,24 @@ public class ImportAllDataJob extends ImportDataJob<FullDataJsonFile> {
     
     @Override
     protected void indexRootElement(FullDataJsonFile fullDataJsonFile) {
+        
         DataJsonObject[] jsonDataFromFiles = fullDataJsonFile.data;
-
+System.out.println("index root 1");
         Bulk.Builder bulk = new Bulk.Builder().defaultIndex(OPEN_DATA_POITIERS_INDEX).defaultType(getElasticType());
-
+System.out.println("index root2");
         Arrays.stream(jsonDataFromFiles)
                 .forEach(jsonFromFile -> bulk.addAction(getAction(jsonFromFile)));
-
-        ElasticUtils.createClient().execute(bulk.build());
+        RuntimeJestClient jc = ElasticUtils.createClient();
+        jc.execute(bulk.build());
+        
+        
     }
 
     private Index getAction(DataJsonObject jsonDataFromFile) {
         
         String path = getFilename();
         MappingClass mappingClass = new MappingClass(path);
-        
+       
         for(Map.Entry<String, Object> entry : mappingClass.data.entrySet()) {
             String key = entry.getKey();
             Object value = entry.getValue();
@@ -71,16 +76,18 @@ public class ImportAllDataJob extends ImportDataJob<FullDataJsonFile> {
                 //Adding of others properties
                 else {
                     final Object property = jsonDataFromFile.properties.get(value);
-                    if(property != null) {
-                        mappingClass.data.put(key, property);
-                    } else {
-                        mappingClass.data.put(key, "null");
-                    }
+                    mappingClass.data.put(key, property);
                 }
             }
+            
         }
+          for(Map.Entry<String, Object> entry : mappingClass.data.entrySet()) {
+            String key = entry.getKey();
+            Object value = entry.getValue();
+            System.out.println(key+" -> "+value);
+          }
+        return new Index.Builder(mappingClass.data).build();
 
-        return new Index.Builder(mappingClass).build();
     }
 
     @Override

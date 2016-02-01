@@ -1,5 +1,7 @@
 package com.serli.open.data.poitiers.jobs.importer;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.serli.open.data.poitiers.api.v2.model.settings.DataSource;
 import com.serli.open.data.poitiers.api.v2.model.settings.Settings;
@@ -75,18 +77,30 @@ public abstract class ImportDataJob<T> implements Job {
         
         createMapping(OPEN_DATA_POITIERS_INDEX, getElasticType(), dataSource.mappingFilePath, getElasticSearchURL());
         try {
-            InputStream requestInputStream = Request.Get(dataSource.openDataFileURL).execute().returnContent().asStream();
+            InputStream requestInputStream;
+           
+            if(dataSource.openDataFileURL.equals("/test-ES.json")){
+              
+                requestInputStream = ImportDataJob.class.getResourceAsStream(dataSource.openDataFileURL);
+            }else
+                requestInputStream = Request.Get(dataSource.openDataFileURL).execute().returnContent().asStream();
             File tempFile = File.createTempFile("open-data-poitiers", "txt");
             try(FileOutputStream tempFileOutputStream = new FileOutputStream(tempFile)){
                 IOUtils.copy(requestInputStream, tempFileOutputStream);
             }
-            tempFile.deleteOnExit();
-
+            tempFile.deleteOnExit();System.out.println(tempFile.toPath());
             InputStream inputData = Files.newInputStream(tempFile.toPath());
             ObjectMapper objectMapper = new ObjectMapper();
-            //Mapping the jsonFile on the DataJsonObject
-            T elementFromFile = objectMapper.readValue(inputData, getParametrizedType());
-            indexRootElement(elementFromFile);
+          
+            try {
+                 T elementFromFile = objectMapper.readValue(inputData, getParametrizedType());
+                  indexRootElement(elementFromFile);
+            } catch(Exception j) {
+                System.out.println("exep "+ j.toString());
+            }
+           
+            
+           
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
