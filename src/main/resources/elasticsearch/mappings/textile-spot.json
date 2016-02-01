@@ -1,25 +1,29 @@
 {
-    "textile-spot": { 
-        "properties": {  
-            "data": {
-                "properties": {
-                    "type": {
-                      "type": "string",
-                      "index": "not_analyzed"
-                    },
-                    "structureName": {
-                      "type": "string",
-                      "index": "not_analyzed"
-                    },
-                    "address": {
-                       "type": "string",
-                       "index": "not_analyzed"
-                    },
-                    "location": {
-                      "type": "geo_point"
-                    }
-                }
-            }
-        }
-    }
-}
+   "textile-spot" : {
+       "properties" : {
+          "identifier" : { 
+               "type" : "string", 
+               "index" : "not_analyzed" 
+           }, 
+          "structureName" : { 
+               "type" : "string", 
+               "index" : "not_analyzed" 
+           }, 
+          "phoneNumber" : { 
+               "type" : "string", 
+               "index" : "not_analyzed" 
+           }, 
+          "type" : { 
+               "type" : "string", 
+               "index" : "not_analyzed" 
+           }, 
+          "address" : { 
+               "type" : "string", 
+               "index" : "not_analyzed" 
+           }, 
+          "location" : { 
+               "type" : "geo_point"
+           } 
+       } 
+   } 
+} 

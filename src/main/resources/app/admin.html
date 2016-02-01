@@ -12,23 +12,82 @@ title: Open Data Poitiers - By Serli
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         Action failed
     </div>
-
-    <table class="table" id="sources-table">
-        <thead>
-                <th>Index</th>
-                <th>Action</th>
-                <th>URL</th>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
-
-    <form>
-        <div class="form-group">
-            <label for="dashboardURL">URL du dashboard:</label>
-            <textarea class="form-control" id="dashboardURL" rows="5"></textarea>
+    <div id="tabs" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+            <li>
+                <a href="#a">Data</a>
+            </li>
+            <li>
+                <a href="#b">Add Data</a>
+            </li>
+            <li>
+                <a href="#c">Dashboard</a>
+            </li>
+        </ul>
+        <div id="a">
+            <table class="table" id="sources-table">
+                <thead>
+                        <th>Index</th>
+                        <th>Action</th>
+                        <th>URL</th>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
         </div>
-        <button id="dashboardUpdateButton" type="button" class="btn btn-default">Update</button>
-    </form>
+        
+        <div id="b">
+            <form> 
+                <div class="gauche"><h4>Adding data :</h4></div>
+                <div class="droite"> 
+                    <input type="text" id="elastic-type-field" name="elastic-type" placeholder="Elastic type" style="height: 30px"/>
+                    <button class="add_field_button btn btn-default" style="margin-left: 15px">Add another field</button>
+                    <button class="remove-last-val btn btn-default" style="margin-left: 15px" type="button">Remove field</button>
+                </div>       
+            </form>
+            <form>
+                <table id="tableType" class="table" style="margin-bottom: 0px">
+                    <thead>
+                        <th>Champ Json</th>
+                        <th>Champ ES</th>
+                        <th>Mapping ES</th>
+                    </thead>
+
+                    <tbody class="input_fields_wrap">
+                        <tr>
+                            <td><input class="fields" type="text" id="champJson1" name="champJson[]" placeholder="Field in Json file"/></td>
+                            <td><input class="fields" type="text" id="champES1" name="champES[]" placeholder="Field that will be stored in ES"/></td>
+                            <td><input class="fields" type="checkbox" id="not_analyzed1" name="not_analyzed[]"/></td>
+                        </tr>
+                    </tbody> 
+                </table>
+                <div class="form-group">
+                    <span>Reverse geocoding : </span>
+                    <input type="checkbox" id="geocoding" name="geocation[]" checked="checked">
+                </div>
+                <div class="form-group">
+                    <label for="fileURL">URL du fichier : </label>
+                    <textarea class="form-control" id="fileURL" rows="2"></textarea>
+                </div>
+                <button class="add_data_button btn btn-default"  type="button">Add data</button>
+            </form> 
+        </div>
+        <div id="c">
+            <form>
+                <div class="form-group">
+                    <label for="dashboardURL">URL du dashboard:</label>
+                    <textarea class="form-control" id="dashboardURL" rows="5"></textarea>
+                </div>
+                <button id="dashboardUpdateButton" type="button" class="btn btn-default">Update</button>
+            </form>
+        </div>
+    </div>
 </div>
+
 <script src="assets/js/admin.js"></script>
+<script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
+<script>
+$('#tabs')
+    .tabs()
+    .addClass('ui-tabs-vertical ui-helper-clearfix');
+</script>

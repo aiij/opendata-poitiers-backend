@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 /**
  * Created by chris on 04/05/15.
  */
+/*
 @Prefix("bike-shelters")
 public class ShelterEndPoint {
     @Get("/all")
@@ -27,3 +28,4 @@ public class ShelterEndPoint {
                 .collect(Collectors.toList());
     }
 }
+*/

@@ -1,7 +1,7 @@
 package com.serli.open.data.poitiers;
 
 import com.serli.open.data.poitiers.api.*;
-import com.serli.open.data.poitiers.api.v1.ShelterEndPoint;
+//import com.serli.open.data.poitiers.api.v1.ShelterEndPoint;
 import com.serli.open.data.poitiers.api.v2.APIEndPoint;
 import com.serli.open.data.poitiers.elasticsearch.DeveloppementESNode;
 import com.serli.open.data.poitiers.views.DashboardEndPoint;
@@ -24,7 +24,23 @@ public class Application {
 
 
     public static void main(String[] args) throws IOException {
-      
+
+        BasicAuthFilter filter = createBasicAuthFilter();
+
+        WebServer webServer = new WebServer();
+        webServer.configure(routes -> {
+            //routes.add(new ShelterEndPoint());
+            routes.add(new AdminEndPoint());
+            routes.add(new SettingsEndPoint());
+            routes.add(new DashboardEndPoint());
+            routes.add(new APIEndPoint());
+            routes.filter(filter);
+        });
+
+        String port = getEnvOrDefault("PORT", "8080");
+        webServer.start(Integer.valueOf(port));
+
+
         startESInDevMode();
     }
 

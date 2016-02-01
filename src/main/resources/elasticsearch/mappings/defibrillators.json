@@ -16,20 +16,12 @@
       "location": {
         "type": "geo_point"
       },
-      "identifier": {
-        "type": "string",
-        "null_value" : "null"
-      }, 
       "accessCondition": {
-        "type": "string",
-        "index": "not_analyzed",
-        "null_value" : "null"
-      },
-       "addressNumber": {
-        "type": "integer"
+        "type" : "string",
+        "null_value" : "test"
       },
       "objectId" : {
-          "type" : "integer"
+        "type" : "integer"
       }
     }
   }
