@@ -13,16 +13,11 @@ import com.serli.open.data.poitiers.jobs.importer.parsing.data.DataJsonObject;
 import com.serli.open.data.poitiers.jobs.importer.parsing.data.FullDataJsonFile;
 import com.serli.open.data.poitiers.jobs.importer.parsing.data.MappingClass;
 import static com.serli.open.data.poitiers.repository.ElasticSearchRepository.OPEN_DATA_POITIERS_INDEX;
-import com.serli.open.data.poitiers.repository.OpenDataRepository;
-import static com.serli.open.data.poitiers.repository.OpenDataRepository.BIKE_SHELTERS_TYPE;
 import io.searchbox.core.Bulk;
 import io.searchbox.core.Index;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Map;
-import static org.apache.commons.lang3.StringUtils.capitalize;
-import static org.apache.commons.lang3.StringUtils.lowerCase;
 
 /**
  *
@@ -62,7 +57,7 @@ public class ImportAllDataJob extends ImportDataJob<FullDataJsonFile> {
             if("location".equals(value)) {
                     mappingClass.data.put(key, jsonDataFromFile.geometry.coordinates);
             } else {
-                //Geolocation
+                //Reverse geocoding
                 if("address".equals(value)) {   
                     double[] coordinates = jsonDataFromFile.geometry.coordinates;
                     Address add = GeolocationAPIClient.reverseGeoCode(new LatLon(coordinates[1], coordinates[0]));
