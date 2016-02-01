@@ -28,7 +28,6 @@ import static com.serli.open.data.poitiers.elasticsearch.ElasticUtils.createInde
 import static com.serli.open.data.poitiers.elasticsearch.ElasticUtils.createMapping;
 import static com.serli.open.data.poitiers.elasticsearch.ElasticUtils.getElasticSearchURL;
 import static com.serli.open.data.poitiers.repository.OpenDataRepository.*;
-import java.util.Map;
 
 /**
  * Created by chris on 13/11/15.
