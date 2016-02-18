@@ -60,33 +60,6 @@
       "route": "/api/v2/defibrillators/find?lat=:lat&lon=:lon&size=:size",
       "testRoute": "/api/v2/defibrillators/find?lat=46.578636&lon=0.337959",
       "verb": "GET"
-    },
-    {
-      "description": "get all textile-spot",
-      "route": "/api/v2/textile-spot/all",
-      "testRoute": "/api/v2/textile-spot/all",
-      "verb": "GET"
-    },
-    {
-      "description": "search closest textile-spot from lat/lon point, size is optional",
-      "route": "/api/v2/textile-spot/find?lat=:lat&lon=:lon&size=:size",
-      "testRoute": "/api/v2/textile-spot/find?lat=46.578636&lon=0.337959",
-      "verb": "GET"
-
-     
-    },{
-      "description": "get all test-ES",
-      "route": "/api/v2/test-ES/all",
-      "testRoute": "/api/v2/test-ES/all",
-       "verb": "GET"
-     
-    },
-    {
-      "verb": "GET",
-      "route": "/api/v2/test-ES/find?lat=:lat&lon=:lon&size=:size",
-      "testRoute": "/api/v2/test-ES/find?lat=46.578636&lon=0.337959",
-      "description": "search closest textile-spot from lat/lon point, size is optional"
-
     }
   ],
   "sources": {
@@ -113,21 +86,6 @@
       "mappingFilePath": "/elasticsearch/mappings/glass-containers.json",
       "openDataFileURL": "https://inspire.data.gouv.fr/api/geogw/services/556c5d51330f1fcd48335c41/feature-types/Geoportail_WMS_Preview:Bornes_a_verre/download?format=GeoJSON&projection=WGS84",
       "reloadDataURL": "/admin/reload/glass-containers"
-    },
-    "textile-spot": {
-      "configFile": "conf/textile-spot.properties",
-      "mappingFilePath": "/elasticsearch/mappings/textile-spot.json",
-      "openDataFileURL": "https://inspire.data.gouv.fr/api/geogw/services/55895dbcc9e5599995f36029/feature-types/Geoportail_WMS_Preview_2:Bornes_textiles/download?format=GeoJSON&projection=WGS84",
-      "reloadDataURL": "/admin/reload/textile-spot"
-     
-    },
-    "test-ES": {
-       "configFile": "conf/test-ES.properties",
-      "mappingFilePath": "/elasticsearch/mappings/test-ES.json",
-      "reloadDataURL": "/admin/reload/test-ES",
-      "openDataFileURL": "/test-ES.json"
-      
-  
     }
   }
 }

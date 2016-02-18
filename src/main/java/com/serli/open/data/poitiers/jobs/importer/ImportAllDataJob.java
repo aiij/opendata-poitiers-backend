@@ -5,20 +5,24 @@
  */
 package com.serli.open.data.poitiers.jobs.importer;
 
+import com.serli.open.data.poitiers.api.v2.model.settings.DataSource;
+import com.serli.open.data.poitiers.api.v2.model.settings.Settings;
 import com.serli.open.data.poitiers.elasticsearch.ElasticUtils;
-import com.serli.open.data.poitiers.elasticsearch.RuntimeJestClient;
 import com.serli.open.data.poitiers.geolocation.Address;
 import com.serli.open.data.poitiers.geolocation.GeolocationAPIClient;
 import com.serli.open.data.poitiers.geolocation.LatLon;
+import static com.serli.open.data.poitiers.jobs.JobRunner.run;
 import com.serli.open.data.poitiers.jobs.importer.parsing.data.DataJsonObject;
 import com.serli.open.data.poitiers.jobs.importer.parsing.data.FullDataJsonFile;
 import com.serli.open.data.poitiers.jobs.importer.parsing.data.MappingClass;
 import static com.serli.open.data.poitiers.repository.ElasticSearchRepository.OPEN_DATA_POITIERS_INDEX;
+import com.serli.open.data.poitiers.repository.SettingsRepository;
 import io.searchbox.core.Bulk;
 import io.searchbox.core.Index;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  *
@@ -36,24 +40,20 @@ public class ImportAllDataJob extends ImportDataJob<FullDataJsonFile> {
     
     @Override
     protected void indexRootElement(FullDataJsonFile fullDataJsonFile) {
-        
         DataJsonObject[] jsonDataFromFiles = fullDataJsonFile.data;
-System.out.println("index root 1");
+
         Bulk.Builder bulk = new Bulk.Builder().defaultIndex(OPEN_DATA_POITIERS_INDEX).defaultType(getElasticType());
-System.out.println("index root2");
+
         Arrays.stream(jsonDataFromFiles)
                 .forEach(jsonFromFile -> bulk.addAction(getAction(jsonFromFile)));
-        RuntimeJestClient jc = ElasticUtils.createClient();
-        jc.execute(bulk.build());
         
-        
+        ElasticUtils.createClient().execute(bulk.build());
     }
 
     private Index getAction(DataJsonObject jsonDataFromFile) {
         
-        String path = getFilename();
-        MappingClass mappingClass = new MappingClass(path);
-       
+        MappingClass mappingClass = new MappingClass(elasticType);
+        
         for(Map.Entry<String, Object> entry : mappingClass.data.entrySet()) {
             String key = entry.getKey();
             Object value = entry.getValue();
@@ -74,15 +74,9 @@ System.out.println("index root2");
                     mappingClass.data.put(key, property);
                 }
             }
-            
         }
-          for(Map.Entry<String, Object> entry : mappingClass.data.entrySet()) {
-            String key = entry.getKey();
-            Object value = entry.getValue();
-            System.out.println(key+" -> "+value);
-          }
+        
         return new Index.Builder(mappingClass.data).build();
-
     }
 
     @Override

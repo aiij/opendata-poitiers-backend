@@ -54,6 +54,9 @@ public class DeveloppementESNode {
         node.start();
         // loading settings
         run(ReloadDefaultSettings.class);
-     
+        
+        // importing data
+        /*ImportAllDataJob.elasticType = "textile-spot";
+        run(ImportAllDataJob.class);*/
     }
 }

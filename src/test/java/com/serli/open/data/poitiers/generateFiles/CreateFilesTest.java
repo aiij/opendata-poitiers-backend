@@ -16,12 +16,14 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import org.json.JSONException;
 import static org.junit.Assert.assertEquals;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
  *
  * @author dupar_000
  */
+@Ignore
 public class CreateFilesTest {
     
     @Test
