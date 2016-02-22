@@ -29,6 +29,11 @@ public class DeveloppementESNode {
 
     public static final String ES_LOCAL_DATA = "tmp/es-local-data";
     private static final Logger LOGGER = LoggerFactory.getLogger(DeveloppementESNode.class);
+    private static Node node ;
+    
+    public static Node getNode(){
+        return DeveloppementESNode.node;
+    }
 
     public static void createDevNode() {
         LOGGER.info("Creating dev ES node ...");
@@ -45,13 +50,14 @@ public class DeveloppementESNode {
                 .put("path.data", ES_LOCAL_DATA)
                 .build();
 
-        Node node = NodeBuilder.nodeBuilder()
+        node = NodeBuilder.nodeBuilder()
                 .local(true)
                 .data(true)
                 .clusterName("elasticSearch" + UUID.randomUUID())
                 .settings(settings)
                 .build();
         node.start();
+        
         // loading settings
         run(ReloadDefaultSettings.class);
      

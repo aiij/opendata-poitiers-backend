@@ -78,10 +78,6 @@ public abstract class ImportDataJob<T> implements Job {
        try {
             InputStream requestInputStream;
            
-            if(dataSource.openDataFileURL.equals("/test-ES.json")){
-              
-                requestInputStream = ImportDataJob.class.getResourceAsStream(dataSource.openDataFileURL);
-            }else
                 requestInputStream = Request.Get(dataSource.openDataFileURL).execute().returnContent().asStream();
             File tempFile = File.createTempFile("open-data-poitiers", "txt");
             try(FileOutputStream tempFileOutputStream = new FileOutputStream(tempFile)){
