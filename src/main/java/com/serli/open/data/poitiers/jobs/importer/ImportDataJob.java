@@ -1,5 +1,7 @@
 package com.serli.open.data.poitiers.jobs.importer;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.serli.open.data.poitiers.api.v2.model.settings.DataSource;
 import com.serli.open.data.poitiers.api.v2.model.settings.Settings;
@@ -28,7 +30,6 @@ import static com.serli.open.data.poitiers.elasticsearch.ElasticUtils.createInde
 import static com.serli.open.data.poitiers.elasticsearch.ElasticUtils.createMapping;
 import static com.serli.open.data.poitiers.elasticsearch.ElasticUtils.getElasticSearchURL;
 import static com.serli.open.data.poitiers.repository.OpenDataRepository.*;
-import java.util.Map;
 
 /**
  * Created by chris on 13/11/15.
@@ -63,7 +64,7 @@ public abstract class ImportDataJob<T> implements Job {
        createIndexAndLoad();
     }
 
-    public void createIndexAndLoad(){
+   public void createIndexAndLoad(){
  
         createIndexIfNotExists(OPEN_DATA_POITIERS_INDEX, getElasticSearchURL());
 
@@ -73,25 +74,33 @@ public abstract class ImportDataJob<T> implements Job {
             throw new RuntimeException("DataSource is not in settings : " + getElasticType());
         }
         
-        createMapping(OPEN_DATA_POITIERS_INDEX, getElasticType(), getElasticSearchURL());
-
-        try {
-            InputStream requestInputStream = Request.Get(dataSource.openDataFileURL).execute().returnContent().asStream();
+        createMapping(OPEN_DATA_POITIERS_INDEX, getElasticType(), dataSource.mappingFilePath, getElasticSearchURL());
+       try {
+            InputStream requestInputStream;
+           
+                requestInputStream = Request.Get(dataSource.openDataFileURL).execute().returnContent().asStream();
             File tempFile = File.createTempFile("open-data-poitiers", "txt");
             try(FileOutputStream tempFileOutputStream = new FileOutputStream(tempFile)){
                 IOUtils.copy(requestInputStream, tempFileOutputStream);
             }
-            tempFile.deleteOnExit();
+            tempFile.deleteOnExit();System.out.println(tempFile.toPath());
             InputStream inputData = Files.newInputStream(tempFile.toPath());
             ObjectMapper objectMapper = new ObjectMapper();
-            //Mapping the jsonFile on the DataJsonObject
-            T elementFromFile = objectMapper.readValue(inputData, getParametrizedType());
-
-            indexRootElement(elementFromFile);
+          
+            try {
+                 T elementFromFile = objectMapper.readValue(inputData, getParametrizedType());
+                  indexRootElement(elementFromFile);
+            } catch(Exception j) {
+                System.out.println("exep "+ j.toString());
+            }
+           
+            
+           
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
+  
 
     private Class<T> getParametrizedType(){
         return (Class<T>) ReflexiveUtils.getParametrizedType(getClass());

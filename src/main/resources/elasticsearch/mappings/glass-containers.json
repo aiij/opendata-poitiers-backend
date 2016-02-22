@@ -1,0 +1,25 @@
+{
+    "glass-containers": {
+        "properties": {
+            "type": {
+              "type": "string",
+              "index": "not_analyzed"
+            },
+            "collectionFrequency": {
+              "type": "string",
+              "index": "not_analyzed"
+            },
+            "address": {
+               "type": "string",
+               "index": "not_analyzed"
+            },
+            "observation": {
+               "type": "string",
+               "index": "not_analyzed"
+            },
+            "location": {
+              "type": "geo_point"
+            }
+        }
+    }
+}
