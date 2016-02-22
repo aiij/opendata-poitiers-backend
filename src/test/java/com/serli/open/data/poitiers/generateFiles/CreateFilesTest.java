@@ -56,14 +56,14 @@ public class CreateFilesTest {
                                 "       \"properties\" : {\n" +
                                 "          \"champES1\" : { \n" +
                                 "               \"type\" : \"string\", \n" +
-                                "               \"index\" : \"not-analyzed\" \n" +
+                                "               \"index\" : \"not_analyzed\" \n" +
                                 "           }, \n" +
                                 "          \"champES2\" : { \n" +
                                 "               \"type\" : \"string\", \n" +
-                                "               \"index\" : \"not-analyzed\" \n" +
+                                "               \"index\" : \"not_analyzed\" \n" +
                                 "           }, \n" +
                                 "          \"location\" : { \n" +
-                                "               \"type\" : \"geo-point\"\n" +
+                                "               \"type\" : \"geo_point\"\n" +
                                 "           } \n" +
                                 "       } \n" +
                                 "   } \n" +

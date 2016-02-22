@@ -15,7 +15,6 @@ var OpenDataPoitiersIndex = (function () {
                         '<td id="route-table' + index + '"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></td>' +
                     '</tr>'
                 );
-
                 $.ajax({
                     url: route.testRoute,
                     dataType: 'json',
@@ -26,13 +25,27 @@ var OpenDataPoitiersIndex = (function () {
                         $("#route-table" + index + " span").replaceWith(labelKO);
                     }
                 });
-
+                
             });
         })
 
+    }
+    
+    module.addListData = function () {
+        Settings.getRemoteSettings(
+            function (settings) {
+            var sources = settings.sources;
+            for (index in sources) {
+                var source = sources[index];
+                $("#list_data").append(
+                        "<li>"+index+", <a href=\""+source.openDataFileURL+"\">le fichier <b>data.gouv.fr</b></a></li>"
+                );
+            }
+        })
     }
 
     return module;
 })();
 
 OpenDataPoitiersIndex.buttonSubscription();
+OpenDataPoitiersIndex.addListData();

@@ -107,6 +107,29 @@ var OpenDataPoitiersAdmin = (function () {
             }
         );
 
+        $(".form-control").keyup(
+            function () {
+                var mess="";
+                var jqxhr = $.getJSON($("#fileURL").val(), function() {})
+                    .done(function(data) {
+                    for(var i=0; i<3; i++){
+                    var properties = data.features[i]["properties"];
+                    mess = mess+"{";
+                        for(var j in properties)
+                        {
+                             mess = mess+"\""+j+"\": \""+properties[j]+"\", ";
+                        }
+                        mess = mess + "}<br/>";
+                    }
+                    $('.msg_line').html("<label class=\"txt_msg_line\">"+mess+"</label>"); 
+                    })
+                    .fail(function() {
+                        $('.msg_line').html("<label class=\"txt_msg_line\">lien incorrect</label>"); 
+                    });
+            }
+        );
+        
+
         $(".add_data_button").click(
             function () {
                 var emptyField = false;

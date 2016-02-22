@@ -101,3 +101,36 @@ p {
     background: linear-gradient(rgba(0,0,0,.2),rgba(0,0,0,.1)); 
     box-shadow: 0 0 2px rgba(0,0,0,.3) inset;
 }
+
+.txt_msg_line{
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+    font-weight: normal;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 2px solid transparent;
+    border-radius: 8px;
+}
+
+.put_add{
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 2px solid transparent;
+    border-radius: 8px;
+}
+
+#myProgress {
+    width: 10%;
+    height: 10px;
+    position: relative;
+    background-color: grey;
+}
+#myBar {
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    background-color: green;
+} 
