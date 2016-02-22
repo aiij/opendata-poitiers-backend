@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.ListIterator;
 import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,12 +43,10 @@ public class AdminEndPoint {
             for (Entry<String, DataSource> entry : settings.sources.entrySet())
             {
                 ImportAllDataJob.elasticType = entry.getKey();
-                ImportAllDataJob.filename = entry.getValue().configFile;
                 run(ImportAllDataJob.class);
             }
         } else {
             ImportAllDataJob.elasticType = type;
-            ImportAllDataJob.filename = settings.sources.get(type).configFile;
             run(ImportAllDataJob.class);
         }
     }
@@ -64,14 +63,16 @@ public class AdminEndPoint {
     }
     
     @Put("/create-files")
-    public void addData(String monJson) throws IOException {
+    public void addData(String monJson) {
         try {
             GenerateConfigurationFiles.generateConfFile(monJson);
             GenerateConfigurationFiles.updateDefaultSettings(monJson);
-            GenerateConfigurationFiles.generateESMapping(monJson);            
-            run(ReloadDefaultSettings.class);
+            GenerateConfigurationFiles.generateESMapping(monJson);
+            
         } catch (JSONException ex) {
             Logger.getLogger(AdminEndPoint.class.getName()).log(Level.SEVERE, null, ex);
-        }     
+        } catch (IOException ex) {
+            Logger.getLogger(AdminEndPoint.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }   
 }
