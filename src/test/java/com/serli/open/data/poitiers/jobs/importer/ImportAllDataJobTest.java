@@ -35,6 +35,7 @@ import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
 import java.util.concurrent.TimeUnit;
 import org.junit.Assert;
+import org.junit.Ignore;
 
 
 
@@ -42,6 +43,7 @@ import org.junit.Assert;
  *
  * @author ibrahim DELLAL
  */
+@Ignore
 public class ImportAllDataJobTest {
     public static final String ES_LOCAL_DATA = "tmp/es-local-data";
     private static final Logger LOGGER = LoggerFactory.getLogger(DeveloppementESNode.class);
@@ -95,7 +97,6 @@ public class ImportAllDataJobTest {
         // loading settings
         run(ReloadDefaultSettings.class);
         ImportAllDataJob.elasticType = "test-ES";
-        ImportAllDataJob.filename = "conf/test-ES.properties";
         run(ImportAllDataJob.class);
 
         

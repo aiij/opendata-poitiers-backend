@@ -1,133 +1,259 @@
 {
-  "dashboardURL": "http://open-data-poitiers-kibana.herokuapp.com/#/dashboard/open-data-poitiers?embed&_g=()&_a=(filters:!(),panels:!((col:1,id:shelters-map,row:1,size_x:7,size_y:5,type:visualization),(col:8,id:capacity-chart,row:3,size_x:5,size_y:3,type:visualization),(col:8,id:capacity-bar-chart,row:1,size_x:5,size_y:2,type:visualization)),query:(query_string:(analyze_wildcard:!t,query:'*')),title:open-data-poitiers)",
-  "routes": [
+    "dashboardURL": "http://open-data-poitiers-kibana.herokuapp.com/#/dashboard/open-data-poitiers?embed&_g=()&_a=(filters:!(),panels:!((col:1,id:shelters-map,row:1,size_x:7,size_y:5,type:visualization),(col:8,id:capacity-chart,row:3,size_x:5,size_y:3,type:visualization),(col:8,id:capacity-bar-chart,row:1,size_x:5,size_y:2,type:visualization)),query:(query_string:(analyze_wildcard:!t,query:'*')),title:open-data-poitiers)",
+    "routes": [
     {
-      "description": "get all shelters",
-      "route": "/bike-shelters/all",
-      "testRoute": "/bike-shelters/all",
-      "verb": "GET"
+        "verb": "GET",
+        "route": "/bike-shelters/all",
+        "testRoute": "/bike-shelters/all",
+        "description": "get all shelters"
     },
     {
-      "description": "search closest shelters from lat/lon point, size is optional",
-      "route": "/bike-shelters/find?lat=:lat&lon=:lon&size=:size",
-      "testRoute": "/bike-shelters/find?lat=46.578636&lon=0.337959",
-      "verb": "GET"
+        "verb": "GET",
+        "route": "/bike-shelters/find?lat=:lat&lon=:lon&size=:size",
+        "testRoute": "/bike-shelters/find?lat=46.578636&lon=0.337959",
+        "description": "search closest shelters from lat/lon point, size is optional"
     },
     {
-      "description": "get all shelters",
-      "route": "/api/v2/bike-shelters/all",
-      "testRoute": "/api/v2/bike-shelters/all",
-      "verb": "GET"
+        "verb": "GET",
+        "route": "/api/v2/bike-shelters/all",
+        "testRoute": "/api/v2/bike-shelters/all",
+        "description": "get all shelters"
     },
     {
-      "description": "search closest shelters from lat/lon point, size is optional",
-      "route": "/api/v2/bike-shelters/find?lat=:lat&lon=:lon&size=:size",
-      "testRoute": "/api/v2/bike-shelters/find?lat=46.578636&lon=0.337959",
-      "verb": "GET"
+        "verb": "GET",
+        "route": "/api/v2/bike-shelters/find?lat=:lat&lon=:lon&size=:size",
+        "testRoute": "/api/v2/bike-shelters/find?lat=46.578636&lon=0.337959",
+        "description": "search closest shelters from lat/lon point, size is optional"
     },
     {
-      "description": "get all disabled parkings",
-      "route": "/api/v2/disabled-parkings/all",
-      "testRoute": "/api/v2/disabled-parkings/all",
-      "verb": "GET"
+        "verb": "GET",
+        "route": "/api/v2/disabled-parkings/all",
+        "testRoute": "/api/v2/disabled-parkings/all",
+        "description": "get all disabled parkings"
     },
     {
-      "description": "search closest disabled parkings from lat/lon point, size is optional",
-      "route": "/api/v2/disabled-parkings/find?lat=:lat&lon=:lon&size=:size",
-      "testRoute": "/api/v2/disabled-parkings/find?lat=46.578636&lon=0.337959",
-      "verb": "GET"
+        "verb": "GET",
+        "route": "/api/v2/disabled-parkings/find?lat=:lat&lon=:lon&size=:size",
+        "testRoute": "/api/v2/disabled-parkings/find?lat=46.578636&lon=0.337959",
+        "description": "search closest disabled parkings from lat/lon point, size is optional"
     },
     {
-      "description": "get all glass containers",
-      "route": "/api/v2/glass-containers/all",
-      "testRoute": "/api/v2/glass-containers/all",
-      "verb": "GET"
+        "verb": "GET",
+        "route": "/api/v2/glass-containers/all",
+        "testRoute": "/api/v2/glass-containers/all",
+        "description": "get all glass containers"
     },
     {
-      "description": "search closest glass container from lat/lon point, size is optional",
-      "route": "/api/v2/glass-containers/find?lat=:lat&lon=:lon&size=:size",
-      "testRoute": "/api/v2/glass-containers/find?lat=46.578636&lon=0.337959",
-      "verb": "GET"
+        "verb": "GET",
+        "route": "/api/v2/glass-containers/find?lat=:lat&lon=:lon&size=:size",
+        "testRoute": "/api/v2/glass-containers/find?lat=46.578636&lon=0.337959",
+        "description": "search closest glass container from lat/lon point, size is optional"
     },
     {
-      "description": "get all defibrillators",
-      "route": "/api/v2/defibrillators/all",
-      "testRoute": "/api/v2/defibrillators/all",
-      "verb": "GET"
+        "verb": "GET",
+        "route": "/api/v2/defibrillators/all",
+        "testRoute": "/api/v2/defibrillators/all",
+        "description": "get all defibrillators"
     },
     {
-      "description": "search closest defibrillators from lat/lon point, size is optional",
-      "route": "/api/v2/defibrillators/find?lat=:lat&lon=:lon&size=:size",
-      "testRoute": "/api/v2/defibrillators/find?lat=46.578636&lon=0.337959",
-      "verb": "GET"
+        "verb": "GET",
+        "route": "/api/v2/defibrillators/find?lat=:lat&lon=:lon&size=:size",
+        "testRoute": "/api/v2/defibrillators/find?lat=46.578636&lon=0.337959",
+        "description": "search closest defibrillators from lat/lon point, size is optional"
     },
     {
-      "description": "get all textile-spot",
-      "route": "/api/v2/textile-spot/all",
-      "testRoute": "/api/v2/textile-spot/all",
-      "verb": "GET"
+        "verb": "GET",
+        "route": "/api/v2/textile-spots/all",
+        "testRoute": "/api/v2/textile-spots/all",
+        "description": "get all textile-spots"
     },
     {
-      "description": "search closest textile-spot from lat/lon point, size is optional",
-      "route": "/api/v2/textile-spot/find?lat=:lat&lon=:lon&size=:size",
-      "testRoute": "/api/v2/textile-spot/find?lat=46.578636&lon=0.337959",
-      "verb": "GET"
-
-     
-    },{
-      "description": "get all test-ES",
-      "route": "/api/v2/test-ES/all",
-      "testRoute": "/api/v2/test-ES/all",
-       "verb": "GET"
-     
-    },
-    {
-      "verb": "GET",
-      "route": "/api/v2/test-ES/find?lat=:lat&lon=:lon&size=:size",
-      "testRoute": "/api/v2/test-ES/find?lat=46.578636&lon=0.337959",
-      "description": "search closest textile-spot from lat/lon point, size is optional"
-
+        "verb": "GET",
+        "route": "/api/v2/textile-spots/find?lat=:lat&lon=:lon&size=:size",
+        "testRoute": "/api/v2/textile-spots/find?lat=46.578636&lon=0.337959",
+        "description": "search closest textile-spots from lat/lon point, size is optional"
     }
-  ],
-  "sources": {
-    "bike-shelters": {
-      "configFile": "conf/bike-shelter.properties",
-      "mappingFilePath": "/elasticsearch/mappings/bike-shelters.json",
-      "openDataFileURL": "https://inspire.data.gouv.fr/api/geogw/services/556c5d51330f1fcd48335c41/feature-types/Geoportail_WMS_Preview:Abris_Appuis_velos/download?format=GeoJSON&projection=WGS84",
-      "reloadDataURL": "/admin/reload/bike-shelters"
+    ],
+    "sources": {
+        "bike-shelters": {
+            "reloadDataURL": "/admin/reload/bike-shelters",
+            "openDataFileURL": "https://inspire.data.gouv.fr/api/geogw/services/556c5d51330f1fcd48335c41/feature-types/Geoportail_WMS_Preview:Abris_Appuis_velos/download?format=GeoJSON&projection=WGS84"
+        },
+        "disabled-parkings": {
+            "reloadDataURL": "/admin/reload/disabled-parkings",
+            "openDataFileURL": "https://inspire.data.gouv.fr/api/geogw/services/556c5d51330f1fcd48335c41/feature-types/Geoportail_WMS_Preview:GIG_GIC/download?format=GeoJSON&projection=WGS84"
+        },
+        "glass-containers": {
+            "reloadDataURL": "/admin/reload/glass-containers",
+            "openDataFileURL": "https://inspire.data.gouv.fr/api/geogw/services/556c5d51330f1fcd48335c41/feature-types/Geoportail_WMS_Preview:Bornes_a_verre/download?format=GeoJSON&projection=WGS84"
+        },
+        "defibrillators": {
+            "reloadDataURL": "/admin/reload/defibrillators",
+            "openDataFileURL": "https://inspire.data.gouv.fr/api/geogw/services/556c5d51330f1fcd48335c41/feature-types/Geoportail_WMS_Preview:Defibrilateurs/download?format=GeoJSON&projection=WGS84"
+        },
+        "textile-spots": {
+            "reloadDataURL": "/admin/reload/textile-spots",
+            "openDataFileURL": "https://inspire.data.gouv.fr/api/geogw/services/55895dbcc9e5599995f36029/feature-types/Geoportail_WMS_Preview_2:Bornes_textiles/download?format=GeoJSON&projection=WGS84"
+        }
     },
-    "defibrillators": {
-      "configFile": "conf/defibrillator.properties",
-      "mappingFilePath": "/elasticsearch/mappings/defibrillators.json",
-      "openDataFileURL": "https://inspire.data.gouv.fr/api/geogw/services/556c5d51330f1fcd48335c41/feature-types/Geoportail_WMS_Preview:Defibrilateurs/download?format=GeoJSON&projection=WGS84",
-      "reloadDataURL": "/admin/reload/defibrillators"
+    "conf": {
+        "bike-shelters" : {
+                "type": "TYPE_DE_STATIONNEMENT",
+                "capacity": "NOMBRE",
+                "location": "location",
+                "objectId": "OBJECTID",
+                "address": "address"
+        },
+        "defibrillators" : {
+                "identifier" : "Identifiant",
+                "location" : "location",
+                "objectId" : "OBJECTID",
+                "town" : "Commune",
+                "place" : "Localisation",
+                "addressNumber" : "Numéro_adresse",
+                "address" : "address",
+                "accessCondition" : "Conditions_d_accès"
+        },
+        "disabled-parkings" : {
+            "objectId" : "OBJECTID",
+            "identifier" : "Identifiant",
+            "district" : "QUARTIER",
+            "state" : "CLASSEMENT",
+            "comment" : "Observation", 
+            "town" : "Commune",
+            "address" : "address",
+            "location" : "location"
+        },
+        "glass-containers" : {
+            "containerNumber" : "Numéro_de_borne",
+            "capacity" : "Volume",
+            "collectionFrequency" : "Fréquence_de_la_collecte",
+            "observation" : "Observation",
+            "collectionDay" : "Jour_de_la_collecte",
+            "objectId" : "OBJECTID",
+            "address" : "Adresse",
+            "location" : "location"
+        },
+        "textile-spots" : {
+            "identifier" : "gml_id",
+            "objectId" : "OBJECTID",
+            "type" : "Type_de_PAV",
+            "structureName" :"Nom_de_la_structure",
+            "phoneNumber" : "Téléphone_de_la_structure",
+            "address" : "adresse",
+            "location" : "location"
+        }
     },
-    "disabled-parkings": {
-      "configFile": "conf/disabled-parking.properties",
-      "mappingFilePath": "/elasticsearch/mappings/disabled-parkings.json",
-      "openDataFileURL": "https://inspire.data.gouv.fr/api/geogw/services/556c5d51330f1fcd48335c41/feature-types/Geoportail_WMS_Preview:GIG_GIC/download?format=GeoJSON&projection=WGS84",
-      "reloadDataURL": "/admin/reload/disabled-parkings"
-    },
-    "glass-containers": {
-      "configFile": "conf/glass-container.properties",
-      "mappingFilePath": "/elasticsearch/mappings/glass-containers.json",
-      "openDataFileURL": "https://inspire.data.gouv.fr/api/geogw/services/556c5d51330f1fcd48335c41/feature-types/Geoportail_WMS_Preview:Bornes_a_verre/download?format=GeoJSON&projection=WGS84",
-      "reloadDataURL": "/admin/reload/glass-containers"
-    },
-    "textile-spot": {
-      "configFile": "conf/textile-spot.properties",
-      "mappingFilePath": "/elasticsearch/mappings/textile-spot.json",
-      "openDataFileURL": "https://inspire.data.gouv.fr/api/geogw/services/55895dbcc9e5599995f36029/feature-types/Geoportail_WMS_Preview_2:Bornes_textiles/download?format=GeoJSON&projection=WGS84",
-      "reloadDataURL": "/admin/reload/textile-spot"
-     
-    },
-    "test-ES": {
-       "configFile": "conf/test-ES.properties",
-      "mappingFilePath": "/elasticsearch/mappings/test-ES.json",
-      "reloadDataURL": "/admin/reload/test-ES",
-      "openDataFileURL": "/test-ES.json"
-      
-  
+    "mapping" : {
+        "bike-shelters": {
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "index": "not_analyzed"
+                },
+                "address": {
+                    "type": "string",
+                    "index": "not_analyzed"
+                },
+                "location": {
+                    "type": "geo_point"
+                }
+            }
+        },
+        "defibrillators": {
+            "properties": {
+              "place": {
+                "type": "string",
+                "index": "not_analyzed"
+              },
+              "address": {
+                "type": "string",
+                "index": "not_analyzed"
+              },
+              "town": {
+                "type": "string",
+                "index": "not_analyzed"
+              },
+              "location": {
+                "type": "geo_point"
+              },
+              "accessCondition": {
+                "type" : "string",
+                "null_value" : "test"
+              },
+              "objectId" : {
+                "type" : "integer"
+              }
+            }
+        },
+        "disabled-parkings": {
+            "properties": {
+              "type": {
+                "type": "string",
+                "index": "not_analyzed"
+              },
+              "address": {
+                "type": "string",
+                "index": "not_analyzed"
+              },
+              "district": {
+                "type": "string",
+                "index": "not_analyzed"
+              },
+              "comment": {
+                "type": "string",
+                "index": "not_analyzed"
+              },
+              "location": {
+                "type": "geo_point"
+              }
+            }
+        },
+        "glass-containers": {
+            "properties": {
+                "type": {
+                  "type": "string",
+                  "index": "not_analyzed"
+                },
+                "collectionFrequency": {
+                  "type": "string",
+                  "index": "not_analyzed"
+                },
+                "address": {
+                   "type": "string",
+                   "index": "not_analyzed"
+                },
+                "observation": {
+                   "type": "string",
+                   "index": "not_analyzed"
+                },
+                "location": {
+                  "type": "geo_point"
+                }
+            }
+        },
+        "textile-spots": {
+            "properties": {
+                "type": {
+                  "type": "string",
+                  "index": "not_analyzed"
+                },
+                "identifier": {
+                  "type": "string",
+                  "index": "not_analyzed"
+                },
+                "structureName": {
+                  "type": "string",
+                  "index": "not_analyzed"
+                },
+                "address": {
+                   "type": "string",
+                   "index": "not_analyzed"
+                },
+                "location": {
+                  "type": "geo_point"
+                }
+            }
+        }
     }
-  }
 }

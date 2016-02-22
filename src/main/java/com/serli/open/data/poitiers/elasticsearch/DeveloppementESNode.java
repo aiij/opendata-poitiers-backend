@@ -54,6 +54,16 @@ public class DeveloppementESNode {
         node.start();
         // loading settings
         run(ReloadDefaultSettings.class);
-     
+        
+        // importing data
+        /*ImportAllDataJob.elasticType = "defibrillators";
+        run(ImportAllDataJob.class);
+        ImportAllDataJob.elasticType = "disabled-parkings";
+        run(ImportAllDataJob.class);
+        ImportAllDataJob.elasticType = "glass-containers";
+        run(ImportAllDataJob.class);*/
+        ImportAllDataJob.elasticType = "textile-spots";
+        run(ImportAllDataJob.class);
+        
     }
 }
