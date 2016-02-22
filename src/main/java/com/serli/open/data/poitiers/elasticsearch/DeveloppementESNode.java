@@ -54,15 +54,16 @@ public class DeveloppementESNode {
         node.start();
         // loading settings
         run(ReloadDefaultSettings.class);
+        
         // importing data
-        /*ImportAllDataJob.elasticType = "textile-spot";
-        ImportAllDataJob.filename = "conf/textile-spot.properties";
+        /*ImportAllDataJob.elasticType = "defibrillators";
+        run(ImportAllDataJob.class);
+        ImportAllDataJob.elasticType = "disabled-parkings";
+        run(ImportAllDataJob.class);
+        ImportAllDataJob.elasticType = "glass-containers";
         run(ImportAllDataJob.class);*/
-        /*for (Entry<String, DataSource> entry : SettingsRepository.INSTANCE.getAllSettings().sources.entrySet())
-        {
-            ImportAllDataJob.elasticType = entry.getKey();
-            ImportAllDataJob.filename = entry.getValue().configFile;
-            run(ImportAllDataJob.class);
-        }*/
+        ImportAllDataJob.elasticType = "textile-spots";
+        run(ImportAllDataJob.class);
+        
     }
 }

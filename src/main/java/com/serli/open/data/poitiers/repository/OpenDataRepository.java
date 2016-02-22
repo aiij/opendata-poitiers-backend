@@ -112,6 +112,7 @@ public class OpenDataRepository extends ElasticSearchRepository {
         return getAll(clazz, type);
     }
 
+
     private <T> List<T> getAll(Class<T> clazz, String elasticType) {         
         String query = "{\n" +
                 "   \"query\": {\n" +
@@ -132,6 +133,7 @@ public class OpenDataRepository extends ElasticSearchRepository {
                 return result;
         }).collect(Collectors.toList());
     }
+
 
     public String getElasticType(Class<?> clazz) {
         return ELASTIC_TYPE;

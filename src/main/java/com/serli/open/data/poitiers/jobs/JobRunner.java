@@ -12,6 +12,7 @@ public abstract class JobRunner {
         try {
             T job = clazz.getConstructor().newInstance();
             job.run();
+            
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
            throw new RuntimeException(e);
         }

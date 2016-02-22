@@ -24,6 +24,7 @@ public class Application {
 
 
     public static void main(String[] args) throws IOException {
+
         BasicAuthFilter filter = createBasicAuthFilter();
 
         WebServer webServer = new WebServer();
@@ -38,6 +39,7 @@ public class Application {
 
         String port = getEnvOrDefault("PORT", "8080");
         webServer.start(Integer.valueOf(port));
+
 
         startESInDevMode();
     }
