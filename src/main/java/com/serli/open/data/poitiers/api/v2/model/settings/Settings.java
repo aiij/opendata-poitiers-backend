@@ -12,4 +12,6 @@ public class Settings {
     public String dashboardURL;
     public List<APIRoutes> routes = new ArrayList<>();
     public Map<String, DataSource> sources = new HashMap<>();
+    public Map<String, Map<String, Object>> conf = new HashMap<> ();
+    public Map<String, Object> mapping = new HashMap<> ();
 }

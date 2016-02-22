@@ -30,6 +30,7 @@ import static com.serli.open.data.poitiers.elasticsearch.ElasticUtils.createInde
 import static com.serli.open.data.poitiers.elasticsearch.ElasticUtils.createMapping;
 import static com.serli.open.data.poitiers.elasticsearch.ElasticUtils.getElasticSearchURL;
 import static com.serli.open.data.poitiers.repository.OpenDataRepository.*;
+import java.util.Map;
 
 /**
  * Created by chris on 13/11/15.
@@ -74,28 +75,25 @@ public abstract class ImportDataJob<T> implements Job {
             throw new RuntimeException("DataSource is not in settings : " + getElasticType());
         }
         
-        createMapping(OPEN_DATA_POITIERS_INDEX, getElasticType(), dataSource.mappingFilePath, getElasticSearchURL());
-       try {
-            InputStream requestInputStream;
-           
-                requestInputStream = Request.Get(dataSource.openDataFileURL).execute().returnContent().asStream();
+
+        createMapping(OPEN_DATA_POITIERS_INDEX, getElasticType(), getElasticSearchURL());
+
+        try {
+            InputStream requestInputStream = Request.Get(dataSource.openDataFileURL).execute().returnContent().asStream();
+
             File tempFile = File.createTempFile("open-data-poitiers", "txt");
             try(FileOutputStream tempFileOutputStream = new FileOutputStream(tempFile)){
                 IOUtils.copy(requestInputStream, tempFileOutputStream);
             }
-            tempFile.deleteOnExit();System.out.println(tempFile.toPath());
+
+            tempFile.deleteOnExit();
             InputStream inputData = Files.newInputStream(tempFile.toPath());
             ObjectMapper objectMapper = new ObjectMapper();
-          
-            try {
-                 T elementFromFile = objectMapper.readValue(inputData, getParametrizedType());
-                  indexRootElement(elementFromFile);
-            } catch(Exception j) {
-                System.out.println("exep "+ j.toString());
-            }
-           
-            
-           
+            //Mapping the jsonFile on the DataJsonObject
+            T elementFromFile = objectMapper.readValue(inputData, getParametrizedType());
+
+            indexRootElement(elementFromFile);
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

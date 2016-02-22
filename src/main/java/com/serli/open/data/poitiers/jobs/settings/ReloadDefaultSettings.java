@@ -23,14 +23,12 @@ public class ReloadDefaultSettings implements Job {
 
     @Override
     public void run() {
-
-        File f = new File(System.getProperty("user.dir")+ "/src/main/resources/default.settings/default-settings.json");
-
+      
+        InputStream inputStream = ReloadDefaultSettings.class.getResourceAsStream("/default.settings/default-settings.json");
         ObjectMapper objectMapper = new ObjectMapper();
         Settings settings;
-        
         try {
-            settings = objectMapper.readValue(f, Settings.class);
+            settings = objectMapper.readValue(inputStream, Settings.class);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
