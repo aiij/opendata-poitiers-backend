@@ -35,8 +35,6 @@ public class ImportAllDataJob extends ImportDataJob<FullDataJsonFile> {
     }
     
     public static String elasticType;
-    //config file
-    public static String filename;
     
     @Override
     protected void indexRootElement(FullDataJsonFile fullDataJsonFile) {
@@ -51,7 +49,6 @@ public class ImportAllDataJob extends ImportDataJob<FullDataJsonFile> {
     }
 
     private Index getAction(DataJsonObject jsonDataFromFile) {
-        
         MappingClass mappingClass = new MappingClass(elasticType);
         
         for(Map.Entry<String, Object> entry : mappingClass.data.entrySet()) {
@@ -82,9 +79,5 @@ public class ImportAllDataJob extends ImportDataJob<FullDataJsonFile> {
     @Override
     protected String getElasticType() {
         return elasticType;
-    }
-    
-    private String getFilename() {
-        return filename;
     }
 }

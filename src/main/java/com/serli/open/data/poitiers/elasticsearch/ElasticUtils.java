@@ -64,7 +64,6 @@ public abstract class ElasticUtils {
             }*/
             
             mappingFile = settings.mapping.get(type);
-            System.out.println(mappingFile);
             PutMapping putMapping = new PutMapping.Builder(indexName, type, mappingFile).build();
             client.execute(putMapping);
         }

@@ -97,7 +97,6 @@ public class ImportAllDataJobTest {
         // loading settings
         run(ReloadDefaultSettings.class);
         ImportAllDataJob.elasticType = "test-ES";
-        ImportAllDataJob.filename = "conf/test-ES.properties";
         run(ImportAllDataJob.class);
 
         
