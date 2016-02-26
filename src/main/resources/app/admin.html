@@ -14,55 +14,53 @@ title: Open Data Poitiers - By Serli
     </div>
 
    <div class="panel-heading">
+       <div class="loading"> </div>
         <div class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">           
-                <li class="dropdown">
-                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">Admin <b class="caret"></b></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="#a" data-toggle="tooltip">Data</a></li>
-                        <li><a href="#b" data-toggle="tooltip">Add Data</a></li>
-                        <li><a href="#c" data-toggle="tooltip">Dashboard</a></li>
-                    </ul>
-                </li>
-            </ul>
+
         </div> 
-        <div class="panel-body">
-            <div id="a">
-                <table class="table" id="sources-table">
-                    <thead>
-                    <th>Index</th>
-                    <th>Action</th>
-                    <th>URL</th>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
+        <div class="tab-content" id="myTabContent">
+            
+            <div id="a" class="tab-pane fade">
+                    <br/>
+                    <table class="table table-hover" id="sources-table">
+                        <thead class="mytableheader">
+                        <th>Index</th>
+                        <th>Action</th>
+                        <th>URL</th>
+                        </thead>
+                        <tbody class="mytbody">
+                        </tbody>
+                    </table>    
             </div>
         
-            <div id="b">
+            <div id="b" class="tab-pane fade">
+                <br/>
+                <div class="mytbody">
                 <div class="form-group">
-                        <label for="fileURL">URL du fichier : </label>
-                        <textarea class="form-control" id="fileURL" name="fileURL" rows="2"></textarea><br/>
-                        <div class="msg_line"></div>
-                </div>
-                <div class="put_add">
-                <form> 
-                    <div class="gauche"><h4>Adding data:</h4></div>
-                    <div class="droite"> 
-                        <input type="text" id="elastic-type-field" name="elastic-type" placeholder="Elastic type" style="height: 30px"/>
-                        <button class="add_field_button btn btn-default" style="margin-left: 15px">Add another field</button>
-                        <button class="remove-last-val btn btn-default" style="margin-left: 15px" type="button">Remove field</button>
-                    </div>       
-                </form>
-                <form>
-                    <table id="tableType" class="table" style="margin-bottom: 0px">
-                        <thead>
-                            <th>Champ Json</th>
-                            <th>Champ ES</th>
-                            <th>Not_analyzed</th>
+                    <br/>
+                    <label for="fileURL">URL du fichier : </label>
+                    <input class="form-control" id="fileURL" name="fileURL" rows="2" resize="none"></input><br/>
+                    <div class="msg_line"></div>
+                </div>  
+                <div>
+                    <input type="text" id="elastic-type-field" name="elastic-type" placeholder="Elastic type" style="height: 30px"/>
+
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label>Add/remove field:</label>
+                    <button class="add_field_button btn btn-default"><span class="glyphicon glyphicon-plus"></span></button>
+                    <button class="remove-last-val btn btn-default" ><span class="glyphicon glyphicon-minus"></span></button>
+
+                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label>Reverse geocoding :</label>
+
+                    <input type="checkbox" id="geocoding" name="geocation[]" checked="checked"/> 
+                    <br/><br/>
+                    <table id="tableType" class="table mytbody" style="margin-bottom: 0px">
+                        <thead class="mytableheader">
+                        <th>Champ Json</th>
+                        <th>Champ ES</th>
+                        <th>Mapping ES</th>
                         </thead>
 
-                        <tbody class="input_fields_wrap">
+                        <tbody class="mytbody input_fields_wrap">
                             <tr>
                                 <td><input class="fields" type="text" id="champJson1" name="champJson[]" placeholder="Field in Json file"/></td>
                                 <td><input class="fields" type="text" id="champES1" name="champES[]" placeholder="Field that will be stored in ES"/></td>
@@ -70,22 +68,23 @@ title: Open Data Poitiers - By Serli
                             </tr>
                         </tbody> 
                     </table>
-                    <div class="form-group">
-                        <span>Reverse geocoding : </span>
-                        <input type="checkbox" id="geocoding" name="geocation[]" checked="checked">
-                    </div>
-                    <button class="add_data_button btn btn-default"  type="button">Add data</button>
-                </form> 
                 </div>
+                <br/><button class="add_data_button btn btn-default"  type="button">Add data</button><br/><br/>
             </div>
-            <div id="c">
-                <form>
-                    <div class="form-group">
-                        <label for="dashboardURL">URL du dashboard:</label>
-                        <textarea class="form-control" id="dashboardURL" rows="5"></textarea>
+            </div>
+            <div id="c" class="tab-pane fade">
+                <div class="panel panel-primary">
+                    <div class="panel-heading"><h4>Dashboard</h4></div>
+                    <div class="panel-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="dashboardURL">URL du dashboard:</label>
+                                <textarea class="form-control" id="dashboardURL" rows="5"></textarea>
+                            </div>
+                            <button id="dashboardUpdateButton" type="button" class="btn btn-default">Update</button>
+                        </form>
                     </div>
-                    <button id="dashboardUpdateButton" type="button" class="btn btn-default">Update</button>
-                </form>
+                </div>
             </div>
         </div>
     </div>
@@ -94,9 +93,10 @@ title: Open Data Poitiers - By Serli
 <script src="assets/js/admin.js"></script>
 <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
 <script>
-$('#tabs')
-    .tabs()
-    .addClass('ui-tabs-vertical ui-helper-clearfix');
+$('#myTab a').click(function (e) {
+  e.preventDefault()
+  $(this).tab('show')
+})
 </script>
 
 <script type="text/javascript">
@@ -104,5 +104,17 @@ $('#tabs')
             $('[data-toggle="tooltip"]').tooltip({
                 placement: 'top'
             });
+            
+            // permet l'affichage de la données en modifiant l'attribut class du div souhaité et y ajoutant active in
+            var chemin = document.location.href;
+            if(chemin.substring(chemin.lastIndexOf( "#" ))==="#a"){
+                document.getElementById('a').setAttribute('class','tab-pane fade active in');
+            }else if(chemin.substring(chemin.lastIndexOf( "#" ))==="#b"){
+                document.getElementById('b').setAttribute('class','tab-pane fade active in');
+            }else if(chemin.substring(chemin.lastIndexOf( "#" ))==="#c"){
+                document.getElementById('c').setAttribute('class','tab-pane fade active in');
+            }else{
+                document.getElementById('a').setAttribute('class','tab-pane fade active in');
+            }
         });
 </script>
