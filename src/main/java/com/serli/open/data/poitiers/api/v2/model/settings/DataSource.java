@@ -6,4 +6,7 @@ package com.serli.open.data.poitiers.api.v2.model.settings;
 public class DataSource {
     public String reloadDataURL;
     public String openDataFileURL;
+    public String reloadJobClass;
+    public String mappingClass;
+    public String mappingFilePath;
 }

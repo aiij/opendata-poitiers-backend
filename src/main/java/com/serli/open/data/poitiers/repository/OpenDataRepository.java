@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.serli.open.data.poitiers.api.v2.model.GeolocResult;
+import io.searchbox.client.JestResult;
 import io.searchbox.core.Index;
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
@@ -17,10 +18,10 @@ import java.util.stream.StreamSupport;
  */
 public class OpenDataRepository extends ElasticSearchRepository {
 
-    /*public static final String BIKE_SHELTERS_TYPE = "bike-shelters";
+    public static final String BIKE_SHELTERS_TYPE = "bike-shelters";
     public static final String DISABLED_PARKINGS_TYPE = "disabled-parkings";
     public static final String GLASS_CONTAINERS_TYPE = "glass-containers";
-    public static final String DEFIBRILLATORS_TYPE = "defibrillators";*/
+    public static final String DEFIBRILLATORS_TYPE = "defibrillators";
 
     public static final OpenDataRepository INSTANCE = new OpenDataRepository();
     
@@ -43,7 +44,6 @@ public class OpenDataRepository extends ElasticSearchRepository {
     public <T> List<GeolocResult<T>> find(double lat, double lon, int size, Class<T> clazz) {
         String elasticType = ELASTIC_TYPE;
         return find(lat, lon, size, clazz, elasticType);
-
     }
 
     public List<GeolocResult<?>> find(double lat, double lon, int size, String elasticType){
@@ -118,7 +118,7 @@ public class OpenDataRepository extends ElasticSearchRepository {
                 "   \"query\": {\n" +
                 "       \"match_all\": {}\n" +
                 "   },\n" +
-                "   \"size\": " + Integer.MAX_VALUE + "\n" +
+                "   \"size\": " + 10000 + "\n" +
                 "}";
         
         SearchResult searchResult = performSearchOnType(query, elasticType);
