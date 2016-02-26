@@ -39,14 +39,13 @@ var OpenDataPoitiersAdmin = (function () {
                     openDataFileURL: "",
                     reloadDataURL: "/admin/reload-default-settings"
                 }
-
                 for (index in sources) {
                     var source = sources[index];
                     $("#sources-table tbody").append(
                         '<tr>' +
                         '<td class="text-nowrap">' + index + '</td>' +
                         '<td><button id="' + index + '-button" class="btn btn-default" type="submit">Reload Data</button></td>' +
-                        '<td>' + source.openDataFileURL + '</td>' +
+                        '<td><a href="' + source.openDataFileURL + '">' + source.openDataFileURL + '</a></td>' +
                         '</tr>'
                     );
 
@@ -55,7 +54,12 @@ var OpenDataPoitiersAdmin = (function () {
 
                         $("#" + index + '-button').click(function () {
                             AdminAlerts.hideAlerts();
-
+                           $('.loading').html("<div class=\"progress progress-striped active\">"+
+                                    "<div class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"90\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: 100%\">"+
+                                    "<span class=\"sr-only\">90% Complete (success)</span>"+
+                                    "</div>" +
+                                   "</div>");
+                           
                             $.ajax({
                                 url: url,
                                 dataType: 'text',
@@ -64,8 +68,10 @@ var OpenDataPoitiersAdmin = (function () {
                                 complete: function (data) {
                                     if (data.status === 200) {
                                         AdminAlerts.showSuccessMessage("Loaded data successfully");
+                                        $('.loading').html("");
                                     }else{
                                         AdminAlerts.showErrorMessage("Error while loading Data");
+                                        $('.loading').html("");
                                     }
                                 }
                             });
@@ -168,7 +174,6 @@ var OpenDataPoitiersAdmin = (function () {
                     }
                     else
                         properties_data[size] = location;
-                    console.log("Passe");
                     var fileJson = JSON.stringify({properties: properties_data, url: $("#fileURL").val(), type: type});
                     $.ajax({
                         url: "/admin/create-files",
@@ -179,7 +184,7 @@ var OpenDataPoitiersAdmin = (function () {
                             window.location.reload();
                             AdminAlerts.showSuccessMessage("Data added");
                         }
-                    })
+                    });
                 }
                 else
                 {
