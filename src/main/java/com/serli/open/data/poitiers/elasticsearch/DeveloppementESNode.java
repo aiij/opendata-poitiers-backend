@@ -1,7 +1,6 @@
 package com.serli.open.data.poitiers.elasticsearch;
 
 
-import com.serli.open.data.poitiers.api.v2.model.settings.DataSource;
 import com.serli.open.data.poitiers.jobs.settings.ReloadDefaultSettings;
 import org.apache.commons.io.FileUtils;
 import org.elasticsearch.common.settings.ImmutableSettings;
@@ -17,10 +16,8 @@ import java.nio.file.Paths;
 import java.util.UUID;
 
 import static com.serli.open.data.poitiers.jobs.JobRunner.run;
-import com.serli.open.data.poitiers.jobs.importer.ImportAllDataJob;
-import com.serli.open.data.poitiers.repository.SettingsRepository;
-import java.util.Map.Entry;
-//import com.serli.open.data.poitiers.jobs.importer.ImportAnyDataJob;
+import com.serli.open.data.poitiers.jobs.importer.v1.ImportBikeSheltersDataJob;
+import com.serli.open.data.poitiers.jobs.importer.v2.ImportAllDataJob;
 
 /**
  * Embedded ES node for dev purpose, <b>Do not use in production, data will be lost</b>. Data is stored in temp directory : <b>tmp/es-local-data</b>.
@@ -60,7 +57,10 @@ public class DeveloppementESNode {
         
         // loading settings
         run(ReloadDefaultSettings.class);
-
-      
+        
+        //run(ImportBikeSheltersDataJob.class);
+        
+        ImportAllDataJob.elasticType = "textile-spots";
+        run(ImportAllDataJob.class);
     }
 }

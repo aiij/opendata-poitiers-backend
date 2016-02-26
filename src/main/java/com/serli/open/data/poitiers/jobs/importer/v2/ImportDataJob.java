@@ -1,4 +1,4 @@
-package com.serli.open.data.poitiers.jobs.importer;
+package com.serli.open.data.poitiers.jobs.importer.v2;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -75,8 +75,7 @@ public abstract class ImportDataJob<T> implements Job {
             throw new RuntimeException("DataSource is not in settings : " + getElasticType());
         }
         
-
-        createMapping(OPEN_DATA_POITIERS_INDEX, getElasticType(), getElasticSearchURL());
+        createMapping(OPEN_DATA_POITIERS_INDEX, getElasticType(), null, getElasticSearchURL());
 
         try {
             InputStream requestInputStream = Request.Get(dataSource.openDataFileURL).execute().returnContent().asStream();

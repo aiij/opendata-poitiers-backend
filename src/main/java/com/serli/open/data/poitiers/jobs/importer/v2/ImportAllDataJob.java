@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.serli.open.data.poitiers.jobs.importer;
+package com.serli.open.data.poitiers.jobs.importer.v2;
 
 import com.serli.open.data.poitiers.api.v2.model.settings.DataSource;
 import com.serli.open.data.poitiers.api.v2.model.settings.Settings;

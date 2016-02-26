@@ -77,7 +77,10 @@
     "sources": {
         "bike-shelters": {
             "reloadDataURL": "/admin/reload/bike-shelters",
-            "openDataFileURL": "https://inspire.data.gouv.fr/api/geogw/services/556c5d51330f1fcd48335c41/feature-types/Geoportail_WMS_Preview:Abris_Appuis_velos/download?format=GeoJSON&projection=WGS84"
+            "openDataFileURL": "https://inspire.data.gouv.fr/api/geogw/services/556c5d51330f1fcd48335c41/feature-types/Geoportail_WMS_Preview:Abris_Appuis_velos/download?format=GeoJSON&projection=WGS84",
+            "reloadJobClass": "com.serli.open.data.poitiers.jobs.importer.ImportBikeSheltersDataJob",
+            "mappingClass": "com.serli.open.data.poitiers.api.v2.model.Shelter",
+            "mappingFilePath": "/elasticsearch/mappings/bike-shelters.json"
         },
         "disabled-parkings": {
             "reloadDataURL": "/admin/reload/disabled-parkings",

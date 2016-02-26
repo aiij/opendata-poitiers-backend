@@ -5,7 +5,7 @@
  */
 package com.serli.open.data.poitiers.elasticsearch;
 
-import com.serli.open.data.poitiers.jobs.importer.ImportDataJob;
+import com.serli.open.data.poitiers.jobs.importer.v2.ImportDataJob;
 import io.searchbox.client.JestResult;
 import io.searchbox.indices.IndicesExists;
 import org.junit.After;
