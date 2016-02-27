@@ -93,7 +93,7 @@ p {
 .mytableheader{
    font-size : 14px;
    font-family : Verdana;
-   color : #F0FFF0;
+   color : #d3d3d3;
    text-align : center;
    background-color : #1068b0
 }
@@ -102,5 +102,4 @@ p {
    font-family : Verdana;
    border-radius: 8px;
    background-color : #DCDCDC;
-   border: 12px solid transparent;
 }
