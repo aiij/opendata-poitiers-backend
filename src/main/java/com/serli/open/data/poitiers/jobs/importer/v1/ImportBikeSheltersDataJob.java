@@ -18,6 +18,7 @@ import static com.serli.open.data.poitiers.repository.ElasticSearchRepository.OP
 import static com.serli.open.data.poitiers.repository.OpenDataRepository.BIKE_SHELTERS_TYPE;
 import static org.apache.commons.lang3.StringUtils.capitalize;
 import static org.apache.commons.lang3.StringUtils.lowerCase;
+import static org.apache.commons.lang3.StringUtils.lowerCase;
 
 /**
  * Created by chris on 04/05/15.
@@ -31,7 +32,7 @@ public class ImportBikeSheltersDataJob extends ImportDataJob<FullShelterJsonFile
     protected void indexRootElement(FullShelterJsonFile fullShelterJsonFile) {
         ShelterJsonObject[] jsonShelterFromFiles = fullShelterJsonFile.shelters;
 
-        Bulk.Builder bulk = new Bulk.Builder().defaultIndex(OPEN_DATA_POITIERS_INDEX).defaultType(OpenDataRepository.INSTANCE.getElasticType(Shelter.class));
+        Bulk.Builder bulk = new Bulk.Builder().defaultIndex(OPEN_DATA_POITIERS_INDEX).defaultType(getElasticType());
 
         Arrays.stream(jsonShelterFromFiles)
                 .forEach(jsonFromFile -> bulk.addAction(getAction(jsonFromFile)));

@@ -1,10 +1,17 @@
 package com.serli.open.data.poitiers.repository;
 
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.serli.open.data.poitiers.api.v2.model.GeolocResult;
-import io.searchbox.client.JestResult;
+import com.serli.open.data.poitiers.api.v2.model.settings.DataSource;
+import com.serli.open.data.poitiers.api.v2.model.settings.Settings;
+import com.serli.open.data.poitiers.repository.ElasticSearchRepository;
+import com.serli.open.data.poitiers.repository.OpenDataRepository;
+import com.serli.open.data.poitiers.repository.SettingsRepository;
+import static com.serli.open.data.poitiers.repository.ElasticSearchRepository.OPEN_DATA_POITIERS_INDEX;
 import io.searchbox.core.Index;
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
@@ -14,26 +21,25 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 /**
- * Created by chris on 04/05/15.
+ *  @author Julien L
  */
-public class OpenDataRepository extends ElasticSearchRepository {
+public class OpenDataRepositoryV1 extends ElasticSearchRepository {
 
     public static final String BIKE_SHELTERS_TYPE = "bike-shelters";
     public static final String DISABLED_PARKINGS_TYPE = "disabled-parkings";
     public static final String GLASS_CONTAINERS_TYPE = "glass-containers";
     public static final String DEFIBRILLATORS_TYPE = "defibrillators";
 
-    public static final OpenDataRepository INSTANCE = new OpenDataRepository();
-    
-    public String elasticType = "";
-    public static Class MAPPING_CLASS = Map.class;
-    
+    public static final OpenDataRepositoryV1 INSTANCE = new OpenDataRepositoryV1();
+
+    public final BiMap<Class<?>, String> classToTypeCache = HashBiMap.create();
+
     private void index(Object object, String type) {
         Index index = new Index.Builder(object)
                 .index(OPEN_DATA_POITIERS_INDEX)
                 .type(type)
                 .build();
-        client.execute(index);        
+        client.execute(index);
     }
 
     public void index(Object object) {
@@ -41,13 +47,15 @@ public class OpenDataRepository extends ElasticSearchRepository {
         index(object, type);
     }
 
-    /*public <T> List<GeolocResult<T>> find(double lat, double lon, int size, Class<T> clazz) {
-        String type = this.elasticType;
-        return find(lat, lon, size, clazz, type);
-    }*/
+    public <T> List<GeolocResult<T>> find(double lat, double lon, int size, Class<T> clazz) {
+        String elasticType = getElasticType(clazz);
+
+        return find(lat, lon, size, clazz, elasticType);
+
+    }
 
     public List<GeolocResult<?>> find(double lat, double lon, int size, String elasticType){
-        Class clazz = MAPPING_CLASS;
+        Class clazz = getClassFromType(elasticType);
         return find(lat, lon, size, clazz, elasticType);
     }
 
@@ -55,7 +63,7 @@ public class OpenDataRepository extends ElasticSearchRepository {
         if (size == 0) {
             size = 10;
         }
-        
+
         String query = "{\n" +
                 "  \"query\": {\n" +
                 "    \"filtered\" : {\n" +
@@ -87,7 +95,7 @@ public class OpenDataRepository extends ElasticSearchRepository {
                 "}";
 
         SearchResult searchResult = performSearchOnType(query, elasticType);
-        
+
         JsonObject jsonObject = searchResult.getJsonObject();
         JsonArray jsonHits = jsonObject.get("hits").getAsJsonObject().get("hits").getAsJsonArray();
 
@@ -102,45 +110,72 @@ public class OpenDataRepository extends ElasticSearchRepository {
         }).collect(Collectors.toList());
     }
 
-    /*public <T> List<T> getAll(Class<T> clazz) {
-        String elasticType = this.elasticType;
+    public <T> List<T> getAll(Class<T> clazz) {
+        String elasticType = getElasticType(clazz);
         return getAll(clazz, elasticType);
-    }*/
+    }
 
     public List<?> getAll(String type) {
-        Class<?> clazz = MAPPING_CLASS;
+        Class<?> clazz = getClassFromType(type);
         return getAll(clazz, type);
     }
 
-
-    private <T> List<T> getAll(Class<T> clazz, String elasticType) {         
+    private <T> List<T> getAll(Class<T> clazz, String elasticType) {
         String query = "{\n" +
                 "   \"query\": {\n" +
-                "       \"match_all\": {}\n" +
+                "      \"match_all\": {}\n" +
                 "   },\n" +
-                "   \"size\": " + 10000 + "\n" +
+                "   \"size\": " + Integer.MAX_VALUE + "\n" +
                 "}";
-        
         SearchResult searchResult = performSearchOnType(query, elasticType);
-        
-        JsonObject jsonObject = searchResult.getJsonObject();
-        JsonArray jsonHits = jsonObject.get("hits").getAsJsonObject().get("hits").getAsJsonArray();
-        
-        Gson gson = new Gson();
 
-        return StreamSupport.stream(jsonHits.spliterator(), false).map(jsonElement -> {
-                T result = gson.fromJson(jsonElement.getAsJsonObject().get("_source").getAsJsonObject(), clazz);
-                return result;
-        }).collect(Collectors.toList());
+        return StreamSupport.stream(
+                Spliterators.spliteratorUnknownSize(searchResult.getHits(clazz).iterator(), Spliterator.ORDERED),
+                false).map(hitResult -> hitResult.source).collect(Collectors.toList());
     }
 
 
+    private void reloadClassTypeCache(){
+        classToTypeCache.clear();
+        Settings settings = SettingsRepository.INSTANCE.getAllSettings();
+        for (Map.Entry<String, DataSource> entry : settings.sources.entrySet()) {
+            try {
+                Class<?> clazz = Class.forName(entry.getValue().mappingClass);
+                classToTypeCache.put(clazz, entry.getKey());
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
     public String getElasticType(Class<?> clazz) {
-        return elasticType;
+        if(classToTypeCache.isEmpty()){
+            reloadClassTypeCache();
+        }
+
+        String type = classToTypeCache.get(clazz);
+        if(type == null){
+            reloadClassTypeCache();
+            type = classToTypeCache.get(clazz);
+        }
+
+        if(type == null){
+            throw  new RuntimeException("Type not found for class : " + clazz.getName());
+        }
+        return type;
     }
 
     public Class<?> getClassFromType(String type){
-        return MAPPING_CLASS;
+        if(classToTypeCache.isEmpty()){
+            reloadClassTypeCache();
+        }
+
+        Class<?> clazz = classToTypeCache.inverse().get(type);
+        if(type == null){
+            reloadClassTypeCache();
+            clazz = classToTypeCache.inverse().get(type);
+        }
+        return clazz;
     }
 
     private SearchResult performSearchOnType(String query, String type) {
@@ -151,4 +186,5 @@ public class OpenDataRepository extends ElasticSearchRepository {
 
         return client.execute(search);
     }
+
 }
