@@ -125,7 +125,7 @@ public class OpenDataRepositoryV1 extends ElasticSearchRepository {
                 "   \"query\": {\n" +
                 "      \"match_all\": {}\n" +
                 "   },\n" +
-                "   \"size\": " + Integer.MAX_VALUE + "\n" +
+                "   \"size\": " + 10000 + "\n" +
                 "}";
         SearchResult searchResult = performSearchOnType(query, elasticType);
 
