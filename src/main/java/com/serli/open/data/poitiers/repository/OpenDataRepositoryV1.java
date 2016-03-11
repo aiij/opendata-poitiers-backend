@@ -1,4 +1,4 @@
-package com.serli.open.data.poitiers.repository;
+/*package com.serli.open.data.poitiers.repository;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
@@ -23,6 +23,7 @@ import java.util.stream.StreamSupport;
 /**
  *  @author Julien L
  */
+/*
 public class OpenDataRepositoryV1 extends ElasticSearchRepository {
 
     public static final String BIKE_SHELTERS_TYPE = "bike-shelters";
@@ -188,3 +189,4 @@ public class OpenDataRepositoryV1 extends ElasticSearchRepository {
     }
 
 }
+*/
