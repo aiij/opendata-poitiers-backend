@@ -25,26 +25,8 @@ public class OpenDataRepository extends ElasticSearchRepository {
 
     public static final OpenDataRepository INSTANCE = new OpenDataRepository();
     
-    public String elasticType = "";
     public static Class MAPPING_CLASS = Map.class;
     
-    private void index(Object object, String type) {
-        Index index = new Index.Builder(object)
-                .index(OPEN_DATA_POITIERS_INDEX)
-                .type(type)
-                .build();
-        client.execute(index);        
-    }
-
-    public void index(Object object) {
-        String type = getElasticType(object.getClass());
-        index(object, type);
-    }
-
-    /*public <T> List<GeolocResult<T>> find(double lat, double lon, int size, Class<T> clazz) {
-        String type = this.elasticType;
-        return find(lat, lon, size, clazz, type);
-    }*/
 
     public List<GeolocResult<?>> find(double lat, double lon, int size, String elasticType){
         Class clazz = MAPPING_CLASS;
@@ -132,11 +114,6 @@ public class OpenDataRepository extends ElasticSearchRepository {
                 T result = gson.fromJson(jsonElement.getAsJsonObject().get("_source").getAsJsonObject(), clazz);
                 return result;
         }).collect(Collectors.toList());
-    }
-
-
-    public String getElasticType(Class<?> clazz) {
-        return elasticType;
     }
 
     public Class<?> getClassFromType(String type){
