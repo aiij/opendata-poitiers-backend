@@ -4,7 +4,7 @@ import com.serli.open.data.poitiers.api.v2.model.settings.DataSource;
 import com.serli.open.data.poitiers.api.v2.model.settings.Settings;
 import static com.serli.open.data.poitiers.jobs.JobRunner.run;
 import com.serli.open.data.poitiers.jobs.configuration.GenerateConfigurationFiles;
-import com.serli.open.data.poitiers.jobs.importer.v2.ImportAllDataJob;
+import com.serli.open.data.poitiers.jobs.importer.v2.ImportDataFromType;
 import com.serli.open.data.poitiers.jobs.settings.ReloadDefaultSettings;
 import com.serli.open.data.poitiers.repository.SettingsRepository;
 import java.io.IOException;
@@ -27,12 +27,12 @@ public class AdminEndPoint {
         if ("all".equals(type)) {
             for (Entry<String, DataSource> entry : settings.sources.entrySet())
             {
-                ImportAllDataJob.elasticType = entry.getKey();
-                run(ImportAllDataJob.class);
+                ImportDataFromType.elasticType = entry.getKey();
+                run(ImportDataFromType.class);
             }
         } else {
-            ImportAllDataJob.elasticType = type;
-            run(ImportAllDataJob.class);
+            ImportDataFromType.elasticType = type;
+            run(ImportDataFromType.class);
         }
     }
 
@@ -55,6 +55,7 @@ public class AdminEndPoint {
             GenerateConfigurationFiles.generateESMapping(monJson);
             
         } catch (JSONException ex) {
+            //TODO : Ajouter traitement
             Logger.getLogger(AdminEndPoint.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(AdminEndPoint.class.getName()).log(Level.SEVERE, null, ex);

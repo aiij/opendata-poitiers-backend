@@ -29,10 +29,10 @@ import java.util.Map.Entry;
  *
  * @author Julien L
  */
-public class ImportAllDataJob extends ImportDataJob<FullDataJsonFile> {
+public class ImportDataFromType extends ImportDataJob<FullDataJsonFile> {
 
     public void main(String[] args) throws IOException {
-        new ImportAllDataJob().createIndexAndLoad();
+        new ImportDataFromType().createIndexAndLoad();
     }
     
     public static String elasticType;

@@ -9,21 +9,9 @@ import com.serli.open.data.poitiers.api.v2.model.settings.APIRoutes;
 import com.serli.open.data.poitiers.api.v2.model.settings.DataSource;
 import com.serli.open.data.poitiers.api.v2.model.settings.Settings;
 import com.serli.open.data.poitiers.repository.SettingsRepository;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -33,8 +21,8 @@ import org.json.JSONObject;
  */
 public class GenerateConfigurationFiles {
     
-    public static void generateConfFile(String JsonFile) throws JSONException, IOException {
-        JSONObject obj = new JSONObject(JsonFile);
+    public static void generateConfFile(String jsonFile) throws JSONException, IOException {
+        JSONObject obj = new JSONObject(jsonFile);
         JSONObject properties = obj.getJSONObject("properties");
         
         Settings settings = SettingsRepository.INSTANCE.getAllSettings();
@@ -50,11 +38,11 @@ public class GenerateConfigurationFiles {
     }
     
     /* Modification of default settings */
-    public static void updateDefaultSettings(String JsonFile) throws JSONException {
+    public static void updateDefaultSettings(String jsonFile) throws JSONException {
         
         Settings settings = SettingsRepository.INSTANCE.getAllSettings();
         
-        JSONObject objFile = new JSONObject(JsonFile);
+        JSONObject objFile = new JSONObject(jsonFile);
         String type = objFile.getString("type");
         String url = objFile.getString("url");
         
@@ -119,6 +107,5 @@ public class GenerateConfigurationFiles {
 
         settings.mapping.put(type, content);
         SettingsRepository.INSTANCE.updateSettings(settings);
-
     }  
 }

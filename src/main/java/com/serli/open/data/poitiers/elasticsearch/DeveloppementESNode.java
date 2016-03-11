@@ -17,7 +17,7 @@ import java.util.UUID;
 
 import static com.serli.open.data.poitiers.jobs.JobRunner.run;
 import com.serli.open.data.poitiers.jobs.importer.v1.ImportBikeSheltersDataJob;
-import com.serli.open.data.poitiers.jobs.importer.v2.ImportAllDataJob;
+import com.serli.open.data.poitiers.jobs.importer.v2.ImportDataFromType;
 
 /**
  * Embedded ES node for dev purpose, <b>Do not use in production, data will be lost</b>. Data is stored in temp directory : <b>tmp/es-local-data</b>.
@@ -58,9 +58,9 @@ public class DeveloppementESNode {
         // loading settings
         run(ReloadDefaultSettings.class);
         
-        run(ImportBikeSheltersDataJob.class);
+        //run(ImportBikeSheltersDataJob.class);
         
-        ImportAllDataJob.elasticType = "textile-spots";
-        run(ImportAllDataJob.class);
+        /*ImportDataFromType.elasticType = "textile-spots";
+        run(ImportDataFromType.class);*/
     }
 }
