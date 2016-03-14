@@ -8,10 +8,7 @@ import com.google.gson.JsonObject;
 import com.serli.open.data.poitiers.api.v2.model.GeolocResult;
 import com.serli.open.data.poitiers.api.v2.model.settings.DataSource;
 import com.serli.open.data.poitiers.api.v2.model.settings.Settings;
-import com.serli.open.data.poitiers.repository.ElasticSearchRepository;
-import com.serli.open.data.poitiers.repository.SettingsRepository;
 import static com.serli.open.data.poitiers.repository.ElasticSearchRepository.OPEN_DATA_POITIERS_INDEX;
-import io.searchbox.core.Index; 
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
 
@@ -116,12 +113,12 @@ public class OpenDataRepository extends ElasticSearchRepository {
                 "}";
         SearchResult searchResult = performSearchOnType(query, elasticType);
 
-        return StreamSupport.stream(
+        /*return StreamSupport.stream(
                 Spliterators.spliteratorUnknownSize(searchResult.getHits(clazz).iterator(), Spliterator.ORDERED),
-                false).map(hitResult -> hitResult.source).collect(Collectors.toList());
+                false).map(hitResult -> hitResult.source).collect(Collectors.toList());*/
        
         
-        /*JsonObject jsonObject = searchResult.getJsonObject();
+        JsonObject jsonObject = searchResult.getJsonObject();
         JsonArray jsonHits = jsonObject.get("hits").getAsJsonObject().get("hits").getAsJsonArray();
         
         Gson gson = new Gson();
@@ -129,7 +126,7 @@ public class OpenDataRepository extends ElasticSearchRepository {
         return StreamSupport.stream(jsonHits.spliterator(), false).map(jsonElement -> {
                 T result = gson.fromJson(jsonElement.getAsJsonObject().get("_source").getAsJsonObject(), clazz);
                 return result;
-        }).collect(Collectors.toList());*/
+        }).collect(Collectors.toList());
     }
 
 
