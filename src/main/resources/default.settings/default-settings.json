@@ -181,8 +181,7 @@
                 "type": "geo_point"
               },
               "accessCondition": {
-                "type" : "string",
-                "null_value" : "test"
+                "type" : "string"
               },
               "objectId" : {
                 "type" : "integer"

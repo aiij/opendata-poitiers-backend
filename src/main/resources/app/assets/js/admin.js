@@ -91,8 +91,8 @@ var OpenDataPoitiersAdmin = (function () {
             e.preventDefault();
             size++;
             $(wrapper).append('<tr class="new_fields" id="tr'+size+'">' +
-                    '<td><input class="fields" type="text" name="champJson[]" id="champJson' + size + '"></td>' +
-                    '<td><input class="fields" type="text" name="champES[]" id="champES' + size + '"></td>' +
+                    '<td><input class="fields" type="text" name="jsonField[]" id="jsonField' + size + '"></td>' +
+                    '<td><input class="fields" type="text" name="esField[]" id="esField' + size + '"></td>' +
                     '<td><input class="fields" type="checkbox" name="not_analyzed[]" id="not_analyzed' + size + '"></td>' +
                     '</tr>'); //add input box
         });
@@ -142,7 +142,7 @@ var OpenDataPoitiersAdmin = (function () {
                 var type = $("#elastic-type-field").val();
                 // All fields must be filled
                 for (var i = 1; i<(size+1); i++){
-                    if ($("#champJson"+i).val() === "" || $("#champES"+i).val() === "")
+                    if ($("#jsonField"+i).val() === "" || $("#esField"+i).val() === "")
                         emptyField = true;
                 }
                 if ($("#fileURL").val()=== "" || type === "")
@@ -153,8 +153,8 @@ var OpenDataPoitiersAdmin = (function () {
                     var properties_data = {};
                     for (var i = 1; i < (size + 1); i++) {
                         var data = {};
-                        data["champJson"] = $("#champJson" + i).val();
-                        data["champES"] = $("#champES" + i).val();
+                        data["jsonField"] = $("#jsonField" + i).val();
+                        data["esField"] = $("#esField" + i).val();
                         if (document.getElementById("not_analyzed" + i).checked === true) {
                             data["mapping"] = true;
                         } else
@@ -162,12 +162,12 @@ var OpenDataPoitiersAdmin = (function () {
                         properties_data[i - 1] = data;
                     }
                     var location ={};
-                    location["champES"] = "location";
+                    location["esField"] = "location";
 
                     if(document.getElementById("geocoding").checked === true){ // in case of reverse geocoding
                         var geolocation = {};
-                        geolocation["champJson"] = "address";
-                        geolocation["champES"] = "address";
+                        geolocation["jsonField"] = "address";
+                        geolocation["esField"] = "address";
                         geolocation["mapping"] = true;
                         properties_data[size] = geolocation;
                         properties_data[size+1] = location; // location is added at the end of properties_data
