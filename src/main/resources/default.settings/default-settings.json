@@ -113,9 +113,7 @@
                 "objectId" : "OBJECTID",
                 "town" : "Commune",
                 "place" : "Localisation",
-                "addressNumber" : "Numéro_adresse",
-                "address" : "address",
-                "accessCondition" : "Conditions_d_accès"
+                "address" : "address"
         },
         "disabled-parkings" : {
             "objectId" : "OBJECTID",
@@ -179,12 +177,6 @@
               },
               "location": {
                 "type": "geo_point"
-              },
-              "accessCondition": {
-                "type" : "string"
-              },
-              "objectId" : {
-                "type" : "integer"
               }
             }
         },
