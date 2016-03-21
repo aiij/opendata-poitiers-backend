@@ -54,11 +54,8 @@ public class AdminEndPoint {
             GenerateConfigurationFiles.updateDefaultSettings(monJson);
             GenerateConfigurationFiles.generateESMapping(monJson);
             
-        } catch (JSONException ex) {
-            //TODO : Ajouter traitement
-            Logger.getLogger(AdminEndPoint.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(AdminEndPoint.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JSONException | IOException ex) {
+            throw new RuntimeException(ex);
         }
     }   
 }

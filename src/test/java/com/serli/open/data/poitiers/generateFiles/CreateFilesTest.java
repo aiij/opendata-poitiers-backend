@@ -28,8 +28,8 @@ public class CreateFilesTest {
     
     @Test
     public void generateConfFileTest() throws IOException, JSONException{
-        String myString = "{\"properties\":{\"0\":{\"champJson\":\"champJson1\",\"champES\":\"champES1\",\"mapping\":true},\"1\":{\"champJson\":\"champJson2\",\"champES\":\"champES2\",\"mapping\":true},\"2\":{\"champES\":\"location\"}},\"url\":\"http\",\"type\":\"testTemp\"}";
-        String chaineResult = "champES1 = champJson1\nchampES2 = champJson2\nlocation = location\n";
+        String myString = "{\"properties\":{\"0\":{\"jsonField\":\"jsonField1\",\"esField\":\"esField1\",\"mapping\":true},\"1\":{\"jsonField\":\"jsonField2\",\"esField\":\"esField2\",\"mapping\":true},\"2\":{\"esField\":\"location\"}},\"url\":\"http\",\"type\":\"testTemp\"}";
+        String chaineResult = "esField1 = jsonField1\nesField2 = jsonField2\nlocation = location\n";
         String file = System.getProperty("user.dir")+"/src/main/resources/conf/testTemp.properties";        
         GenerateConfigurationFiles.generateConfFile(myString);
         String chaine = this.readFile(file);
@@ -52,15 +52,15 @@ public class CreateFilesTest {
     
     @Test
     public void generateESMappingTest() throws IOException, JSONException{
-        String myString = "{\"properties\":{\"0\":{\"champJson\":\"champJson1\",\"champES\":\"champES1\",\"mapping\":true},\"1\":{\"champJson\":\"champJson2\",\"champES\":\"champES2\",\"mapping\":true},\"2\":{\"champES\":\"location\"}},\"url\":\"http\",\"type\":\"testTemp\"}";
+        String myString = "{\"properties\":{\"0\":{\"jsonField\":\"jsonField1\",\"esField\":\"esField1\",\"mapping\":true},\"1\":{\"jsonField\":\"jsonField2\",\"esField\":\"esField2\",\"mapping\":true},\"2\":{\"esField\":\"location\"}},\"url\":\"http\",\"type\":\"testTemp\"}";
         String chaineResult = "{\n" +
                                 "   \"testTemp\" : {\n" +
                                 "       \"properties\" : {\n" +
-                                "          \"champES1\" : { \n" +
+                                "          \"esField1\" : { \n" +
                                 "               \"type\" : \"string\", \n" +
                                 "               \"index\" : \"not_analyzed\" \n" +
                                 "           }, \n" +
-                                "          \"champES2\" : { \n" +
+                                "          \"esField2\" : { \n" +
                                 "               \"type\" : \"string\", \n" +
                                 "               \"index\" : \"not_analyzed\" \n" +
                                 "           }, \n" +

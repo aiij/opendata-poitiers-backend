@@ -29,7 +29,7 @@ public class GenerateConfigurationFiles {
         Map<String, Object> parsing = new HashMap<>();
         
         for(int i=0; i<properties.length() - 1; i++){
-            parsing.put(properties.getJSONObject(""+i).getString("champES"), properties.getJSONObject(""+i).getString("champJson"));
+            parsing.put(properties.getJSONObject(""+i).getString("esField"), properties.getJSONObject(""+i).getString("jsonField"));
         }
         parsing.put("location", "location");
         settings.conf.put(obj.getString("type"), parsing);
@@ -86,10 +86,10 @@ public class GenerateConfigurationFiles {
                     "       \"properties\" : {\n";
 
         for (int i = 0; i < properties.length(); i++) {                 
-            if(!properties.getJSONObject("" + i + "").getString("champES").equals("location")) {
+            if(!properties.getJSONObject("" + i + "").getString("esField").equals("location")) {
                 //Only "not-analyzed" fields
                 if(properties.getJSONObject("" + i + "").getString("mapping").equals("true")) {
-                    content +=  "          \"" + properties.getJSONObject("" + i + "").getString("champES") + "\" : { \n" +
+                    content +=  "          \"" + properties.getJSONObject("" + i + "").getString("esField") + "\" : { \n" +
                                 "               \"type\" : \"string\", \n" +
                                 "               \"index\" : \"not_analyzed\" \n" +
                                 "           }, \n";
