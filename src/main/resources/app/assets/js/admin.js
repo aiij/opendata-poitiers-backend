@@ -46,7 +46,7 @@ var OpenDataPoitiersAdmin = (function () {
                         '<tr>' +
                         '<td class="text-nowrap">' + index + '</td>' +
                         '<td><button id="' + index + '-button" class="btn btn-default" type="submit">Reload Data</button></td>' +
-                        '<td>' + source.openDataFileURL + '</td>' +
+                        '<td><a href="' + source.openDataFileURL + '">' + source.openDataFileURL + '</a></td>' +
                         '</tr>'
                     );
 
@@ -70,8 +70,10 @@ var OpenDataPoitiersAdmin = (function () {
                                 complete: function (data) {
                                     if (data.status === 200) {
                                         AdminAlerts.showSuccessMessage("Loaded data successfully");
+                                        $('.loading').html("");
                                     }else{
                                         AdminAlerts.showErrorMessage("Error while loading Data");
+                                        $('.loading').html("");
                                     }
                                 }
                             });
